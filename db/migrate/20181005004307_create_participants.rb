@@ -12,6 +12,7 @@ class CreateParticipants < ActiveRecord::Migration[5.2]
       t.boolean :dropped
       t.integer :list_points
 
+      t.index :tournament_id
       t.column :list_json, 'jsonb'
 
       t.timestamps

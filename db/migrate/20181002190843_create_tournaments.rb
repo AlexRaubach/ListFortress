@@ -7,7 +7,7 @@ class CreateTournaments < ActiveRecord::Migration[5.2]
       t.integer :format_id
       t.date :date
       t.integer :version_id
-      t.integer :type
+      t.integer :tournamenttype_id
       t.string :country
 
       t.timestamps

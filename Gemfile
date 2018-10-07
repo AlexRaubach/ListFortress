@@ -32,8 +32,13 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Sign in with google
 gem 'omniauth-google-oauth2'
+# manage secrets
 gem "figaro"
+# Use a gem for country selection dropdown
+gem 'country_select'
+
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

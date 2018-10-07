@@ -16,10 +16,20 @@
 
   <%= label_tag(:participant_number, 'Number of Players')%>
 
-  <%= label_tag(:type, '')%>
-  <%= label_tag(:, '')%>
-  <%= label_tag(:, '')%>
-  <%= label_tag(:, '')%>
+
+  <%= label_tag(:tournamenttype_id, 'Tournament Type:')%>
+  
+  <%= form.collection_select(:tournamenttype_id, TournamentType.all, :id, :name) %>
+
+  <%= label_tag(:country, 'Country')%>
+  <%= country_select('tournament', 'country', priority_countries: ["US"], include_blank:true) %>
+
+
+  <%= label_tag(:location, 'Location')%>
+
+
+  <%= label_tag(:format, 'Format')%>
+  <%= form.collection_select(:format_id, Format.all, :id, :name) %>
 
   <div class="actions">
     <%= form.submit %>
