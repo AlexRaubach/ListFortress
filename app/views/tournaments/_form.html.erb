@@ -11,6 +11,16 @@
     </div>
   <% end %>
 
+  <%= label_tag(:date, 'Tournament Date')%>
+  <%= date_field(:tournament, :date)%>
+
+  <%= label_tag(:participant_number, 'Number of Players')%>
+
+  <%= label_tag(:type, '')%>
+  <%= label_tag(:, '')%>
+  <%= label_tag(:, '')%>
+  <%= label_tag(:, '')%>
+
   <div class="actions">
     <%= form.submit %>
   </div>

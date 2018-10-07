@@ -1,0 +1,2 @@
+class Format < ApplicationRecord
+end

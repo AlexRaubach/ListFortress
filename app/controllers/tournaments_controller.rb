@@ -1,5 +1,6 @@
 class TournamentsController < ApplicationController
   before_action :set_tournament, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, only: [:destroy]
 
   # GET /tournaments
   # GET /tournaments.json
@@ -69,6 +70,10 @@ class TournamentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tournament_params
-      params.fetch(:tournament, {})
+      # params.fetch(:tournament, {})
+      params.require(
+        :name, :participant_number, :type, :format_id, :date, :patch_id
+        ).permit(
+          :country, :organizer_id, :location)
     end
 end

@@ -1,0 +1,2 @@
+class Version < ApplicationRecord
+end

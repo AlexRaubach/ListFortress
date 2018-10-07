@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  player_id: MyString
+  score: MyString
+  swiss_rank: MyString
+  overall_rank: MyString
+  mov: MyString
+  sos: MyString
+  dropped: MyString
+  list_json: MyString
+  list_points: MyString
+
+two:
+  name: MyString
+  player_id: MyString
+  score: MyString
+  swiss_rank: MyString
+  overall_rank: MyString
+  mov: MyString
+  sos: MyString
+  dropped: MyString
+  list_json: MyString
+  list_points: MyString

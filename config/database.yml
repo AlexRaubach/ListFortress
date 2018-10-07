@@ -8,21 +8,21 @@ default: &default
   adapter: postgresql
   pool: 5
   timeout: 5000
-  user: ENV["db_username"]
-  password: ENV["db_password"]
+  user: <%= ENV["db_username"] %>
+  password: <%= ENV["db_password"] %>
 
 
 development:
   <<: *default
-  database: squadjuggler_development
+  database: listfortress_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: squadjuggler_test
+  database: listfortress_test
 
 production:
   <<: *default
-  database: squadjuggler_production
+  database: listfortress_production
