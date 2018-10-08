@@ -1,4 +1,11 @@
 <p id="notice"><%= notice %></p>
+<table>
+  <% @tournament.participants.each do |participant| %>
+    <tr>
+    <td><%=participant.overall_rank %></td>
 
+    </tr>
+  <% end%>
+</table>
 <%= link_to 'Edit', edit_tournament_path(@tournament) %> |
 <%= link_to 'Back', tournaments_path %>

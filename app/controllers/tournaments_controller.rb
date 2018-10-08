@@ -25,10 +25,11 @@ class TournamentsController < ApplicationController
   # POST /tournaments
   # POST /tournaments.json
   def create
-    @tournament = Tournament.new(tournament_params)
+    @tournament = Tournament.new(tournament_params['tournament'])
 
     respond_to do |format|
       if @tournament.save
+        @tournament.create_empty_squads
         format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
         format.json { render :show, status: :created, location: @tournament }
       else
@@ -70,10 +71,9 @@ class TournamentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tournament_params
-      # params.fetch(:tournament, {})
-      params.require(
-        :name, :participant_number, :type, :format_id, :date, :patch_id
-        ).permit(
-          :country, :organizer_id, :location)
+      params.permit(
+        tournament:
+        [:name, :participant_number, :date, :type, :format_id, :country, :organizer_id, :location, :patch_id, :tournamenttype_id]
+        )
     end
 end
