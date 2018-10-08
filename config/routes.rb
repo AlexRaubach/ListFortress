@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :participants
   resources :tournaments
 
   get 'login', to: redirect('/auth/google_oauth2'), as: 'login'

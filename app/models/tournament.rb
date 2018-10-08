@@ -5,11 +5,9 @@ class Tournament < ApplicationRecord
   attr_accessor :participant_number
 
   def create_empty_squads
-    byebug
-    if participant_number.to_i.positive?
-      participant_number.to_i.times do |i|
-        Participant.new(overall_rank: i + 1, tournament_id: id).save
-      end
+    return if participant_number.to_i.zero?
+    participant_number.to_i.times do |i|
+      Participant.new(overall_rank: i + 1, tournament_id: id).save
     end
   end
 end

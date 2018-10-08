@@ -9,6 +9,7 @@ class CreateTournaments < ActiveRecord::Migration[5.2]
       t.integer :version_id
       t.integer :tournamenttype_id
       t.string :country
+      t.boolean :locked
 
       t.timestamps
     end

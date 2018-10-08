@@ -3,6 +3,9 @@
   <% @tournament.participants.each do |participant| %>
     <tr>
     <td><%=participant.overall_rank %></td>
+    <td><%=participant.swiss_rank %></td>
+    <td><%=participant.mov %></td>
+    <td><%=participant.overall_rank %></td>
 
     </tr>
   <% end%>
