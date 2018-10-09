@@ -24,7 +24,7 @@ class ParticipantsController < ApplicationController
   # POST /participants
   # POST /participants.json
   def create
-    @participant = Participant.new(participant_params)
+    @participant = Participant.new(participant_params['participant'])
 
     respond_to do |format|
       if @participant.save
@@ -41,7 +41,7 @@ class ParticipantsController < ApplicationController
   # PATCH/PUT /participants/1.json
   def update
     respond_to do |format|
-      if @participant.update(participant_params)
+      if @participant.update(participant_params['participant'])
         format.html { redirect_to @participant, notice: 'Participant was successfully updated.' }
         format.json { render :show, status: :ok, location: @participant }
       else
