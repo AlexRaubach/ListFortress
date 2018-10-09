@@ -41,15 +41,16 @@ class ParticipantsController < ApplicationController
   # PATCH/PUT /participants/1.json
   def update
     respond_to do |format|
-      if participant_params['participant'] && participant_params['participant']['squad_url']
-        match = participant_params['participant']['squad_url'].match(/raithos.github.io\/(?<query_string>.*)/)
+      participant_data = participant_params['participant']
+      if participant_data && participant_data['squad_url']
+        match = participant_data['squad_url'].match(/raithos.github.io\/(?<query_string>.*)/)
         if match
-          xws_json = Participant.get_xws_from_yasb2(match[1])
-          participant_params['participant']['xws_json'] = xws_json
+          list_json = Participant.get_xws_from_yasb2(match[1])
+          participant_data['list_json'] = list_json
         end
       end
 
-      if @participant.update(participant_params['participant'])
+      if @participant.update(participant_data)
         format.html { redirect_to @participant, notice: 'Participant was successfully updated.' }
         format.json { render :show, status: :ok, location: @participant }
       else
