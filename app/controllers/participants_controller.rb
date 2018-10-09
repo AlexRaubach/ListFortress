@@ -70,6 +70,7 @@ class ParticipantsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def participant_params
       params.permit(participant:
-        [:name, :swiss_rank, :overall_rank, :score, :mov, :sos, :dropped, :list_json, :squad_url])
+      [:name, :swiss_rank, :overall_rank, :score, :mov, :sos, :dropped, :list_json, :squad_url]
+    )
     end
 end

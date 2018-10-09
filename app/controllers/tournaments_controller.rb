@@ -74,6 +74,6 @@ class TournamentsController < ApplicationController
       params.permit(
         tournament:
         [:name, :participant_number, :date, :type, :format_id, :country, :organizer_id, :location, :patch_id, :tournamenttype_id]
-        )
+      )
     end
 end
