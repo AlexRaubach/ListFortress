@@ -11,6 +11,37 @@
     </div>
   <% end %>
 
+
+  <%= label_tag(:name, 'Player Name')%>
+
+
+
+
+  <%= label_tag(:swiss_rank, 'Rank during Swiss')%>
+  <%= number_field(:participant, :swiss_rank)%>
+
+  <%= label_tag(:overall_rank, 'Top Cut Rank')%>
+  <%= number_field(:participant, :overall_rank)%>
+
+  <%= label_tag(:score, 'Score / Number of Wins in Swiss')%>
+  <%= number_field(:participant, :score, max: 100)%>
+
+  <%= label_tag(:mov, 'Total Margin of Victory')%>
+  <%= number_field(:participant, :mov)%>
+
+  <%= label_tag(:sos, 'Strength of Schedule')%>
+  <%= text_field(:participant, :sos)%>
+
+  <%= label_tag(:dropped, 'Did this player drop?')%>
+  <%= check_box(:participant, :dropped)%>
+
+
+  <%= label_tag(:list_json, 'Enter the raw squad JSON here')%>
+  <%= text_area(:participant, :list_json, size: "24x6") %>
+
+  <%= label_tag(:squad_url, 'Enter Squad URL')%>
+  <%= email_field(:participant, :squad_url) %>
+
   <div class="actions">
     <%= form.submit %>
   </div>
