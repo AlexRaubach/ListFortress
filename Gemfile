@@ -39,6 +39,8 @@ gem "figaro"
 # Use a gem for country selection dropdown
 gem 'country_select'
 
+# Use a gem for easier http requests
+gem 'httparty'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

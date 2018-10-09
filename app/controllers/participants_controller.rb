@@ -41,6 +41,14 @@ class ParticipantsController < ApplicationController
   # PATCH/PUT /participants/1.json
   def update
     respond_to do |format|
+      if participant_params['participant'] && participant_params['participant']['squad_url']
+        match = participant_params['participant']['squad_url'].match(/raithos.github.io\/(?<query_string>.*)/)
+        if match
+          xws_json = Participant.get_xws_from_yasb2(match[1])
+          participant_params['participant']['xws_json'] = xws_json
+        end
+      end
+
       if @participant.update(participant_params['participant'])
         format.html { redirect_to @participant, notice: 'Participant was successfully updated.' }
         format.json { render :show, status: :ok, location: @participant }
@@ -69,7 +77,7 @@ class ParticipantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def participant_params
-      params.permit(participant:
+      params.permit(:id, participant:
       [:name, :swiss_rank, :overall_rank, :score, :mov, :sos, :dropped, :list_json, :squad_url]
     )
     end

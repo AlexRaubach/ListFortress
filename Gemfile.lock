@@ -92,6 +92,8 @@ GEM
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
+    httparty (0.16.2)
+      multi_xml (>= 0.5.2)
     i18n (1.1.0)
       concurrent-ruby (~> 1.0)
     i18n_data (0.8.0)
@@ -232,6 +234,7 @@ DEPENDENCIES
   country_select
   duktape
   figaro
+  httparty
   jbuilder (~> 2.5)
   omniauth-google-oauth2
   pg
