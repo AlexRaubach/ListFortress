@@ -9,17 +9,17 @@
 Version.create(name: '1.1.0')
 
 faction_list = [
-  ['rebelalliance', true],
-  ['galacticempire', true],
-  ['scumandvillainy', true],
-  ['firstorder', false],
-  ['resistance', false],
+  ['Rebel Alliance', 'rebelalliance', 1],
+  ['Galactic Empire', 'galacticempire', 2],
+  ['Scum and Villainy', 'scumandvillainy', 3],
+  ['First Order', 'firstorder', false],
+  ['Resistance', 'resistance', false],
   ['cis', false],
   ['galacticrepublic', false]
 ]
 
 faction_list.each do |faction_array|
-  Faction.create(name: faction_array[0], active: faction_array[1] )
+  Faction.create(xws: faction_list[0], name: faction_array[1], ffg: faction_array[2] )
 end
 
 format_list = [
