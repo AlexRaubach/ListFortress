@@ -73,7 +73,7 @@ def parse_ships_and_pilots(json_file)
       ship_id: ship.id,
       image: pilot_json['image'],
       ability: pilot_json['ability']
-      )
+    )
   end
 end
 
@@ -87,7 +87,7 @@ def parse_upgrades(file_name)
       limited: upgrade_data['limited']
     )
 
-    if upgrade_data['sides'] && upgrade_data['sides'].length > 0
+    if upgrade_data['sides'] && upgrade_data['sides'].length.positive?
       upgrade.ffg = upgrade_data['sides'][0]['ffg']
       upgrade.upgrade_type =  upgrade_data['sides'][0]['type']
       upgrade.image = upgrade_data['sides'][0]['image']

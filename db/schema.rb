@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
     t.integer "ship_id"
     t.string "image"
     t.string "ability"
+    t.index ["xws"], name: "index_pilots_on_xws"
   end
 
   create_table "ships", force: :cascade do |t|
@@ -67,6 +68,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
     t.integer "faction_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["xws"], name: "index_ships_on_xws"
   end
 
   create_table "tournament_types", force: :cascade do |t|
@@ -99,6 +101,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["xws"], name: "index_upgrades_on_xws"
   end
 
   create_table "users", force: :cascade do |t|

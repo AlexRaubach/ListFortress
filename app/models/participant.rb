@@ -7,4 +7,20 @@ class Participant < ApplicationRecord
     response = HTTParty.get(url)
     JSON(response.parsed_response)
   end
+
+  def self.get_pilot_name_from_xws(xws_pilot)
+    Rails.cache.fetch(xws_pilot) do
+      pilot = Pilot.find_by xws: xws_pilot
+      return xws_pilot if pilot.nil?
+      pilot.name
+    end
+  end
+
+  def self.get_ship_name_from_xws(xws_ship)
+    Rails.cache.fetch(xws_ship) do
+      ship = Ship.find_by xws: xws_ship
+      return xws_ship if ship.nil?
+      ship.name
+    end
+  end
 end
