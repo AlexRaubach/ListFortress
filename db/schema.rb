@@ -10,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_07_031555) do
+ActiveRecord::Schema.define(version: 2018_10_10_003159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "factions", force: :cascade do |t|
     t.string "name"
-    t.boolean "active"
+    t.string "xws"
+    t.string "ffg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -45,6 +46,29 @@ ActiveRecord::Schema.define(version: 2018_10_07_031555) do
     t.index ["tournament_id"], name: "index_participants_on_tournament_id"
   end
 
+  create_table "pilots", force: :cascade do |t|
+    t.string "name"
+    t.string "caption"
+    t.integer "initiative"
+    t.boolean "limited"
+    t.integer "cost"
+    t.string "xws"
+    t.integer "ffg"
+    t.integer "ship_id"
+    t.string "image"
+    t.string "ability"
+  end
+
+  create_table "ships", force: :cascade do |t|
+    t.string "name"
+    t.integer "ffg"
+    t.string "size"
+    t.integer "xws"
+    t.integer "faction_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tournament_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -60,6 +84,19 @@ ActiveRecord::Schema.define(version: 2018_10_07_031555) do
     t.integer "version_id"
     t.integer "tournamenttype_id"
     t.string "country"
+    t.boolean "locked"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "upgrades", force: :cascade do |t|
+    t.string "name"
+    t.string "xws"
+    t.integer "ffg"
+    t.string "upgrade_type"
+    t.boolean "limited"
+    t.string "image"
+    t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

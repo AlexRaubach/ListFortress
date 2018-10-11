@@ -4,7 +4,7 @@ class CreateUpgrades < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :xws
       t.integer :ffg
-      t.string :type
+      t.string :upgrade_type
       t.boolean :limited
       t.string :image
       t.integer :cost
