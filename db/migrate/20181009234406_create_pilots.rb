@@ -11,6 +11,7 @@ class CreatePilots < ActiveRecord::Migration[5.2]
       t.integer :ship_id
       t.string :image
       t.string :ability
+      t.index :xws
 
     end
   end

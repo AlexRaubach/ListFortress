@@ -8,6 +8,7 @@ class CreateUpgrades < ActiveRecord::Migration[5.2]
       t.boolean :limited
       t.string :image
       t.integer :cost
+      t.index :xws
 
       t.timestamps
     end

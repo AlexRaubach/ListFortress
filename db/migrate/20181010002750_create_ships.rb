@@ -6,6 +6,7 @@ class CreateShips < ActiveRecord::Migration[5.2]
       t.string :size
       t.integer :xws
       t.integer :faction_id
+      t.index :xws
 
       t.timestamps
     end
