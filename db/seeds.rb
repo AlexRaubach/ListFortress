@@ -8,6 +8,7 @@
 
 Version.create(name: '1.1.0')
 
+# TODO load factions from xwingdata json instead
 faction_list = [
   ['Rebel Alliance', 'rebelalliance', 1],
   ['Galactic Empire', 'galacticempire', 2],
@@ -46,4 +47,71 @@ tournamenttype_list = [
 
 tournamenttype_list.each do |type_name|
   TournamentType.create(name: type_name)
+end
+
+def parse_ships_and_pilots(json_file)
+  ship_json = get_json_from_file(json_file)
+
+  ship = Ship.create(
+    name: ship_json['name'],
+    xws: ship_json['xws'],
+    size: ship_json['size'],
+    ffg: ship_json['ffg']
+    )
+
+  return if ship_json['pilots'].blank?
+
+  ship_json['pilots'].each do |pilot_json|
+    Pilot.create(
+      name: pilot_json['name'],
+      caption: pilot_json['caption'],
+      initiative: pilot_json['initiative'],
+      limited: pilot_json['limited'],
+      cost: pilot_json['cost'],
+      xws: pilot_json['xws'],
+      ffg: pilot_json['ffg'],
+      ship_id: ship.id,
+      image: pilot_json['image'],
+      ability: pilot_json['ability']
+      )
+  end
+end
+
+def parse_upgrades(file_name)
+  json = get_json_from_file(file_name)
+
+  json.each do |upgrade_data|
+    upgrade = Upgrade.new(
+      name: upgrade_data['name'],
+      xws: upgrade_data['xws'],
+      limited: upgrade_data['limited']
+    )
+
+    if upgrade_data['sides'] && upgrade_data['sides'].length > 0
+      upgrade.ffg = upgrade_data['sides'][0]['ffg']
+      upgrade.upgrade_type =  upgrade_data['sides'][0]['type']
+      upgrade.image = upgrade_data['sides'][0]['image']
+    end
+
+    if upgrade_data['cost']
+      upgrade.cost = upgrade_data['cost']['value']
+    end
+
+    upgrade.save
+  end
+end
+
+def get_json_from_file(file_name)
+  file = File.read(file_name)
+  json = JSON.parse(file)
+end
+
+upgrade_file_names = Dir.glob("#{Rails.root}/xwing-data2/data/upgrades/*.json")
+upgrade_file_names.each do |upgrade_file| 
+  parse_upgrades(upgrade_file)
+end
+
+pilot_file_names = Dir.glob("#{Rails.root}/xwing-data2/data/pilots/**/*.json")
+pilot_file_names.each do |pilot_file|
+  parse_ships_and_pilots(pilot_file)
 end
