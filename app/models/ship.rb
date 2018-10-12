@@ -1,4 +1,4 @@
 class Ship < ApplicationRecord
-  has_many :ships
-  belongs_to :factions
+  has_many :pilots
+  belongs_to :factions, optional: true
 end
