@@ -23,4 +23,13 @@ class Participant < ApplicationRecord
       ship.name
     end
   end
+
+  def self.get_upgrade_name_from_xws(xws_upgrade)
+    Rails.cache.fetch(xws_upgrade) do
+      upgrade = Upgrade.find_by xws: xws_upgrade
+      return xws_upgrade if upgrade.nil?
+      upgrade.name
+    end
+  end
+
 end
