@@ -8,6 +8,17 @@ class Participant < ApplicationRecord
     JSON(response.parsed_response)
   end
 
+  def get_name_from_xws(xws_string, type)
+    case type
+    when 'pilot'
+      Participant.get_pilot_name_from_xws(xws_string)
+    when 'upgrade'
+      Participant.get_upgrade_name_from_xws(xws_string)
+    when 'ship'
+      Participant.get_ship_name_from_xws(xws_string)
+    end
+  end
+
   def self.get_pilot_name_from_xws(xws_pilot)
     Rails.cache.fetch(xws_pilot) do
       pilot = Pilot.find_by xws: xws_pilot
@@ -31,5 +42,9 @@ class Participant < ApplicationRecord
       upgrade.name
     end
   end
+
+  # def format_list_xws
+  #   :list_json
+  # end
 
 end
