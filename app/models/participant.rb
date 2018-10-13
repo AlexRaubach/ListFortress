@@ -8,6 +8,12 @@ class Participant < ApplicationRecord
     JSON(response.parsed_response)
   end
 
+  def self.get_xws_from_ffg(uuid)
+    url = 'http://sb2xws.herokuapp.com/translate/' + uuid
+    response = HTTParty.get(url)
+    JSON(response.parse_response)
+  end
+
   def get_name_from_xws(xws_string, type)
     case type
     when 'pilot'
