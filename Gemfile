@@ -42,6 +42,10 @@ gem 'country_select'
 # Use a gem for easier http requests
 gem 'httparty'
 
+#Use Bootstrap for application styling
+gem 'bootstrap-sass'
+gem 'jquery-rails'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
