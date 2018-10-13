@@ -103,7 +103,7 @@ end
 
 def get_json_from_file(file_name)
   file = File.read(file_name)
-  json = JSON.parse(file)
+  JSON.parse(file)
 end
 
 upgrade_file_names = Dir.glob("#{Rails.root}/xwing-data2/data/upgrades/*.json")
