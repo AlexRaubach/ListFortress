@@ -43,11 +43,7 @@ class ParticipantsController < ApplicationController
     respond_to do |format|
       participant_data = participant_params['participant']
       if participant_data && participant_data['squad_url']
-        match = participant_data['squad_url'].match(/raithos.github.io\/(?<query_string>.*)/)
-        if match
-          list_json = Participant.get_xws_from_yasb2(match[1])
-          participant_data['list_json'] = list_json
-        end
+        participant_data['list_json'] = Participant.get_xws_from_url(participant_data['squad_url'])
       end
 
       if @participant.update(participant_data)

@@ -2,6 +2,21 @@ class Participant < ApplicationRecord
   belongs_to :tournament
   attr_accessor :squad_url
 
+  def self.get_xws_from_url(url)
+    match = url.match(/raithos.github.io\/(?<query_string>.*)/)
+    if match
+      list_json = Participant.get_xws_from_yasb2(match[1])
+      return list_json
+    end
+
+    match = url.match(/squadbuilder.fantasyflightgames.com\/[\w-]*\/([\w-]{36})/)
+    if match
+      list_json = Participant.get_xws_from_ffg(match[1])
+      return list_json
+    end
+    nil
+  end
+
   def self.get_xws_from_yasb2(query_string)
     url = 'https://yasb2-xws.herokuapp.com/' + query_string
     response = HTTParty.get(url)
@@ -11,7 +26,7 @@ class Participant < ApplicationRecord
   def self.get_xws_from_ffg(uuid)
     url = 'http://sb2xws.herokuapp.com/translate/' + uuid
     response = HTTParty.get(url)
-    JSON(response.parse_response)
+    JSON(response.parsed_response)
   end
 
   def get_name_from_xws(xws_string, type)
