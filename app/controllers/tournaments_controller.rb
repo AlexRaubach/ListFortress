@@ -1,5 +1,5 @@
 class TournamentsController < ApplicationController
-  before_action :set_tournament, only: [:show, :edit, :update, :destroy]
+  before_action :set_tournament, only: [:show, :edit, :update]
   before_action :authenticate, only: [:destroy]
 
   # GET /tournaments

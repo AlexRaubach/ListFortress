@@ -1,5 +1,5 @@
 class ParticipantsController < ApplicationController
-  before_action :set_participant, only: [:show, :edit, :update, :destroy]
+  before_action :set_participant, only: [:show, :edit, :update]
 
   # GET /participants
   # GET /participants.json
@@ -47,7 +47,7 @@ class ParticipantsController < ApplicationController
       end
 
       if @participant.update(participant_data)
-        format.html { redirect_to @participant, notice: 'Participant was successfully updated.' }
+        format.html { redirect_to @participant.tournament, notice: 'Participant was successfully updated.' }
         format.json { render :show, status: :ok, location: @participant }
       else
         format.html { render :edit }
