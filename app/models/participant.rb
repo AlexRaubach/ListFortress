@@ -64,8 +64,21 @@ class Participant < ApplicationRecord
     end
   end
 
-  # def format_list_xws
-  #   :list_json
-  # end
+  def formatted_list
+    return [] if self.list_json.blank?
+    list = JSON.parse(self.list_json)
+    output = []
+    # output << list.fetch('points', '?') + " Points"
+    list['pilots'].each do |pilot_hash|
+      string = Participant.get_pilot_name_from_xws(pilot_hash['id'])
+      if pilot_hash['upgrades']
+        pilot_hash['upgrades'].values.each do |upgrade_xws|
+          string += " + " + Participant.get_upgrade_name_from_xws(upgrade_xws)
+        end
+      end
+      output << string
+    end
+    output
+  end
 
 end

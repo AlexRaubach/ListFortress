@@ -1,11 +1,28 @@
 <p id="notice"><%= notice %></p>
-<table  class="table">
+<table  class="table table-striped">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Top Cut Rank</th>
+      <th>Name</th>
+      <th>MoV</th>
+      <th>Squad</th>
+      <th> </th>
+
+    </tr>
+  </thead>
+
   <% @tournament.participants.each do |participant| %>
     <tr>
-    <td><%=participant.overall_rank %></td>
     <td><%=participant.swiss_rank %></td>
-    <td><%=participant.mov %></td>
+    <td><%=participant.overall_rank %></td>
     <td><%=participant.name %></td>
+    <td><%=participant.mov %></td>
+    <td>
+      <% participant.formatted_list.each do |line| %>
+        <%= line %> <br>
+      <% end %>
+    </td>
     <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
 
     </tr>
