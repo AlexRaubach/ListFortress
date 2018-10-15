@@ -5,7 +5,7 @@ one:
   player_id: MyString
   score: MyString
   swiss_rank: MyString
-  overall_rank: MyString
+  top_cut_rank: MyString
   mov: MyString
   sos: MyString
   dropped: MyString
@@ -17,7 +17,7 @@ two:
   player_id: MyString
   score: MyString
   swiss_rank: MyString
-  overall_rank: MyString
+  top_cut_rank: MyString
   mov: MyString
   sos: MyString
   dropped: MyString

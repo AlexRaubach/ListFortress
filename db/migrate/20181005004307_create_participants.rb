@@ -6,7 +6,7 @@ class CreateParticipants < ActiveRecord::Migration[5.2]
       t.integer :player_id
       t.string :score
       t.string :swiss_rank
-      t.string :overall_rank
+      t.string :top_cut_rank
       t.integer :mov
       t.decimal :sos
       t.boolean :dropped

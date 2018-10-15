@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
     t.integer "player_id"
     t.string "score"
     t.string "swiss_rank"
-    t.string "overall_rank"
+    t.string "top_cut_rank"
     t.integer "mov"
     t.decimal "sos"
     t.boolean "dropped"
