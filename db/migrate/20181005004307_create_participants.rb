@@ -4,9 +4,9 @@ class CreateParticipants < ActiveRecord::Migration[5.2]
       t.integer :tournament_id
       t.string :name
       t.integer :player_id
-      t.string :score
-      t.string :swiss_rank
-      t.string :top_cut_rank
+      t.integer :score
+      t.integer :swiss_rank
+      t.integer :top_cut_rank
       t.integer :mov
       t.decimal :sos
       t.boolean :dropped
