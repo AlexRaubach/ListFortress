@@ -1,12 +1,14 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
 <table  class="table table-striped">
   <thead>
     <tr>
       <th>Rank</th>
       <th>Top Cut Rank</th>
-      <th>Score</th>
       <th>Name</th>
+      <th>Score</th>
       <th>MoV</th>
+      <th>SoS</th>
       <th>Squad</th>
       <th> </th>
 
@@ -17,9 +19,10 @@
     <tr>
     <td><%=participant.swiss_rank %></td>
     <td><%=participant.top_cut_rank %></td>
-    <td><%=participant.score %></td>
     <td><%=participant.name %></td>
+    <td><%=participant.score %></td>
     <td><%=participant.mov %></td>
+    <td><%=participant.sos %></td>
     <td>
       <% participant.formatted_list.each do |line| %>
         <%= line %> <br>
@@ -30,5 +33,6 @@
     </tr>
   <% end%>
 </table>
-<%= link_to 'Edit', edit_tournament_path(@tournament) %> |
-<%= link_to 'Back', tournaments_path %>
+<%# link_to 'Edit', edit_tournament_path(@tournament) %>
+<%# link_to 'Back', tournaments_path %>
+</div>

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'home', to: 'home#show'
 
-  root to: 'home#show'
+  root to: 'tournaments#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
