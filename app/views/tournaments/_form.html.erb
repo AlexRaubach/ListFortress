@@ -9,11 +9,9 @@
   <%= number_field(:tournament, :participant_number, max: 256)%>
   <br>
 
-  <%= label_tag(:format, 'Tournament Format')%>
-  <%= form.collection_select(:format_id, Format.all, :id, :name) %>
+  <%= form.collection_select(:format_id, Format.all, :id, :name, label: 'Tournament Format:') %>
 
-  <%= label_tag(:tournamenttype_id, 'Tournament Type:')%>
-  <%= form.collection_select(:tournamenttype_id, TournamentType.all, :id, :name) %>
+  <%= form.collection_select(:tournament_type_id, TournamentType.all, :id, :name,  label: 'Tournament Type:') %>
 
   <br>
 

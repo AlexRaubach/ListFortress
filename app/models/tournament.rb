@@ -2,7 +2,7 @@ class Tournament < ApplicationRecord
   has_many :participants
   belongs_to :format
   belongs_to :version, optional: true
-  belongs_to :tournament_type, optional: true
+  belongs_to :tournament_type
   attr_accessor :participant_number
 
   def create_empty_squads

@@ -77,7 +77,7 @@ class TournamentsController < ApplicationController
           :id, :name, :participant_number,
           :type, :format_id, :country,
           :state, :organizer_id, :location,
-          :patch_id, :tournamenttype_id, :date
+          :patch_id, :tournament_type_id, :date
         ]
       )
     end

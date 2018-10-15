@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
   create_table "factions", force: :cascade do |t|
     t.string "name"
     t.string "xws"
-    t.string "ffg"
+    t.integer "ffg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
     t.integer "tournament_id"
     t.string "name"
     t.integer "player_id"
-    t.string "score"
-    t.string "swiss_rank"
-    t.string "top_cut_rank"
+    t.integer "score"
+    t.integer "swiss_rank"
+    t.integer "top_cut_rank"
     t.integer "mov"
     t.decimal "sos"
     t.boolean "dropped"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
     t.date "date"
     t.integer "format_id"
     t.integer "version_id"
-    t.integer "tournamenttype_id"
+    t.integer "tournament_type_id"
     t.boolean "locked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
