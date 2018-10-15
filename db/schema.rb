@@ -81,11 +81,12 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
     t.string "name"
     t.integer "organizer_id"
     t.string "location"
-    t.integer "format_id"
+    t.string "state"
+    t.string "country"
     t.date "date"
+    t.integer "format_id"
     t.integer "version_id"
     t.integer "tournamenttype_id"
-    t.string "country"
     t.boolean "locked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -23,11 +23,14 @@
   <%= label_tag(:tournamenttype_id, 'Tournament Type:')%>
   <%= form.collection_select(:tournamenttype_id, TournamentType.all, :id, :name) %>
 
+  <%= label_tag(:location, 'Store Name / Location')%>
+  <%= text_field(:tournament, :location)%>
+
+  <%= label_tag(:state, 'State/Province')%>
+  <%= text_field(:tournament, :state) %>
+
   <%= label_tag(:country, 'Country')%>
   <%= country_select(:tournament, :country, priority_countries: ["US"], include_blank:true) %>
-
-  <%= label_tag(:location, 'Store Name or Location')%>
-  <%= text_field(:tournament, :location)%>
 
   <%= label_tag(:format, 'Tournament Format')%>
   <%= form.collection_select(:format_id, Format.all, :id, :name) %>

@@ -4,11 +4,12 @@ class CreateTournaments < ActiveRecord::Migration[5.2]
       t.string :name
       t.integer :organizer_id
       t.string :location
-      t.integer :format_id
+      t.string :state
+      t.string :country
       t.date :date
+      t.integer :format_id
       t.integer :version_id
       t.integer :tournamenttype_id
-      t.string :country
       t.boolean :locked
 
       t.timestamps
