@@ -73,7 +73,12 @@ class TournamentsController < ApplicationController
     def tournament_params
       params.permit(
         tournament:
-        [:id, :name, :participant_number, :date, :type, :format_id, :country, :organizer_id, :location, :patch_id, :tournamenttype_id]
+        [
+          :id, :name, :participant_number,
+          :type, :format_id, :country,
+          :state, :organizer_id, :location,
+          :patch_id, :tournamenttype_id, :date
+        ]
       )
     end
 end
