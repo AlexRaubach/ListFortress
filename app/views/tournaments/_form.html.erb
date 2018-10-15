@@ -1,16 +1,4 @@
-<%= form_with(model: tournament, local: true) do |form| %>
-  <% if tournament.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
-
-      <ul>
-      <% tournament.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= bootstrap_form_for(@tournament) do |form| %>
   <%= label_tag(:date, 'Tournament Date')%>
   <%= date_field(:tournament, :date, value: Date.today)%>
 
@@ -19,9 +7,15 @@
 
   <%= label_tag(:participant_number, 'Number of Players')%>
   <%= number_field(:tournament, :participant_number, max: 256)%>
+  <br>
+
+  <%= label_tag(:format, 'Tournament Format')%>
+  <%= form.collection_select(:format_id, Format.all, :id, :name) %>
 
   <%= label_tag(:tournamenttype_id, 'Tournament Type:')%>
   <%= form.collection_select(:tournamenttype_id, TournamentType.all, :id, :name) %>
+
+  <br>
 
   <%= label_tag(:location, 'Store Name / Location')%>
   <%= text_field(:tournament, :location)%>
@@ -32,8 +26,6 @@
   <%= label_tag(:country, 'Country')%>
   <%= country_select(:tournament, :country, priority_countries: ["US"], include_blank:true) %>
 
-  <%= label_tag(:format, 'Tournament Format')%>
-  <%= form.collection_select(:format_id, Format.all, :id, :name) %>
 
   <%= %>
 
