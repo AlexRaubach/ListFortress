@@ -43,7 +43,7 @@ class TournamentsController < ApplicationController
   # PATCH/PUT /tournaments/1.json
   def update
     respond_to do |format|
-      if @tournament.update(tournament_params)
+      if @tournament.update(tournament_params['tournament'])
         format.html { redirect_to @tournament, notice: 'Tournament was successfully updated.' }
         format.json { render :show, status: :ok, location: @tournament }
       else
