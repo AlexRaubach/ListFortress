@@ -1,24 +1,26 @@
-# README
+# List Fortress
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+List Fortress is for collecting and viewing tournament results for the Second Edition of X-Wing Miniatures.
 
-* Ruby version
+Contributions are welcome. Feel free to make a pull request or send me a message if you'd like to coordinate.
 
-* System dependencies
 
-* Configuration
+# Setup 
 
-* Database creation
+You should have Ruby 2.4.4 installed and Postgres.
 
-* Database initialization
+* Fork and download the repo `git clone --recurse-submodules ...`
 
-* How to run the test suite
+* Check that the submodule files are present. If you didn't use `--recurse-submodules` then run `git submodule init` + ` git submodule update`
 
-* Services (job queues, cache servers, search engines, etc.)
+* Create ./config/application.yml file with the following secrets for your Postgres install.
 
-* Deployment instructions
+  * db_username: user
+  * db_password: password
 
-* ...
+* Install the required gems `bundle install`
+
+* Set up the database `rails db:create db:migrate db:seed`
+
+* Start the server `rails server`
