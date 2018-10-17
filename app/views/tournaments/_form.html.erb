@@ -3,10 +3,10 @@
   <%= date_field(:tournament, :date, value: Date.today)%>
 
   <%= label_tag(:name, 'Tournament Name')%>
-  <%= text_field(:tournament, :name)%>
+  <%= text_field(:tournament, :name, required: true)%>
 
   <%= label_tag(:participant_number, 'Number of Players')%>
-  <%= number_field(:tournament, :participant_number, max: 256)%>
+  <%= number_field(:tournament, :participant_number, max: 256, required: true)%>
   <br>
 
   <%= form.collection_select(:format_id, Format.all, :id, :name, label: 'Tournament Format:') %>

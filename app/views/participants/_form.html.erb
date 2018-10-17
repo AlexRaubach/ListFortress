@@ -5,7 +5,7 @@
   <br>
 
   <%= label_tag(:swiss_rank, 'Rank during Swiss')%>
-  <%= number_field(:participant, :swiss_rank)%>
+  <%= number_field(:participant, :swiss_rank, required: true)%>
 
   <%= label_tag(:top_cut_rank, 'Top Cut Rank')%>
   <%= number_field(:participant, :top_cut_rank)%>
