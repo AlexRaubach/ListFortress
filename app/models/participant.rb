@@ -29,6 +29,12 @@ class Participant < ApplicationRecord
     JSON(response.parsed_response)
   end
 
+  def self.get_xws_from_stopgap(squad_id)
+    url = 'https://o8l90u2pyd.execute-api.eu-west-2.amazonaws.com/live/idtoxws?id=' + squad_id
+    response = HTTParty.get(url)
+    JSON(response.parsed_response)
+  end
+
   def get_name_from_xws(xws_string, type)
     case type
     when 'pilot'
@@ -64,6 +70,16 @@ class Participant < ApplicationRecord
     end
   end
 
+  def formatted_upgrade_string(upgrade_hash)
+    string = ''
+    upgrade_hash.values.each do |upgrade_array|
+      upgrade_array.each do |upgrade_xws|
+        string += ' + ' + Participant.get_upgrade_name_from_xws(upgrade_xws)
+      end
+    end
+    string
+  end
+
   def formatted_list
     return [] if self.list_json.blank?
     list = JSON.parse(self.list_json)
@@ -72,9 +88,7 @@ class Participant < ApplicationRecord
     list['pilots'].each do |pilot_hash|
       string = Participant.get_pilot_name_from_xws(pilot_hash['id'])
       if pilot_hash['upgrades']
-        pilot_hash['upgrades'].values.each do |upgrade_xws|
-          string += " + " + Participant.get_upgrade_name_from_xws(upgrade_xws)
-        end
+        string += formatted_upgrade_string(pilot_hash['upgrades'])
       end
       output << string
     end
