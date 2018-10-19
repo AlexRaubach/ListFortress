@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
-  before_action :set_tournament, only: [:show, :edit, :update]
-  before_action :authenticate, only: [:destroy]
+  before_action :set_tournament, only: [:show, :edit, :update, :destroy]
+  #before_action :authenticate, only: [:destroy]
 
   # GET /tournaments
   # GET /tournaments.json
@@ -56,11 +56,13 @@ class TournamentsController < ApplicationController
   # DELETE /tournaments/1
   # DELETE /tournaments/1.json
   def destroy
-    @tournament.destroy
-    respond_to do |format|
-      format.html { redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    if tournament_params['id'] == ENV['admin_id']
+      @tournament.destroy
+      respond_to do |format|
+        format.html { redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+      end
   end
 
   private
@@ -72,7 +74,7 @@ class TournamentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def tournament_params
       params.permit(
-        tournament:
+        :name, tournament:
         [
           :id, :name, :participant_number,
           :type, :format_id, :country,

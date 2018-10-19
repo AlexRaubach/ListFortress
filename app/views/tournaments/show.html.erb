@@ -35,4 +35,7 @@
 </table>
 <%# link_to 'Edit', edit_tournament_path(@tournament) %>
 <%# link_to 'Back', tournaments_path %>
+  <div style="display: none">
+    <%= link_to 'Destroy', @tournament, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
 </div>
