@@ -39,4 +39,22 @@ class Tournament < ApplicationRecord
       end
     end
   end
+  
+  def get_json_from_tabletop(url)
+    response = HTTParty.get(url)
+    JSON(response.parsed_response)
+  end
+
+  def create_participant_from_tabletop(player_hash)
+
+  end
+
+  def participants_from_tabletop(url)
+    tabletop_hash = get_json_from_tabletop(url)
+
+    tabletop_hash['tournament']['players'].each do |player_hash|
+      create_participant_from_tabletop(player_hash)
+    end
+  end
+
 end
