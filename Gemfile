@@ -46,6 +46,7 @@ gem 'httparty'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem "bootstrap_form"
+gem 'sass', '3.6.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
