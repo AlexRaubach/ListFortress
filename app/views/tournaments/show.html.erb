@@ -35,6 +35,8 @@
 </table>
 <%# link_to 'Edit', edit_tournament_path(@tournament) %>
 <%# link_to 'Back', tournaments_path %>
+<%= link_to "Export to CSV", tournament_path(@tournament.id, format: :csv),  { :class=>"btn btn-primary" }%>
+
   <div style="display: none">
     <%= link_to 'Destroy', @tournament, method: :delete, data: { confirm: 'Are you sure?' } %>
   </div>
