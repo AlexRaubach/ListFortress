@@ -1,4 +1,5 @@
 class Tournament < ApplicationRecord
+  require 'csv'
   has_many :participants
   belongs_to :format
   belongs_to :version, optional: true
@@ -14,7 +15,7 @@ class Tournament < ApplicationRecord
 
   def self.to_csv
     header = %w{tournamentName type format date playerName squad score mov sos swiss_rank top_cut_rank}
-    CSV.generate(headers:true) do |csv| 
+    CSV.generate(headers: true) do |csv|
       csv << header
 
       all.each do |tournament|
@@ -35,7 +36,6 @@ class Tournament < ApplicationRecord
           output = [tournament_name, type, format, date, player_name, squad, score, mov, sos, swiss_rank, top_cut_rank]
           csv << output
         end
-        
       end
     end
   end

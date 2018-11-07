@@ -12,7 +12,6 @@
       <th>Date</th>
       <th>Format</th>
       <th>Type</th>
-      <th>Export</th>
     </tr>
   </thead>
 
@@ -27,7 +26,6 @@
         <td><%= tournament.date%></td>
         <td><%= tournament.format&.name%></td>
         <td><%= tournament.tournament_type&.name%></td>
-        <td><%= link_to "Export", tournament_path(tournament.id, format: :csv)%>
         <!--<td><%# link_to 'Edit', edit_tournament_path(tournament) %></td>
         <td><%# link_to 'Destroy', tournament, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>
