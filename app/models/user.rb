@@ -3,7 +3,18 @@ class User < ApplicationRecord
   has_many :league_participants
 
 
-  def self.create_with_omniauth(info)
-    create(name: info['name'])
+  def self.create_with_omniauth(auth)
+    user = User.create(
+      nickname: auth['info']&.name,
+      email: auth['info']&.email,
+    )
+
+    if auth['provider'] == 'slack'
+      user.slack_avatar = auth['info']&.image
+      user.league_eligible = true
+    end
+
+    user.save
+    user
   end
 end
