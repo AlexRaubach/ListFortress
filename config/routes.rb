@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'home', to: 'home#show'
+  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  match '/logout', to: 'sessions#destroy', via: [:get, :post]
+  get 'league', to: 'league#index'
 
   root to: 'tournaments#index'
 
