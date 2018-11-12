@@ -5,9 +5,9 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :first_name
       t.string :last_name
       t.boolean :league_eligible
-      t.string :slack_name
-      t.string :slack_email
+      t.string :nickname
       t.string :slack_avatar
+      t.boolean :admin
 
       t.timestamps
     end

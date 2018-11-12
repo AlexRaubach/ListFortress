@@ -155,6 +155,10 @@ ActiveRecord::Schema.define(version: 2018_11_21_020916) do
     t.string "email"
     t.string "first_name"
     t.string "last_name"
+    t.boolean "league_eligible"
+    t.string "nickname"
+    t.string "slack_avatar"
+    t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slack_id"
