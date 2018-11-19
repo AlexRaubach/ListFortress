@@ -46,15 +46,24 @@ class Tournament < ApplicationRecord
   end
 
   def create_participant_from_tabletop(player_hash)
-
+    Participant.create(
+      Tournament_id: id,
+      name: player_hash['name'],
+      mov: player_hash['mov'],
+      score: player_hash['score']&.to_i,
+      sos: player_hash['sos']&.to_f,
+      swiss_rank: player_hash.dig('rank', 'swiss')&.to_i,
+      top_cut_rank: player_hash.dig('rank', 'elimination')&.to_i
+    )
   end
 
   def participants_from_tabletop(url)
     tabletop_hash = get_json_from_tabletop(url)
 
-    tabletop_hash['tournament']['players'].each do |player_hash|
+    players_array = tabletop_hash.dig('tournament', 'players')
+    return if players_array.nil? || players_array.empty?
+    players_array.each do |player_hash|
       create_participant_from_tabletop(player_hash)
     end
   end
-
 end
