@@ -8,12 +8,15 @@ class Tournament < ApplicationRecord
 
   def create_squads
     if tabletop_url
-
-      participants_from_tabletop(tabletop_url)
+      match = tabletop_url.match(/(tabletop.to\/[^\/]*)/)
+      if match
+        #Provide the protocal and add /listjuggler to the end
+        full_url = 'https://' + match[1] + '/listjuggler' 
+        return participants_from_tabletop(full_url)
+      end
     end
 
     create_empty_squads
-
   end
 
   def create_empty_squads
