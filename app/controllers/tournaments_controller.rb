@@ -33,7 +33,7 @@ class TournamentsController < ApplicationController
 
     respond_to do |format|
       if @tournament.save
-        @tournament.create_empty_squads
+        @tournament.create_squads
         format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
         format.json { render :show, status: :created, location: @tournament }
       else
@@ -83,7 +83,8 @@ class TournamentsController < ApplicationController
           :id, :name, :participant_number,
           :type, :format_id, :country,
           :state, :organizer_id, :location,
-          :patch_id, :tournament_type_id, :date
+          :patch_id, :tournament_type_id, :date,
+          :table_top_url
         ]
       )
     end

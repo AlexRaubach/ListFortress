@@ -4,10 +4,21 @@ class Tournament < ApplicationRecord
   belongs_to :format
   belongs_to :version, optional: true
   belongs_to :tournament_type
-  attr_accessor :participant_number
+  attr_accessor :participant_number, :tabletop_url
+
+  def create_squads
+    if tabletop_url
+
+      participants_from_tabletop(tabletop_url)
+    end
+
+    create_empty_squads
+
+  end
 
   def create_empty_squads
     return if participant_number.to_i.zero?
+
     participant_number.to_i.times do |i|
       Participant.new(swiss_rank: i + 1, tournament_id: id).save
     end
@@ -58,10 +69,12 @@ class Tournament < ApplicationRecord
   end
 
   def participants_from_tabletop(url)
+
     tabletop_hash = get_json_from_tabletop(url)
 
     players_array = tabletop_hash.dig('tournament', 'players')
     return if players_array.nil? || players_array.empty?
+
     players_array.each do |player_hash|
       create_participant_from_tabletop(player_hash)
     end
