@@ -61,7 +61,7 @@ class Tournament < ApplicationRecord
 
   def create_participant_from_tabletop(player_hash)
     Participant.create(
-      Tournament_id: id,
+      tournament_id: id,
       name: player_hash['name'],
       mov: player_hash['mov'],
       score: player_hash['score']&.to_i,
