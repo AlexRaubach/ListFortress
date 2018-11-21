@@ -12,11 +12,12 @@
       <th>Date</th>
       <th>Format</th>
       <th>Type</th>
+      <th>Players</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @tournaments.each do |tournament| %>
+    <% @tournaments.order(date: :desc).each do |tournament| %>
       <tr>
 
         <td><%= link_to tournament.name, tournament %></td>
@@ -26,6 +27,7 @@
         <td><%= tournament.date%></td>
         <td><%= tournament.format&.name%></td>
         <td><%= tournament.tournament_type&.name%></td>
+        <td><%= tournament.participants.size%>
         <!--<td><%# link_to 'Edit', edit_tournament_path(tournament) %></td>
         <td><%# link_to 'Destroy', tournament, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>

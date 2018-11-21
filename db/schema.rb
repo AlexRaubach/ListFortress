@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_10_003159) do
+ActiveRecord::Schema.define(version: 2018_11_21_020916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer "league_player_id"
+    t.string "first_line"
+    t.string "second_line"
+    t.string "city"
+    t.string "county_province"
+    t.string "zip_or_postcode"
+    t.string "country"
+    t.boolean "use_other"
+    t.string "other"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "divisions", force: :cascade do |t|
+    t.integer "tier"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "factions", force: :cascade do |t|
     t.string "name"
@@ -25,6 +46,22 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
 
   create_table "formats", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "identities", force: :cascade do |t|
+    t.string "uid"
+    t.string "provider"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "league_participants", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "season_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -60,6 +97,14 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
     t.index ["xws"], name: "index_pilots_on_xws"
   end
 
+  create_table "seasons", force: :cascade do |t|
+    t.string "name"
+    t.boolean "active"
+    t.boolean "sign_up_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ships", force: :cascade do |t|
     t.string "name"
     t.integer "ffg"
@@ -90,6 +135,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
     t.boolean "locked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "participants_count", default: 0, null: false
   end
 
   create_table "upgrades", force: :cascade do |t|
@@ -106,14 +152,16 @@ ActiveRecord::Schema.define(version: 2018_10_10_003159) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "provider"
-    t.string "uid"
     t.string "email"
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["uid"], name: "index_users_on_uid"
+    t.string "slack_id"
+    t.boolean "league_eligible"
+    t.string "name"
+    t.string "slack_avatar"
+    t.boolean "admin"
   end
 
   create_table "versions", force: :cascade do |t|

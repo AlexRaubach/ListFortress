@@ -33,7 +33,7 @@ class TournamentsController < ApplicationController
 
     respond_to do |format|
       if @tournament.save
-        @tournament.create_empty_squads
+        @tournament.create_squads
         format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
         format.json { render :show, status: :created, location: @tournament }
       else
@@ -66,7 +66,7 @@ class TournamentsController < ApplicationController
         format.html { redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.' }
         format.json { head :no_content }
       end
-      end
+    end
   end
 
   private
@@ -83,7 +83,8 @@ class TournamentsController < ApplicationController
           :id, :name, :participant_number,
           :type, :format_id, :country,
           :state, :organizer_id, :location,
-          :patch_id, :tournament_type_id, :date
+          :patch_id, :tournament_type_id, :date,
+          :tabletop_url
         ]
       )
     end

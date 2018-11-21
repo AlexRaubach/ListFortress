@@ -24,8 +24,12 @@
   <%= label_tag(:country, 'Country')%>
   <%= country_select(:tournament, :country, priority_countries: ["US"], include_blank:true) %>
 
+  <br>
 
-  <%= %>
+  <%= label_tag(:tabletop_url, 'Optional Tabletop.to URL. Only imports player stats') %>
+  <%= text_field(:tournament, :tabletop_url) %>
+
+  <br>
 
   <div class="actions">
     <%= form.submit %>
