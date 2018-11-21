@@ -17,7 +17,7 @@
   </thead>
 
   <tbody>
-    <% @tournaments.each do |tournament| %>
+    <% @tournaments.order(date: :desc).each do |tournament| %>
       <tr>
 
         <td><%= link_to tournament.name, tournament %></td>
