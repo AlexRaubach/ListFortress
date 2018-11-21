@@ -1,5 +1,5 @@
 class Participant < ApplicationRecord
-  belongs_to :tournament
+  belongs_to :tournament, counter_cache: true
   attr_accessor :squad_url
 
   def self.get_xws_from_url(url)
