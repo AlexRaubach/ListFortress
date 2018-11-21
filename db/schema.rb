@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2018_11_21_020916) do
     t.boolean "locked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "participants_cache"
+    t.integer "participants_count", default: 0, null: false
   end
 
   create_table "upgrades", force: :cascade do |t|
