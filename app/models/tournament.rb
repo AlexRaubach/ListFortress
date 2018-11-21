@@ -10,8 +10,8 @@ class Tournament < ApplicationRecord
     if tabletop_url
       match = tabletop_url.match(/(tabletop.to\/[^\/]*)/)
       if match
-        #Provide the protocal and add /listjuggler to the end
-        full_url = 'https://' + match[1] + '/listjuggler' 
+        # Provide the protocal and add /listjuggler to the end
+        full_url = 'https://' + match[1] + '/listjuggler'
         return participants_from_tabletop(full_url)
       end
     end
@@ -63,7 +63,7 @@ class Tournament < ApplicationRecord
     Participant.create(
       tournament_id: id,
       name: player_hash['name'],
-      mov: player_hash['mov'],
+      mov: player_hash['mov']&.to_i,
       score: player_hash['score']&.to_i,
       sos: player_hash['sos']&.to_f,
       swiss_rank: player_hash.dig('rank', 'swiss')&.to_i,
@@ -72,7 +72,6 @@ class Tournament < ApplicationRecord
   end
 
   def participants_from_tabletop(url)
-
     tabletop_hash = get_json_from_tabletop(url)
 
     players_array = tabletop_hash.dig('tournament', 'players')
