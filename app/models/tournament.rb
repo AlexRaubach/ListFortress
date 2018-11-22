@@ -60,7 +60,7 @@ class Tournament < ApplicationRecord
   end
 
   def create_participant_from_tabletop(player_hash)
-    Participant.create(
+    player = Participant.new(
       tournament_id: id,
       name: player_hash['name'],
       mov: player_hash['mov']&.to_i,
@@ -69,6 +69,12 @@ class Tournament < ApplicationRecord
       swiss_rank: player_hash.dig('rank', 'swiss')&.to_i,
       top_cut_rank: player_hash.dig('rank', 'elimination')&.to_i
     )
+
+    if player_hash['list'].present?
+      player.list_json = JSON(player_hash['list'])
+    end
+
+    player.save
   end
 
   def participants_from_tabletop(url)
