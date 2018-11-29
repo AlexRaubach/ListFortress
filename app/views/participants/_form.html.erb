@@ -1,37 +1,43 @@
 <%= bootstrap_form_for(@participant) do |form| %>
-  <%= label_tag(:name, 'Player Name')%>
-  <%= text_field(:participant, :name)%>
 
-  <br>
 
-  <%= label_tag(:swiss_rank, 'Rank during Swiss')%>
-  <%= number_field(:participant, :swiss_rank, required: true)%>
+  <div class="form-group form-row">
+    <div class="col-md-4">
+      <%= form.text_field(:name, label: 'Player Name') %>
+    </div>
+    <div class="col-md-4">
+      <%= form.number_field(:swiss_rank, required: true, label: 'Rank during Swiss')%>
+    </div>
+    <div class="col-md-4">
+      <%= form.number_field(:top_cut_rank, label: 'Top Cut Rank')%>
+    </div>
+  </div>
 
-  <%= label_tag(:top_cut_rank, 'Top Cut Rank')%>
-  <%= number_field(:participant, :top_cut_rank)%>
+  <div class="form-group form-row">
+    <div class="col-md-4">
+      <%= form.number_field(:score, max: 100, label: 'Number of Wins in Swiss')%>
+    </div>
+    <div class="col-md-4">
+      <%= form.number_field(:mov, label: 'Total Margin of Victory')%>
+    </div>
+    <div class="col-md-4">
+      <%= form.text_field(:sos, label: 'Strength of Schedule')%>
+    </div>
+  </div>
 
-  <br>
+  <div class="form-group form-row">
+    <div class="col-md-4">
+      <%= form.check_box(:dropped, label: 'Did this player drop?') %>
+    </div>
+    <div class="cold-md-8">
+      <%= form.text_field(:squad_url, label: 'Optional Squad URL. Supports both YASB2 and any FFG squadbuilder link') %>
+    </div>
+  </div>
 
-  <%= label_tag(:score, 'Score / Number of Wins in Swiss')%>
-  <%= number_field(:participant, :score, max: 100)%>
-
-  <%= label_tag(:mov, 'Total Margin of Victory')%>
-  <%= number_field(:participant, :mov)%>
-
-  <br>
-
-  <%= label_tag(:sos, 'Strength of Schedule')%>
-  <%= text_field(:participant, :sos)%>
-
-  <%= label_tag(:dropped, 'Did this player drop?')%>
-  <%= check_box(:participant, :dropped)%>
-
-  <br>
-
-  <%= label_tag(:squad_url, 'Squad URL. Supports both YASB2 and any FFG squadbuilder link')%>
-  <%= text_field(:participant, :squad_url) %>
+  <%= form.text_area(:list_json, label: 'Raw XWS. Adding a squad url will overwrite existing xws')%>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit('Submit', class: 'btn btn-success') %>
+    <%= link_to 'Back to Tournament', @participant.tournament, {class: 'btn btn-danger'} %>
   </div>
 <% end %>
