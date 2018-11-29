@@ -41,12 +41,7 @@ class ParticipantsController < ApplicationController
   # PATCH/PUT /participants/1.json
   def update
     respond_to do |format|
-      participant_data = participant_params['participant']
-      if participant_data && participant_data['squad_url']
-        participant_data['list_json'] = Participant.get_xws_from_url(participant_data['squad_url'])
-      end
-
-      if @participant.update(participant_data)
+      if @participant.update_with_xws(participant_params['participant'])
         format.html { redirect_to @participant.tournament, notice: 'Participant was successfully updated.' }
         format.json { render :show, status: :ok, location: @participant }
       else

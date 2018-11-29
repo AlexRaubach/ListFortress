@@ -95,4 +95,12 @@ class Participant < ApplicationRecord
     output
   end
 
+  def update_with_xws(participant_data)
+    if participant_data['squad_url'].present?
+      participant_data['list_json'] = Participant.get_xws_from_url(participant_data['squad_url'])
+    end
+
+    update(participant_data)
+  end
+
 end
