@@ -59,6 +59,8 @@ class Tournament < ApplicationRecord
 
   def get_json_from_tabletop(url)
     response = HTTParty.get(url)
+    return {} if response.code == 404
+
     JSON(response.parsed_response)
   end
 
