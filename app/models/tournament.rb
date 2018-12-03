@@ -4,25 +4,28 @@ class Tournament < ApplicationRecord
   belongs_to :format
   belongs_to :version, optional: true
   belongs_to :tournament_type
-  attr_accessor :participant_number, :tabletop_url
+  attr_accessor :participant_number, :tabletop_url, :cryodex_json
 
   def create_squads
-    if tabletop_url
+    success = false
+    if tabletop_url.present?
       match = tabletop_url.match(/(tabletop.to\/[^\/]*)/)
       if match
-        # Provide the protocal and add /listjuggler to the end
+        # Provide the protocol and add /listjuggler to the end
         full_url = 'https://' + match[1] + '/listjuggler'
-        return participants_from_tabletop(full_url)
+        success =  participants_from_tabletop(full_url)
       end
+    elsif cryodex_json.present?
+      success = participants_from_cryodex(cryodex_json)
     end
-
-    create_empty_squads
+    # If TTT or Crodex import can't find any players, create blank ones
+    create_empty_squads(participant_number.to_i) unless success
   end
 
-  def create_empty_squads
-    return if participant_number.to_i.zero?
+  def create_empty_squads(number)
+    return if number.zero?
 
-    participant_number.to_i.times do |i|
+    number.times do |i|
       Participant.new(swiss_rank: i + 1, tournament_id: id).save
     end
   end
@@ -53,13 +56,13 @@ class Tournament < ApplicationRecord
       end
     end
   end
-  
+
   def get_json_from_tabletop(url)
     response = HTTParty.get(url)
     JSON(response.parsed_response)
   end
 
-  def create_participant_from_tabletop(player_hash)
+  def create_participant_from_json(player_hash)
     player = Participant.new(
       tournament_id: id,
       name: player_hash['name'],
@@ -81,10 +84,27 @@ class Tournament < ApplicationRecord
     tabletop_hash = get_json_from_tabletop(url)
 
     players_array = tabletop_hash.dig('tournament', 'players')
-    return if players_array.nil? || players_array.empty?
+    return false if players_array.blank?
 
     players_array.each do |player_hash|
-      create_participant_from_tabletop(player_hash)
+      create_participant_from_json(player_hash)
+    end
+  end
+
+  def participants_from_cryodex(raw_json)
+    parsed_json = JSON(raw_json)
+    players_array = nil
+
+    if parsed_json['players']
+      players_array = parsed_json['players']
+    elsif parsed_json.dig('tournament', 'players')
+      players_array = parsed_json.dig('tournament', 'players')
+    end
+
+    return false if players_array.blank?
+
+    players_array.each do |player_hash|
+      create_participant_from_json(player_hash)
     end
   end
 end

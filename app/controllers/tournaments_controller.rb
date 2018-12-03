@@ -84,7 +84,7 @@ class TournamentsController < ApplicationController
           :type, :format_id, :country,
           :state, :organizer_id, :location,
           :patch_id, :tournament_type_id, :date,
-          :tabletop_url
+          :tabletop_url, :cryodex_json
         ]
       )
     end
