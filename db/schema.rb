@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_21_020916) do
+ActiveRecord::Schema.define(version: 2018_12_07_035750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,8 +30,9 @@ ActiveRecord::Schema.define(version: 2018_11_21_020916) do
   end
 
   create_table "divisions", force: :cascade do |t|
-    t.integer "tier"
     t.string "name"
+    t.integer "season_id"
+    t.integer "tier"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -50,18 +51,35 @@ ActiveRecord::Schema.define(version: 2018_11_21_020916) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "identities", force: :cascade do |t|
-    t.string "uid"
-    t.string "provider"
-    t.bigint "user_id"
+  create_table "leage_matches", force: :cascade do |t|
+    t.integer "p1_id"
+    t.jsonb "p1_list_json"
+    t.string "p1_lj_list_string"
+    t.string "p1_list_url"
+    t.integer "p2_id"
+    t.jsonb "p2_list_json"
+    t.string "p2_lj_list_string"
+    t.string "p2_list_url"
+    t.integer "division_id"
+    t.integer "match_state_id"
+    t.integer "legacy_match_id"
+    t.date "scheduled_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "league_match_states", force: :cascade do |t|
+    t.string "name"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "league_participants", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "season_id"
+    t.integer "division_id"
+    t.integer "list_juggler_id"
+    t.string "list_juggler_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -99,8 +117,10 @@ ActiveRecord::Schema.define(version: 2018_11_21_020916) do
 
   create_table "seasons", force: :cascade do |t|
     t.string "name"
+    t.integer "season_number"
     t.boolean "active"
     t.boolean "sign_up_active"
+    t.boolean "locked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
