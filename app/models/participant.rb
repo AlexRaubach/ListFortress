@@ -82,15 +82,19 @@ class Participant < ApplicationRecord
 
   def formatted_list
     return [] if self.list_json.blank?
-    list = JSON.parse(self.list_json)
-    output = []
-    # output << list.fetch('points', '?') + " Points"
-    list['pilots'].each do |pilot_hash|
-      string = Participant.get_pilot_name_from_xws(pilot_hash['id'])
-      if pilot_hash['upgrades']
-        string += formatted_upgrade_string(pilot_hash['upgrades'])
+    begin
+      list = JSON.parse(self.list_json)
+      output = []
+      # output << list.fetch('points', '?') + " Points"
+      list['pilots'].each do |pilot_hash|
+        string = Participant.get_pilot_name_from_xws(pilot_hash['id'])
+        if pilot_hash['upgrades']
+          string += formatted_upgrade_string(pilot_hash['upgrades'])
+        end
+        output << string
       end
-      output << string
+    rescue
+      return ['squad error']
     end
     output
   end
