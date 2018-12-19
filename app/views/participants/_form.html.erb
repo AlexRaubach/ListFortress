@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <%= form.text_area(:list_json, label: 'Raw XWS. Adding a squad url will overwrite existing xws')%>
+  <%= form.text_area(:list_json, readonly: true, label: 'Raw XWS. Adding a squad url will overwrite existing xws')%>
 
   <div class="actions">
     <%= form.submit('Submit', class: 'btn btn-success') %>
