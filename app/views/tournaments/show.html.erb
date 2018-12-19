@@ -1,10 +1,31 @@
 <p id="notice"><%= notice %></p>
 <div class="container">
+<p>
+  <h1 class="text-center">
+    <%= @tournament.name %>
+  </h1>
+  <p>
+  Player Count: <%= @tournament.participants.size %>
+  Type: <%= @tournament.tournament_type&.name %>
+  Format: <%= @tournament.format&.name %>
+  </p>
+  <p>
+  <% if @tournament.location.present? %>
+    Location: <%= @tournament.location %>
+  <% end %>
+  <% if @tournament.state.present? %>
+    State: <%= @tournament.state %>
+  <% end %>
+  <% if @tournament.country.present? %>
+    Country: <%= @tournament.country %>
+  <% end %>
+  </p>
+</p>
 <table  class="table table-striped">
   <thead>
     <tr>
       <th>Rank</th>
-      <th>Top Cut Rank</th>
+      <th>Top Cut</th>
       <th>Name</th>
       <th>Score</th>
       <th>MoV</th>
