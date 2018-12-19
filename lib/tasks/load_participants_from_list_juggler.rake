@@ -21,15 +21,15 @@ task load_participants_from_lj: :environment do
     season_json['tiers'].each do |tier|
       tier['divisions'].each do |division_hash|
         case tier['tier_name']
-        when 'deepcore', 'deepcore' + i.to_s
+        when 'deepcore', 'deepcore' + (i + 1).to_s
           tier_number = 1
-        when 'coreworlds', 'coreworlds' + i.to_s
+        when 'coreworlds', 'coreworlds' + (i + 1).to_s
           tier_number = 2
-        when 'innerrim', 'innerrim' + i.to_s
+        when 'innerrim', 'innerrim' + (i + 1).to_s
           tier_number = 3
-        when 'outerrim', 'outerrim' + i.to_s
+        when 'outerrim', 'outerrim' + (i + 1).to_s
           tier_number = 4
-        when 'unknownreaches', 'unknownreaches' + i.to_s
+        when 'unknownreaches', 'unknownreaches' + (i + 1).to_s
           tier_number = 5
         end
 
