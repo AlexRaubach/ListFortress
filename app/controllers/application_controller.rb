@@ -14,4 +14,9 @@ class ApplicationController < ActionController::Base
     # converts current_user to a boolean by negating the negation
     !!current_user
   end
+
+  def current_user=(user)
+    session[:user_id] = user&.id
+    @current_user = user
+  end
 end

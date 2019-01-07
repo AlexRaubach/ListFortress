@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_07_035750) do
+ActiveRecord::Schema.define(version: 2019_01_06_202527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,13 @@ ActiveRecord::Schema.define(version: 2018_12_07_035750) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "identities", force: :cascade do |t|
+    t.string "uid"
+    t.string "provider"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
   create_table "leage_matches", force: :cascade do |t|
@@ -113,6 +120,20 @@ ActiveRecord::Schema.define(version: 2018_12_07_035750) do
     t.string "image"
     t.string "ability"
     t.index ["xws"], name: "index_pilots_on_xws"
+  end
+
+  create_table "season_seven_surveys", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "full_name"
+    t.string "display_name"
+    t.integer "s1_id"
+    t.integer "s2_id"
+    t.integer "s3_id"
+    t.integer "s4_id"
+    t.integer "s5_id"
+    t.integer "s6_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "seasons", force: :cascade do |t|
