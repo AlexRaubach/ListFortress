@@ -1,0 +1,17 @@
+<%= form_with(model: season_seven_survey, local: true) do |form| %>
+  <% if season_seven_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(season_seven_survey.errors.count, "error") %> prohibited this season_seven_survey from being saved:</h2>
+
+      <ul>
+      <% season_seven_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
