@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.string "name"
     t.string "slack_avatar"
     t.boolean "admin"
+    t.string "display_name"
   end
 
   create_table "versions", force: :cascade do |t|

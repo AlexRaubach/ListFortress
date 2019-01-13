@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :identities
   has_many :league_participants
-  has_one :season_seven_surveys
+  has_one :season_seven_survey
 
 
   def self.find_with_omniauth(auth)
@@ -11,7 +11,8 @@ class User < ApplicationRecord
   def self.create_with_omniauth(auth)
     user = User.create(
       name: auth&.info&.name,
-      email: auth&.info&.email
+      email: auth&.info&.email,
+      display_name: auth&.info&.nickname
     )
 
     if auth['provider'] == 'slack'
