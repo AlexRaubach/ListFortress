@@ -24,11 +24,17 @@ class SeasonSevenSurveysController < ApplicationController
   # POST /season_seven_surveys
   # POST /season_seven_surveys.json
   def create
-    @season_seven_survey = SeasonSevenSurvey.new(season_seven_survey_params)
+    params = season_seven_survey_params['season_seven_survey']
+    user = current_user
+    user.name = params['full_name'] if params['full_name']
+    user.display_name = params['display_name'] if params['display_name']
+    user.save
+    @season_seven_survey = SeasonSevenSurvey.new(params)
+    @season_seven_survey.user_id = user.id
 
     respond_to do |format|
       if @season_seven_survey.save
-        format.html { redirect_to @season_seven_survey, notice: 'Season seven survey was successfully created.' }
+        format.html { redirect_to '/league', notice: 'Season seven survey was successfully created.' }
         format.json { render :show, status: :created, location: @season_seven_survey }
       else
         format.html { render :new }
@@ -40,8 +46,14 @@ class SeasonSevenSurveysController < ApplicationController
   # PATCH/PUT /season_seven_surveys/1
   # PATCH/PUT /season_seven_surveys/1.json
   def update
+    params = season_seven_survey_params['season_seven_survey']
+    user = current_user
+    user.name = params['full_name'] if params['full_name']
+    user.display_name = params['display_name'] if params['display_name']
+    user.save
+
     respond_to do |format|
-      if @season_seven_survey.update(season_seven_survey_params)
+      if @season_seven_survey.update(params)
         format.html { redirect_to @season_seven_survey, notice: 'Season seven survey was successfully updated.' }
         format.json { render :show, status: :ok, location: @season_seven_survey }
       else
@@ -54,6 +66,9 @@ class SeasonSevenSurveysController < ApplicationController
   # DELETE /season_seven_surveys/1
   # DELETE /season_seven_surveys/1.json
   def destroy
+    user = current_user
+    return false unless user == @season_seven_survey.user || user.admin
+
     @season_seven_survey.destroy
     respond_to do |format|
       format.html { redirect_to season_seven_surveys_url, notice: 'Season seven survey was successfully destroyed.' }
@@ -69,6 +84,6 @@ class SeasonSevenSurveysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def season_seven_survey_params
-      params.fetch(:season_seven_survey, {})
+      params.permit(season_seven_survey: [:full_name, :display_name, :time_zone, :time])
     end
 end

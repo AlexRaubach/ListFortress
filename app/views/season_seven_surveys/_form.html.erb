@@ -1,17 +1,26 @@
-<%= form_with(model: season_seven_survey, local: true) do |form| %>
-  <% if season_seven_survey.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(season_seven_survey.errors.count, "error") %> prohibited this season_seven_survey from being saved:</h2>
+<%= bootstrap_form_for(@season_seven_survey) do |form| %>
 
-      <ul>
-      <% season_seven_survey.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <% s1 = LeagueParticipant.where()%>
 
+  <div class="form-group form-row">
+    <%= form.text_field(:full_name, label: 'First and last name (not displayed publicly) *', value: current_user&.name) %>
+  </div>
+  <div class="form-group form-row">
+    <%= form.text_field(:display_name, label: 'Name you want displayed *', required: true, value: current_user&.display_name) %>
+  </div>
+  <div class="form-group form-row">
+    <%# form.select(:s1_id) %>
+  </div>
+
+  <div>
+    <%= form.time_zone_select(:time_zone) %>
+  </div>
+  <div>
+    <%= form.number_field(:time, label: "Select your prefered match start hour. 20 = 8pm in your selected time zone. This will be used to roughly group people by prefered start time", value: 20)%>
+  </div>
+
+  <br>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.primary %>
   </div>
 <% end %>

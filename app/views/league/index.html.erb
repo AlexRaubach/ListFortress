@@ -5,6 +5,22 @@
 Slack sign in link
 <a href="/auth/slack"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
 
+<p>
+Status: <br>
+    <% if current_user %>
+        <% user = current_user %>
+        <%= 'You are logged in as ' + user&.name.to_s  + ' and your display name is ' +user.display_name.to_s %> <br>
+        <%if user.season_seven_survey %>
+            <%= 'You are signed up for season 7!' %>
+        <%else%>
+            <%= 'You have not signed up. You can do so here:'  %>
+            <%= link_to 'Register', controller: 'season_seven_surveys', action: 'new' %>
+        <%end%>
+    <% else%>
+        <%= 'Sign in with the above link'%>
+    <% end%>
+</p>
+
 <section class="latest">
     <div class="header">
         <h2 id="maillist">Latest news</h2>
