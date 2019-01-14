@@ -1,6 +1,47 @@
 <%= bootstrap_form_for(@season_seven_survey) do |form| %>
 
-  <% s1 = LeagueParticipant.where()%>
+  <%= form.select(
+    :s1_id,
+    LeagueParticipant.joins(division: :season).where(seasons: {season_number: 1}).order(list_juggler_name: :asc).collect{|p| [p.list_juggler_name, p.id]},
+    {label: 'Season 1 Name. Leave blank if you did not participate in S1', include_blank: true}
+    ) 
+  %>
+
+  <%= form.select(
+    :s2_id,
+    LeagueParticipant.joins(division: :season).where(seasons: {season_number: 2}).order(list_juggler_name: :asc).collect{|p| [p.list_juggler_name, p.id]},
+    {label: 'Season 2 Name. Leave blank if you did not participate in S2', include_blank: true}
+    ) 
+  %>
+
+  <%= form.select(
+    :s3_id,
+    LeagueParticipant.joins(division: :season).where(seasons: {season_number: 3}).order(list_juggler_name: :asc).collect{|p| [p.list_juggler_name, p.id]},
+    {label: 'Season 3 Name. Leave blank if you did not participate in S3', include_blank: true}
+    ) 
+  %>
+
+  <%= form.select(
+    :s4_id,
+    LeagueParticipant.joins(division: :season).where(seasons: {season_number: 4}).order(list_juggler_name: :asc).collect{|p| [p.list_juggler_name, p.id]},
+    {label: 'Season 4 Name. Leave blank if you did not participate in S4', include_blank: true}
+    ) 
+  %>
+
+  <%= form.select(
+    :s5_id,
+    LeagueParticipant.joins(division: :season).where(seasons: {season_number: 5}).order(list_juggler_name: :asc).collect{|p| [p.list_juggler_name, p.id]},
+    {label: 'Season 5 Name. Leave blank if you did not participate in S5', include_blank: true}
+    ) 
+  %>
+
+  <%= form.select(
+    :s6_id,
+    LeagueParticipant.joins(division: :season).where(seasons: {season_number: 6}).order(list_juggler_name: :asc).collect{|p| [p.list_juggler_name, p.id]},
+    {label: 'Season 6 Name. Leave blank if you did not participate in S6', include_blank: true}
+    ) 
+  %>
+
 
   <div class="form-group form-row">
     <%= form.text_field(:full_name, label: 'First and last name (not displayed publicly) *', value: current_user&.name) %>
@@ -8,9 +49,7 @@
   <div class="form-group form-row">
     <%= form.text_field(:display_name, label: 'Name you want displayed *', required: true, value: current_user&.display_name) %>
   </div>
-  <div class="form-group form-row">
-    <%# form.select(:s1_id) %>
-  </div>
+
 
   <div>
     <%= form.time_zone_select(:time_zone) %>
