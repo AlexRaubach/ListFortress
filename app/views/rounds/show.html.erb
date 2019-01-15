@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+<p>
+  <p>
+  Round Number: <%= @round.round_number %>
+  Round Type: <%= @round.roundtype_id.present? ? Roundtype.find_by(id:@round.roundtype_id).name : "" %>
+  Matches: <%= @round.matches.size %>
+  </p>
+</p>
+<table  class="table table-striped">
+  <thead>
+    <tr>
+      <th>Player1</th>
+      <th>Player1 Points</th>
+      <th>Player2</th>
+      <th>Player2 Points</th>
+      <th>Result</th>
+      <th> </th>
+    </tr>
+  </thead>
+
+  <% @round.matches.order(:id).each do |match| %>
+    <tr>
+    <td><%=Participant.find_by(id:match.player1_id).present? ? Participant.find_by(id:match.player1_id).name : nil %></td>
+    <td><%=match.player1_points %></td>
+    <td><%=Participant.find_by(id:match.player2_id).present? ? Participant.find_by(id:match.player2_id).name : nil %></td>
+    <td><%=match.player2_points %></td>
+    <td><%=match.result %></td>
+    <td><%= link_to 'Edit', edit_match_path(match) %></td>
+
+    </tr>
+  <% end%>
+</table>
+
+<%= link_to 'Edit', edit_round_path(@round) %> |
+<%= link_to 'Back', tournament_path(@round.tournament_id) %>

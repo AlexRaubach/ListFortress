@@ -35,10 +35,11 @@
   </div>
 
   <p class='form-group'>
-<%= label_tag('', "You can optionally load player data from tabletop.to or cryodex. 
+<%= label_tag('', "You can optionally load player and round data from tabletop.to, cryodex, or manually. 
 You'll still have to fill out the Tournament details in the form above.") %>
   </p>
 
+<p>
   <div class="form-group form-row">
     <div class="col-md-6">
       <%= form.text_field(:tabletop_url, label: 'Optional Tabletop.to URL.') %>
@@ -46,13 +47,16 @@ You'll still have to fill out the Tournament details in the form above.") %>
     <div class='col-md-6'>
       <%= form.text_area(:cryodex_json, label: 'Optional Cryodex or Tabletop.to json')%>
     </div>
+    <div class="col-md-2">
+      <%= form.number_field(:round_number, max: 256, min: 0, label: 'Optional Number of Rounds')%>
+    </div>
   </div>
-
-
+</p>
+<p>
   <div class="actions">
     <%= form.submit %>
     <%= link_to 'Back', tournaments_path, {class: 'btn btn-danger'} %>
   </div>
-
+</p>
 
 <% end %>

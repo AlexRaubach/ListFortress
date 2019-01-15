@@ -1,0 +1,2 @@
+class Roundtype < ApplicationRecord
+end

@@ -1,0 +1,22 @@
+<%= bootstrap_form_for(@round) do |form| %>
+
+<p>
+  <div class="form-group form-row">
+    <div class="col-md-5">
+      <%= form.collection_select(:roundtype_id, Roundtype.all, :id, :name, label: 'Round Type:') %>
+    </div>
+    <div class="col-md-4">
+      <%= form.number_field(:round_number, required: true, label: 'Round #:')%>
+    </div>
+    <div class="col-md-4">
+      <%= form.number_field(:match_number, value: @round.matches.size, required: true, label: '# of Matches:')%>
+    </div>
+  </div>
+</p>
+<p>
+  <div class="actions">
+    <%= form.submit('Submit', class: 'btn btn-success') %>
+    <%= link_to 'Back to Tournament', @round.tournament, {class: 'btn btn-danger'} %>
+  </div>
+</p>
+<% end %>

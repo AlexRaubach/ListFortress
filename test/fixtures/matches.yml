@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player1: one
+  player1_points: 1
+  player2: one
+  player2_points: 1
+  round: one
+  result: MyString
+
+two:
+  player1: two
+  player1_points: 1
+  player2: two
+  player2_points: 1
+  round: two
+  result: MyString

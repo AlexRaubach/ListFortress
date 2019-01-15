@@ -1,10 +1,11 @@
 class Tournament < ApplicationRecord
   require 'csv'
   has_many :participants
+  has_many :rounds
   belongs_to :format
   belongs_to :version, optional: true
   belongs_to :tournament_type
-  attr_accessor :participant_number, :tabletop_url, :cryodex_json
+  attr_accessor :participant_number, :tabletop_url, :cryodex_json, :round_number
 
   def create_squads
     success = false
@@ -19,7 +20,20 @@ class Tournament < ApplicationRecord
       success = participants_from_cryodex(cryodex_json)
     end
     # If TTT or Crodex import can't find any players, create blank ones
+    puts participant_number
     create_empty_squads(participant_number.to_i) unless success
+    puts round_number
+    # If TTT or Crodex import weren't successful create empty rounds
+    create_empty_rounds(round_number.to_i) unless success
+  end
+
+  def create_empty_rounds(number)
+    return if number.zero?
+    x = 1
+    number.times do |i|
+      Round.new(tournament_id:id, round_number:x).save
+      x=x+1
+    end
   end
 
   def create_empty_squads(number)
@@ -86,6 +100,39 @@ class Tournament < ApplicationRecord
     player.save
   end
 
+  def create_round_from_json(round_hash)
+    round = Round.new(
+      tournament_id: id,
+      roundtype_id: Roundtype.find_by(name:round_hash['round-type']).id,
+      round_number: round_hash['round-number']
+    )
+
+    round.save
+
+    matches_array = round_hash.dig('matches')
+    puts matches_array
+    matches_array.each do |match_hash|
+      puts match_hash
+      create_match_from_json(round.id, match_hash)
+    end
+  end
+
+  def create_match_from_json(round_id, match_hash)
+    player1 = Participant.find_by(tournament_id:id,name:match_hash['player1'])
+    player2 = Participant.find_by(tournament_id:id,name:match_hash['player2'])
+    
+    match = Match.new(
+      round_id: round_id,
+      player1_id: player1.present? ? player1.id : nil,
+      player1_points: match_hash['player1points'],
+      player2_id: player2.present? ? player2.id : nil,
+      player2_points: match_hash['player2points'],
+      result: match_hash['result']
+    )
+
+    match.save
+  end
+
   def participants_from_tabletop(url)
     tabletop_hash = get_json_from_tabletop(url)
 
@@ -95,6 +142,14 @@ class Tournament < ApplicationRecord
     players_array.each do |player_hash|
       create_participant_from_json(player_hash)
     end
+
+    rounds_array = tabletop_hash.dig('tournament', 'rounds')
+    puts rounds_array
+    rounds_array.each do |round_hash|
+      puts round_hash
+      create_round_from_json(round_hash)
+    end
+
   end
 
   def participants_from_cryodex(raw_json)

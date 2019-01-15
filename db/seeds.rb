@@ -13,14 +13,14 @@ faction_list = [
   ['Rebel Alliance', 'rebelalliance', 1],
   ['Galactic Empire', 'galacticempire', 2],
   ['Scum and Villainy', 'scumandvillainy', 3],
-  ['First Order', 'firstorder', false],
-  ['Resistance', 'resistance', false],
-  ['cis', false],
-  ['galacticrepublic', false]
+  ['First Order', 'firstorder', 4],
+  ['Resistance', 'resistance', 5],
+  ['separatistalliance', 6],
+  ['galacticrepublic', 7]
 ]
 
 faction_list.each do |faction_array|
-  Faction.create(xws: faction_list[0], name: faction_array[1], ffg: faction_array[2] )
+  Faction.create(xws: faction_array[0], name: faction_array[1], ffg: faction_array[2] )
 end
 
 format_list = [
