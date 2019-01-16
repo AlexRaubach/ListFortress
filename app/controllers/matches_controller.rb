@@ -70,7 +70,7 @@ class MatchesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
       params.permit(:id, match:
-      [:player1_id, :player1_points, :player2_id, :player2_points, :result, :round_id]
+      [:player1_id, :player1_points, :player2_id, :player2_points, :result, :round_id, :final_salvo, :final_salvo_winner_id]
     )
     end
 end

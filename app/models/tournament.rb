@@ -120,6 +120,7 @@ class Tournament < ApplicationRecord
   def create_match_from_json(round_id, match_hash)
     player1 = Participant.find_by(tournament_id:id,name:match_hash['player1'])
     player2 = Participant.find_by(tournament_id:id,name:match_hash['player2'])
+    fswinner = Participant.find_by(tournament_id:id,name:match_hash['winner'])
     
     match = Match.new(
       round_id: round_id,
@@ -127,7 +128,9 @@ class Tournament < ApplicationRecord
       player1_points: match_hash['player1points'],
       player2_id: player2.present? ? player2.id : nil,
       player2_points: match_hash['player2points'],
-      result: match_hash['result']
+      result: match_hash['result'],
+      final_salvo: match_hash['final_salvo'],
+      final_salvo_winner_id: fswinner.present? ? fswinner.id : nil
     )
 
     match.save
