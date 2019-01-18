@@ -147,17 +147,18 @@ class Tournament < ApplicationRecord
     end
 
     rounds_array = tabletop_hash.dig('tournament', 'rounds')
-    puts rounds_array
-    rounds_array.each do |round_hash|
-      puts round_hash
-      create_round_from_json(round_hash)
-    end
 
+    if rounds_array.present?
+      rounds_array.each do |round_hash|
+        create_round_from_json(round_hash)
+      end
+    end
   end
 
   def participants_from_cryodex(raw_json)
     parsed_json = JSON(raw_json)
     players_array = nil
+    rounds_array = nil
 
     if parsed_json['players']
       players_array = parsed_json['players']
@@ -169,6 +170,18 @@ class Tournament < ApplicationRecord
 
     players_array.each do |player_hash|
       create_participant_from_json(player_hash)
+    end
+
+    if parsed_json['rounds']
+      rounds_array = parsed_json['rounds']
+    elsif parsed_json.dig('tournament', 'rounds')
+      rounds_array = parsed_json.dig('tournament', 'rounds')
+    end
+
+    if rounds_array.present?
+      rounds_array.each do |round_hash|
+        create_round_from_json(round_hash)
+      end
     end
   end
 end
