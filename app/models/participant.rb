@@ -3,7 +3,7 @@ class Participant < ApplicationRecord
   attr_accessor :squad_url
 
   def serializable_hash(options={})
-    super({:only => [:id,:tournament_id,:player_id,:score,:swiss_rank,:top_cut_rank,:mov,:sos,:dropped,:list_points,:list_json]}.merge(options||{}))
+    super({:only => [:id,:tournament_id,:score,:swiss_rank,:top_cut_rank,:mov,:sos,:dropped,:list_points,:list_json]}.merge(options||{}))
   end
 
   def self.get_xws_from_url(url)
