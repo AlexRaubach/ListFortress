@@ -126,6 +126,8 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.integer "user_id"
     t.string "full_name"
     t.string "display_name"
+    t.string "time_zone"
+    t.integer "time"
     t.integer "s1_id"
     t.integer "s2_id"
     t.integer "s3_id"

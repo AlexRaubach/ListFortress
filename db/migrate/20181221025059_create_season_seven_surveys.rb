@@ -4,6 +4,8 @@ class CreateSeasonSevenSurveys < ActiveRecord::Migration[5.2]
       t.integer :user_id
       t.string :full_name
       t.string :display_name
+      t.string :time_zone
+      t.integer :time
 
       t.integer :s1_id
       t.integer :s2_id
