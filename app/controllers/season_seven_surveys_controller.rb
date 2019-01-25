@@ -54,7 +54,7 @@ class SeasonSevenSurveysController < ApplicationController
 
     respond_to do |format|
       if @season_seven_survey.update(params)
-        format.html { redirect_to @season_seven_survey, notice: 'Season seven survey was successfully updated.' }
+        format.html { redirect_to '/league', notice: 'Season seven survey was successfully created.' }
         format.json { render :show, status: :ok, location: @season_seven_survey }
       else
         format.html { render :edit }
@@ -71,19 +71,23 @@ class SeasonSevenSurveysController < ApplicationController
 
     @season_seven_survey.destroy
     respond_to do |format|
-      format.html { redirect_to season_seven_surveys_url, notice: 'Season seven survey was successfully destroyed.' }
+      format.html { redirect_to '/league', notice: 'Season seven survey was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_season_seven_survey
-      @season_seven_survey = SeasonSevenSurvey.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def season_seven_survey_params
-      params.permit(season_seven_survey: [:full_name, :display_name, :time_zone, :time])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_season_seven_survey
+    @season_seven_survey = SeasonSevenSurvey.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def season_seven_survey_params
+    params.permit(season_seven_survey:
+      [:full_name, :display_name, :time_zone,
+      :time, :s1_id, :s2_id, :s3_id, :s4_id, :s5_id, :s6_id
+    ])
+  end
 end
