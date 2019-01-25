@@ -97,6 +97,8 @@ GEM
     ffi (1.9.25-x64-mingw32)
     figaro (1.1.1)
       thor (~> 0.14)
+    ginjo-omniauth-slack (2.4.1)
+      omniauth-oauth2 (>= 1.4.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
@@ -249,6 +251,7 @@ DEPENDENCIES
   country_select
   duktape
   figaro
+  ginjo-omniauth-slack
   httparty
   jbuilder (~> 2.5)
   jquery-rails

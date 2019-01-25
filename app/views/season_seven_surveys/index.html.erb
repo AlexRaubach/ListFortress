@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Season Seven Surveys</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @season_seven_surveys.each do |season_seven_survey| %>
+      <tr>
+        <td><%= link_to 'Show', season_seven_survey %></td>
+        <td><%= link_to 'Edit', edit_season_seven_survey_path(season_seven_survey) %></td>
+        <td><%= link_to 'Destroy', season_seven_survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Season Seven Survey', new_season_seven_survey_path %>

@@ -32,8 +32,10 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Sign in with google
+# Sign in with google / slack
 gem 'omniauth-google-oauth2'
+gem 'ginjo-omniauth-slack'
+
 # manage secrets
 gem "figaro"
 # Use a gem for country selection dropdown
