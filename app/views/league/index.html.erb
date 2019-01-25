@@ -1,9 +1,9 @@
 <div class="container">
+<p id="notice"><%= notice %></p>
+
 <h1> League Home Page </h1>
 
 
-Slack sign in link
-<a href="/auth/slack"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
 
 <p>
 Status: <br>
@@ -12,12 +12,15 @@ Status: <br>
         <%= 'You are logged in as ' + user&.name.to_s  + ' and your display name is ' +user.display_name.to_s %> <br>
         <%if user.season_seven_survey %>
             <%= 'You are signed up for season 7!' %>
+            <%= link_to("You can edit your survey here", controller: "season_seven_surveys", action: "edit", id:  user.season_seven_survey.id) %>
         <%else%>
-            <%= 'You have not signed up. You can do so here:'  %>
+            <%= 'You have not signed up for Season 7. Do so here: ' %>
             <%= link_to 'Register', controller: 'season_seven_surveys', action: 'new' %>
         <%end%>
+        <br>
+        You can always logout by visiting <a href="/logout">here</a>
     <% else%>
-        <%= 'Sign in with the above link'%>
+        <a href="/auth/slack"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
     <% end%>
 </p>
 
@@ -28,7 +31,7 @@ Status: <br>
     <div class="content">
         <iframe id="googleDoc"
                 class="googleDoc"
-                src="https://docs.google.com/document/d/e/2PACX-1vQ0rjc5MymKOhnVHf3cKcatYo6LzZyDgStzQgxQqsm4vTo7RVO0Lm1aKVtKjyXN-vEDOYHzhLo8FZ07/pub"
+                src="https://docs.google.com/document/d/e/2PACX-1vTZUL8JjA0WsJxr-E_NhNb9mlGQW6BWiFbCIWqsjsJFp1NngAXfTNGr7KLfXWNVw0ZFQ0QIumEr4YZz/pub"
                 width="100%"
                 height="500px">
         </iframe>
