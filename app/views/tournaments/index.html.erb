@@ -2,40 +2,50 @@
 
 <h1 class="text-center">Tournaments</h1>
 <div class="container">
-<table  class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Location</th>
-      <th>State</th>
-      <th>Country</th>
-      <th>Date</th>
-      <th>Format</th>
-      <th>Type</th>
-      <th>Players</th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @tournaments.order(date: :desc).each do |tournament| %>
+  <div class="text-center">
+    <%= will_paginate @tournaments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer%>
+  </div>
+
+  <table  class="table table-striped">
+    <thead>
       <tr>
-
-        <td><%= link_to tournament.name, tournament %></td>
-        <td><%= tournament.location%></td>
-        <td><%= tournament.state%></td>
-        <td><%= tournament.country%></td>
-        <td><%= tournament.date%></td>
-        <td><%= tournament.format&.name%></td>
-        <td><%= tournament.tournament_type&.name%></td>
-        <td><%= tournament.participants.size%>
-        <!--<td><%# link_to 'Edit', edit_tournament_path(tournament) %></td>
-        <td><%# link_to 'Destroy', tournament, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+        <th>Name</th>
+        <th>Location</th>
+        <th>State</th>
+        <th>Country</th>
+        <th>Date</th>
+        <th>Format</th>
+        <th>Type</th>
+        <th>Players</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<div>
+    </thead>
 
+    <tbody>
+      <% @tournaments.order(date: :desc).each do |tournament| %>
+        <tr>
+
+          <td><%= link_to tournament.name, tournament %></td>
+          <td><%= tournament.location%></td>
+          <td><%= tournament.state%></td>
+          <td><%= tournament.country%></td>
+          <td><%= tournament.date%></td>
+          <td><%= tournament.format&.name%></td>
+          <td><%= tournament.tournament_type&.name%></td>
+          <td><%= tournament.participants.size%>
+          <!--<td><%# link_to 'Edit', edit_tournament_path(tournament) %></td>
+          <td><%# link_to 'Destroy', tournament, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <%= will_paginate @tournaments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer%>
+  </div>
+
+  <div class="text-right">
+    <%= link_to 'New Tournament', new_tournament_path %>
+  </div>
 <br>
-
-<%= link_to 'New Tournament', new_tournament_path %>
+<div>

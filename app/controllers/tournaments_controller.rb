@@ -5,7 +5,7 @@ class TournamentsController < ApplicationController
   # GET /tournaments
   # GET /tournaments.json
   def index
-    @tournaments = Tournament.all.order(date: :desc)
+    @tournaments = Tournament.all.order(date: :desc).paginate(:page => params[:page], :per_page => 25)
   end
 
   # GET /tournaments/1
@@ -13,7 +13,7 @@ class TournamentsController < ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.csv { send_data  Tournament.where(id:params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
+      format.csv { send_data Tournament.where(id: params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
     end
   end
 
