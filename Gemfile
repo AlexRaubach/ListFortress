@@ -38,6 +38,11 @@ gem 'ginjo-omniauth-slack'
 
 # manage secrets
 gem "figaro"
+
+# Pagination
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap4'
+
 # Use a gem for country selection dropdown
 gem 'country_select'
 
