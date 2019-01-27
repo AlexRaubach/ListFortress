@@ -4,7 +4,7 @@ class SeasonSevenSurveysController < ApplicationController
   # GET /season_seven_surveys
   # GET /season_seven_surveys.json
   def index
-    @season_seven_surveys = SeasonSevenSurvey.all
+    @season_seven_surveys = SeasonSevenSurvey.all.includes(:user)
   end
 
   # GET /season_seven_surveys/1
@@ -48,6 +48,8 @@ class SeasonSevenSurveysController < ApplicationController
   def update
     params = season_seven_survey_params['season_seven_survey']
     user = current_user
+    return false unless user == @season_seven_survey.user || user.admin
+
     user.name = params['full_name'] if params['full_name']
     user.display_name = params['display_name'] if params['display_name']
     user.save
