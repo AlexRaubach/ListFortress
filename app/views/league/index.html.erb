@@ -18,6 +18,8 @@ Status: <br>
             <%= link_to 'Register', controller: 'season_seven_surveys', action: 'new' %>
         <%end%>
         <br>
+        <%= link_to("You can view all Season 7 signups here", controller: "season_seven_surveys", action: "index")%>
+        <br>
         You can always logout by visiting <a href="/logout">here</a>
     <% else%>
         <a href="/auth/slack"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
