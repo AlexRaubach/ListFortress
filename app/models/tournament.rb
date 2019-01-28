@@ -9,16 +9,23 @@ class Tournament < ApplicationRecord
   def create_squads
     success = false
     if tabletop_url.present?
+      # Check for tabletop.to
       match = tabletop_url.match(/(tabletop.to\/[^\/]*)/)
       if match
         # Provide the protocol and add /listjuggler to the end
         full_url = 'https://' + match[1] + '/listjuggler'
         success =  participants_from_tabletop(full_url)
       end
+      # Check for Best Coast Pairings
+      match = tabletop_url.match(/bestcoastpairings.com\/r\/([a-zA-Z\d]{8})/)
+      if match
+        full_url = "https://www.bestcoastpairings.com/r/" + match[1]
+        success = scrape_participants_from_best_coast_pairings(full_url)
+      end
     elsif cryodex_json.present?
       success = participants_from_cryodex(cryodex_json)
     end
-    # If TTT or Crodex import can't find any players, create blank ones
+    # If url or json import can't find any players, create blank ones
     create_empty_squads(participant_number.to_i) unless success
   end
 
@@ -109,4 +116,24 @@ class Tournament < ApplicationRecord
       create_participant_from_json(player_hash)
     end
   end
+
+  def scrape_participants_from_best_coast_pairings(url)
+    response = HTTParty.get(url)
+    return false unless response.code == 200
+
+    doc = Nokogiri::HTML(response.parsed_response)
+
+    doc.css('div.event-list > li').each do |participant_doc|
+      Participant.create(
+        tournament_id: id,
+        name: participant_doc.css('.title > span')&.text,
+        score: participant_doc.css('.scoresLabel li')[0]&.text&.to_i,
+        mov: participant_doc.css('.scoresLabel li')[2]&.text&.to_i,
+        swiss_rank: participant_doc.css('.placing')&.text&.to_i
+      )
+    end
+
+    true
+  end
+
 end
