@@ -1,0 +1,42 @@
+<div class="container">
+<p id="notice"><%= notice %></p>
+
+<h1> League Home Page </h1>
+
+
+
+<p>
+Status: <br>
+    <% if current_user %>
+        <% user = current_user %>
+        <%= 'You are logged in as ' + user&.name.to_s  + ' and your display name is ' +user.display_name.to_s %> <br>
+        <%if user.season_seven_survey %>
+            <%= 'You are signed up for season 7!' %>
+            <%= link_to("You can edit your survey here", controller: "season_seven_surveys", action: "edit", id:  user.season_seven_survey.id) %>
+        <%else%>
+            <%= 'You have not signed up for Season 7. Do so here: ' %>
+            <%= link_to 'Register', controller: 'season_seven_surveys', action: 'new' %>
+        <%end%>
+        <br>
+        <%= link_to("You can view all Season 7 signups here", controller: "season_seven_surveys", action: "index")%>
+        <br>
+        You can always logout by visiting <a href="/logout">here</a>
+    <% else%>
+        <a href="/auth/slack"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
+    <% end%>
+</p>
+
+<section class="latest">
+    <div class="header">
+        <h2 id="maillist">Latest news</h2>
+    </div>
+    <div class="content">
+        <iframe id="googleDoc"
+                class="googleDoc"
+                src="https://docs.google.com/document/d/e/2PACX-1vTZUL8JjA0WsJxr-E_NhNb9mlGQW6BWiFbCIWqsjsJFp1NngAXfTNGr7KLfXWNVw0ZFQ0QIumEr4YZz/pub"
+                width="100%"
+                height="500px">
+        </iframe>
+  </div>
+</section>
+</div>

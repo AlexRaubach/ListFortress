@@ -1,0 +1,29 @@
+<div class='container'>
+<p id="notice"><%= notice %></p>
+
+<h1>Season Seven Signups</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th colspan="2">Signup number </th>
+      <th colspan="4">Name</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @season_seven_surveys.each do |season_seven_survey| %>
+      <tr>
+        <td colspan="2"><%= season_seven_survey.id %></td>
+        <td colspan="4"><%= season_seven_survey.user.display_name %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back to League Home', '/league' %>
+</div>

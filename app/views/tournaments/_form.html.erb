@@ -35,17 +35,17 @@
   </div>
 
   <p class='form-group'>
-<%= label_tag('', "You can optionally load player and round data from tabletop.to, cryodex, or manually. 
+<%= label_tag('', "You can optionally load player and round data from tabletop.to, cryodex, Best Coast Pairings, or manually. 
 You'll still have to fill out the Tournament details in the form above.") %>
   </p>
 
 <p>
   <div class="form-group form-row">
     <div class="col-md-6">
-      <%= form.text_field(:tabletop_url, label: 'Optional Tabletop.to URL.') %>
+      <%= form.text_field(:tabletop_url, label: 'Optional Tabletop.TO or Best Coast Pairings URL.') %>
     </div>
     <div class='col-md-6'>
-      <%= form.text_area(:cryodex_json, label: 'Optional Cryodex or Tabletop.to json')%>
+      <%= form.text_area(:cryodex_json, label: 'Optional Cryodex or Tabletop.TO json')%>
     </div>
     <div class="col-md-2">
       <%= form.number_field(:round_number, max: 256, min: 0, label: 'Optional Number of Rounds')%>

@@ -32,10 +32,17 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Sign in with google
+# Sign in with google / slack
 gem 'omniauth-google-oauth2'
+gem 'ginjo-omniauth-slack'
+
 # manage secrets
 gem "figaro"
+
+# Pagination
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap4'
+
 # Use a gem for country selection dropdown
 gem 'country_select'
 
@@ -71,3 +78,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "chronic", "~> 0.10.2"

@@ -1,3 +1,5 @@
+require 'chronic'
+
 class TournamentsController < ApplicationController
   before_action :set_tournament, only: [:show, :edit, :update, :destroy]
   #before_action :authenticate, only: [:destroy]
@@ -5,10 +7,37 @@ class TournamentsController < ApplicationController
   # GET /tournaments
   # GET /tournaments.json
   def index
-    @tournaments = Tournament.all.order(date: :desc)
+    
     respond_to do |format|
-      format.html
-      format.json {render json: @tournaments.as_json({:only => [:id, :name, :location, :state, :country, :date, :format_id, :version_id, :tournament_type_id, :created_at, :updated_at], :exclude => [:participants]})}
+        format.html { 
+          if params[:updatedafter].present?
+            if !validate_updated_after(params[:updatedafter])
+              params[:updatedafter] = nil
+              render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+            end
+          end
+
+          @tournaments = Tournament.all
+                             .updated_after(params[:updatedafter])
+                             .includes(:tournament_type, :format)
+                             .order(date: :desc)
+                             .paginate(page: params[:page], per_page: 25)
+        }
+        format.json {
+          if params[:updatedafter].present?
+            if !validate_updated_after(params[:updatedafter])
+              params[:updatedafter] = nil
+              render json: {:error => "not-found"}.to_json, :status => 404
+              return
+            end
+          end
+          
+          @tournaments = @tournaments = Tournament.all
+                              .updated_after(params[:updatedafter])
+                              .includes(:tournament_type, :format)
+                              .order(id: :asc)
+          render json: @tournaments.as_json({:only => [:id, :name, :location, :state, :country, :date, :format_id, :version_id, :tournament_type_id, :created_at, :updated_at], :exclude => [:participants]})
+        }
     end
   end
 
@@ -76,22 +105,37 @@ class TournamentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tournament
-      @tournament = Tournament.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tournament_params
-      params.permit(
-        :name, tournament:
-        [
-          :id, :name, :participant_number,
-          :type, :format_id, :country,
-          :state, :organizer_id, :location,
-          :patch_id, :tournament_type_id, :date,
-          :tabletop_url, :cryodex_json, :round_number
-        ]
-      )
-    end
+  def validate_updated_after (updated_after)
+    p updated_after
+    d = Chronic.parse(updated_after)
+    return true if d.present?
+    return false
+  end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tournament
+    @tournament = Tournament.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+    # handle not found error
+    rescue ActiveRecord::ActiveRecordError
+      render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+    # handle other ActiveRecord errors
+    rescue StandardError
+      render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tournament_params
+    params.permit(
+      :name, tournament:
+      [
+        :id, :name, :participant_number,
+        :type, :format_id, :country,
+        :state, :organizer_id, :location,
+        :patch_id, :tournament_type_id, :date,
+        :tabletop_url, :cryodex_json, :round_number
+      ]
+    )
+  end
 end
