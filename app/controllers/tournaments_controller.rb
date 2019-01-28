@@ -5,7 +5,10 @@ class TournamentsController < ApplicationController
   # GET /tournaments
   # GET /tournaments.json
   def index
-    @tournaments = Tournament.all.order(date: :desc).paginate(:page => params[:page], :per_page => 25)
+    @tournaments = Tournament.all
+                             .includes(:tournament_type, :format)
+                             .order(date: :desc)
+                             .paginate(page: params[:page], per_page: 25)
   end
 
   # GET /tournaments/1
@@ -70,22 +73,23 @@ class TournamentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tournament
-      @tournament = Tournament.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tournament_params
-      params.permit(
-        :name, tournament:
-        [
-          :id, :name, :participant_number,
-          :type, :format_id, :country,
-          :state, :organizer_id, :location,
-          :patch_id, :tournament_type_id, :date,
-          :tabletop_url, :cryodex_json
-        ]
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tournament
+    @tournament = Tournament.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tournament_params
+    params.permit(
+      :name, tournament:
+      [
+        :id, :name, :participant_number,
+        :type, :format_id, :country,
+        :state, :organizer_id, :location,
+        :patch_id, :tournament_type_id, :date,
+        :tabletop_url, :cryodex_json
+      ]
+    )
+  end
 end
