@@ -11,7 +11,7 @@
 
   <div class="form-group form-row">
     <div class="col-md-2">
-      <%= form.number_field(:participant_number, max: 256, min: 0, required: true, label: 'Number of Players')%>
+      <%= form.number_field(:participant_number, value: @tournament.participants.size, max: 256, min: 0, required: true, label: 'Number of Players')%>
     </div>
     <div class="col-md-5">
       <%= form.collection_select(:format_id, Format.all, :id, :name, label: 'Tournament Format:') %>
@@ -48,7 +48,7 @@ You'll still have to fill out the Tournament details in the form above.") %>
       <%= form.text_area(:cryodex_json, label: 'Optional Cryodex or Tabletop.TO json')%>
     </div>
     <div class="col-md-2">
-      <%= form.number_field(:round_number, max: 256, min: 0, label: 'Optional Number of Rounds')%>
+      <%= form.number_field(:round_number, value: @tournament.rounds.size, max: 256, min: 0, label: 'Optional Number of Rounds')%>
     </div>
   </div>
 </p>

@@ -211,4 +211,28 @@ class Tournament < ApplicationRecord
     true
   end
 
+  def update_from_json(tournament_data)
+    if tournament_data['participant_number'].present?
+      partnum = tournament_data['participant_number'].to_i
+      partsize = participants.present? ? participants.size : 0
+      if partnum > partsize
+        (partnum-partsize).times do |i|
+          Participant.new(tournament_id:id).save
+        end
+      end
+    end
+
+    if tournament_data['round_number'].present?
+      roundnum = tournament_data['round_number'].to_i
+      roundsize = rounds.present? ? rounds.size : 0
+      if roundnum > roundsize
+        (roundnum-roundsize).times do |i|
+          Round.new(tournament_id:id).save
+        end
+      end
+    end
+
+    update(tournament_data)
+  end
+
 end

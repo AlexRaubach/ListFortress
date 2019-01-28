@@ -29,6 +29,7 @@ class RoundsController < ApplicationController
     respond_to do |format|
       if @round.save
         @round.create_matches
+        update_parents(@round)
         format.html { redirect_to @round, notice: 'Round was successfully created.' }
         format.json { render :show, status: :created, location: @round }
       else
@@ -43,6 +44,7 @@ class RoundsController < ApplicationController
   def update
     respond_to do |format|
       if @round.update_from_json(round_params['round'])
+        update_parents(@round)
         format.html { redirect_to @round, notice: 'Round was successfully updated.' }
         format.json { render json: @round.errors, status: :unprocessable_entity }
       else
@@ -63,6 +65,12 @@ class RoundsController < ApplicationController
   end
 
   private
+    def update_parents(round)
+      tourney = Tournament.find_by(id:round.tournament_id)
+      if tourney.present?
+        tourney.touch
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_round
       @round = Round.find(params[:id])

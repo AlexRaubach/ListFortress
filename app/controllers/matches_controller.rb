@@ -28,6 +28,7 @@ class MatchesController < ApplicationController
 
     respond_to do |format|
       if @match.save
+        update_parents(@match)
         format.html { redirect_to @match, notice: 'Match was successfully created.' }
         format.json { render :show, status: :created, location: @match }
       else
@@ -42,6 +43,7 @@ class MatchesController < ApplicationController
   def update
     respond_to do |format|
       if @match.update(match_params['match'])
+        update_parents(@match)
         format.html { redirect_to @match, notice: 'Match was successfully updated.' }
         format.json { render json: @match.errors, status: :unprocessable_entity }
       else
@@ -62,6 +64,16 @@ class MatchesController < ApplicationController
   end
 
   private
+    def update_parents(match)
+      round = Round.find_by(id:match.round_id)
+        if round.present?
+          round.touch
+          tourney = Tournament.find_by(id:round.tournament_id)
+          if tourney.present?
+            tourney.touch
+          end
+        end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_match
       @match = Match.find(params[:id])
