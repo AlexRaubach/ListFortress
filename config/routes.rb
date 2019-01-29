@@ -17,5 +17,17 @@ Rails.application.routes.draw do
 
   root to: 'tournaments#index'
 
+  #api
+  namespace :api do
+    namespace :v1 do
+      resources :tournaments, only: [:index, :show] do
+        resources :participants, only: [:show]
+        resources :rounds, only: [:show] do
+          resources :matches, only: [:show]
+        end
+      end
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

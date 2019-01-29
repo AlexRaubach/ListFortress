@@ -27,11 +27,8 @@
 
 
   <div class="form-group form-row">
-    <div class="col-md-4">
-      <%= form.number_field(:final_salvo, max: 1, min: 0, label: 'Final Salvo (1 or 0):') %>
-    </div>
     <div class="col-md-5">
-      <%= form.collection_select(:final_salvo_winner_id, Tournament.find_by(id:Round.find_by(id:@match.round_id).tournament_id).participants, :id, :name, label: 'Final Salvo Winner:', :include_blank => true) %>
+      <%= form.collection_select(:winner_id, Tournament.find_by(id:Round.find_by(id:@match.round_id).tournament_id).participants, :id, :name, label: 'Winner:', :include_blank => true) %>
     </div>
   </div>
 

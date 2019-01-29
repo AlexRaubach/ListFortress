@@ -5,5 +5,8 @@ class CreateRoundtypes < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    
+    Roundtype.create(name:'swiss')
+    Roundtype.create(name:'elimination')
   end
 end

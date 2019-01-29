@@ -15,8 +15,7 @@
       <th>Player2</th>
       <th>Player2 Points</th>
       <th>Result</th>
-      <th>Final Salvo</th>
-      <th>FS Winner</th>
+      <th>Winner</th>
       <th> </th>
     </tr>
   </thead>
@@ -28,8 +27,7 @@
     <td><%=Participant.find_by(id:match.player2_id).present? ? Participant.find_by(id:match.player2_id).name : nil %></td>
     <td><%=match.player2_points %></td>
     <td><%=match.result %></td>
-    <td><%=match.final_salvo.present? ? (match.final_salvo == 1 ? "true" : "false") : nil %></td>
-    <td><%=Participant.find_by(id:match.final_salvo_winner_id).present? ? Participant.find_by(id:match.final_salvo_winner_id).name : nil %></td>
+    <td><%=Participant.find_by(id:match.winner_id).present? ? Participant.find_by(id:match.winner_id).name : nil %></td>
     <td><%= link_to 'Edit', edit_match_path(match) %></td>
 
     </tr>

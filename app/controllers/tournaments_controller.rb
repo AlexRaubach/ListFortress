@@ -1,5 +1,3 @@
-require 'chronic'
-
 class TournamentsController < ApplicationController
   before_action :set_tournament, only: [:show, :edit, :update, :destroy]
   #before_action :authenticate, only: [:destroy]
@@ -7,38 +5,10 @@ class TournamentsController < ApplicationController
   # GET /tournaments
   # GET /tournaments.json
   def index
-    
-    respond_to do |format|
-        format.html { 
-          if params[:updatedafter].present?
-            if !validate_updated_after(params[:updatedafter])
-              params[:updatedafter] = nil
-              render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
-            end
-          end
-
-          @tournaments = Tournament.all
-                             .updated_after(params[:updatedafter])
+    @tournaments = Tournament.all
                              .includes(:tournament_type, :format)
                              .order(date: :desc)
                              .paginate(page: params[:page], per_page: 25)
-        }
-        format.json {
-          if params[:updatedafter].present?
-            if !validate_updated_after(params[:updatedafter])
-              params[:updatedafter] = nil
-              render json: {:error => "not-found"}.to_json, :status => 404
-              return
-            end
-          end
-          
-          @tournaments = @tournaments = Tournament.all
-                              .updated_after(params[:updatedafter])
-                              .includes(:tournament_type, :format)
-                              .order(id: :asc)
-          render json: @tournaments.as_json({:only => [:id, :name, :location, :state, :country, :date, :format_id, :version_id, :tournament_type_id, :created_at, :updated_at], :exclude => [:participants]})
-        }
-    end
   end
 
   # GET /tournaments/1
@@ -46,8 +16,7 @@ class TournamentsController < ApplicationController
   def show
     respond_to do |format|
       #@tournament = Tournament.where(id:params[:id])
-      format.html
-      format.json { render json: @tournament.as_json({:only => [:id, :name, :location, :state, :country, :date, :format_id, :version_id, :tournament_type_id, :created_at, :updated_at], :include => [:participants, :rounds]})}
+      format.html 
       format.csv { send_data  Tournament.where(id:params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
     end
   end
@@ -106,12 +75,6 @@ class TournamentsController < ApplicationController
 
   private
 
-  def validate_updated_after (updated_after)
-    p updated_after
-    d = Chronic.parse(updated_after)
-    return true if d.present?
-    return false
-  end
   # Use callbacks to share common setup or constraints between actions.
   def set_tournament
     @tournament = Tournament.find(params[:id])

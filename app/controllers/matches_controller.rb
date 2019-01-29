@@ -10,15 +10,22 @@ class MatchesController < ApplicationController
   # GET /matches/1
   # GET /matches/1.json
   def show
+    @match = Match.find_by(params[:id])
+    
   end
 
-  # GET /matches/new
-  def new
-    @match = Match.new
+  def index
+    @matches = Match.all.paginate(page: params[:page], per_page: 25)
   end
 
-  # GET /matches/1/edit
-  def edit
+  # GET /tournaments/1
+  # GET /tournaments/1.json
+  def show
+    respond_to do |format|
+      #@match = Match.where(id:params[:id])
+      format.html 
+      format.csv { send_data  Tournament.where(id:params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
+    end
   end
 
   # POST /matches
@@ -77,12 +84,20 @@ class MatchesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_match
       @match = Match.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+      # handle not found error
+      rescue ActiveRecord::ActiveRecordError
+        render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+      # handle other ActiveRecord errors
+      rescue StandardError
+        render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
       params.permit(:id, match:
-      [:player1_id, :player1_points, :player2_id, :player2_points, :result, :round_id, :final_salvo, :final_salvo_winner_id]
+      [:player1_id, :player1_points, :player2_id, :player2_points, :result, :round_id, :winner_id]
     )
     end
 end

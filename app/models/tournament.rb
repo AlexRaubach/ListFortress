@@ -38,7 +38,7 @@ class Tournament < ApplicationRecord
     return if number.zero?
     x = 1
     number.times do |i|
-      Round.new(tournament_id:id, round_number:x).save
+      Round.create(tournament_id:id, round_number:x)
       x=x+1
     end
   end
@@ -47,7 +47,7 @@ class Tournament < ApplicationRecord
     return if number.zero?
 
     number.times do |i|
-      Participant.new(swiss_rank: i + 1, tournament_id: id).save
+      Participant.create(swiss_rank: i + 1, tournament_id: id)
     end
   end
 
@@ -108,13 +108,11 @@ class Tournament < ApplicationRecord
   end
 
   def create_round_from_json(round_hash)
-    round = Round.new(
+    round = Round.create(
       tournament_id: id,
       roundtype_id: Roundtype.find_by(name:round_hash['round-type']).id,
       round_number: round_hash['round-number']
     )
-
-    round.save
 
     matches_array = round_hash.dig('matches')
     puts matches_array
@@ -127,20 +125,26 @@ class Tournament < ApplicationRecord
   def create_match_from_json(round_id, match_hash)
     player1 = Participant.find_by(tournament_id:id,name:match_hash['player1'])
     player2 = Participant.find_by(tournament_id:id,name:match_hash['player2'])
-    fswinner = Participant.find_by(tournament_id:id,name:match_hash['winner'])
-    
-    match = Match.new(
+    winner = Participant.find_by(tournament_id:id,name:match_hash['winner'])
+    player1points = match_hash['player1points']
+    player2points = match_hash['player2points']
+    if !winner.present? && player1points.present? && player2points.present?
+      if player1points>player2points
+        winner = player1
+      elsif player2points>player1points
+        winner = player2
+      end
+    end
+
+    match = Match.create(
       round_id: round_id,
       player1_id: player1.present? ? player1.id : nil,
       player1_points: match_hash['player1points'],
       player2_id: player2.present? ? player2.id : nil,
       player2_points: match_hash['player2points'],
       result: match_hash['result'],
-      final_salvo: match_hash['final_salvo'],
-      final_salvo_winner_id: fswinner.present? ? fswinner.id : nil
+      winner_id: winner.present? ? winner.id : nil
     )
-
-    match.save
   end
 
   def participants_from_tabletop(url)
@@ -217,7 +221,7 @@ class Tournament < ApplicationRecord
       partsize = participants.present? ? participants.size : 0
       if partnum > partsize
         (partnum-partsize).times do |i|
-          Participant.new(tournament_id:id).save
+          Participant.create(tournament_id:id)
         end
       end
     end
@@ -227,7 +231,7 @@ class Tournament < ApplicationRecord
       roundsize = rounds.present? ? rounds.size : 0
       if roundnum > roundsize
         (roundnum-roundsize).times do |i|
-          Round.new(tournament_id:id).save
+          Round.create(tournament_id:id)
         end
       end
     end
