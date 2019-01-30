@@ -21,7 +21,7 @@ class Tournament < ApplicationRecord
       # Check for Best Coast Pairings
       match = tabletop_url.match(/bestcoastpairings.com\/r\/([a-zA-Z\d]{8})/)
       if match
-        full_url = "https://www.bestcoastpairings.com/r/" + match[1]
+        full_url = "https://www.bestcoastpairings.com/r/" + match[1] + "?embed=true"
         success = scrape_participants_from_best_coast_pairings(full_url)
       end
     elsif cryodex_json.present?
@@ -201,6 +201,8 @@ class Tournament < ApplicationRecord
     return false unless response.code == 200
 
     doc = Nokogiri::HTML(response.parsed_response)
+    
+    l = doc.css('div.row > div.tight > p > a').map { |link| link['href'] }
 
     doc.css('div.event-list > li').each do |participant_doc|
       Participant.create(
@@ -212,7 +214,64 @@ class Tournament < ApplicationRecord
       )
     end
 
+    if l.present?
+      match = url.match(/bestcoastpairings.com\/r\/([a-zA-Z\d]*)/)
+      rounds = l[0].match(/\/event\/[a-zA-Z\d]*\?.*round=([\d]*)/)
+      
+      if rounds.present?
+        rounds_counter = rounds[1].to_i
+        rounds_counter.times do |i|
+          round_url = "https://www.bestcoastpairings.com/event/" + match[1] + "?round=" + (i+1).to_s + "&embed=true"
+          scrape_rounds_from_best_coast_pairings(round_url,(i+1))
+        end
+      end
+    end
     true
+  end
+
+  def scrape_rounds_from_best_coast_pairings(url,round_number)
+    response = HTTParty.get(url)
+    return false unless response.code == 200
+
+    doc = Nokogiri::HTML(response.parsed_response)
+    
+    round = Round.find_or_create_by(tournament_id:id,round_number:round_number,roundtype_id:1)
+    
+    doc.css('table.newTable > tr').drop(1).each do |match_doc|
+      cells = match_doc.css('td')
+      player1 = cells[0].css('span')[0]&.text
+      player1_points = cells[0].css('span')[2]&.text&.to_i
+      player2 = cells[2].css('span')[0]&.text
+      player2_points = cells[2].css('span')[2]&.text&.to_i
+      
+      match = Match.create(round_id:round.id)
+      player1_obj = Participant.find_by(name:player1)
+      if player1_obj.present?
+        match.player1_id = player1_obj.id
+      end
+
+      match.player1_points = player1_points
+      player2_obj = Participant.find_by(name:player2)
+      if player2_obj.present?
+        match.player2_id = player2_obj.id
+      end
+      match.player2_points = player2_points
+      if player1_points.to_i>player2_points.to_i
+        match.result = "win"
+        match.winner_id = match.player1_id
+      elsif player1_points.to_i<player2_points.to_i
+        match.result = "win"
+        match.winner_id = match.player2_id
+      elsif player1_points.to_i==player2_points.to_i
+        if player2_points.nil?
+          match.result = "bye"
+          match.winner_id = match.player1_id
+        else
+          match.result = "tie"
+        end
+      end
+      match.save!
+    end
   end
 
   def update_from_json(tournament_data)
