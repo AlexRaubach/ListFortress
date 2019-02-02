@@ -7,7 +7,7 @@ class TournamentsController < ApplicationController
   def index
     @tournaments = Tournament.all
                              .includes(:tournament_type, :format)
-                             .order(date: :desc)
+                             .order(date: :desc, id: :desc)
                              .paginate(page: params[:page], per_page: 25)
   end
 
