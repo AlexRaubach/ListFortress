@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_06_202527) do
+ActiveRecord::Schema.define(version: 2019_02_03_012013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,23 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "matches", force: :cascade do |t|
+    t.bigint "player1_id"
+    t.integer "player1_points"
+    t.bigint "player2_id"
+    t.integer "player2_points"
+    t.bigint "round_id"
+    t.string "result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "final_salvo"
+    t.bigint "final_salvo_winner_id"
+    t.index ["final_salvo_winner_id"], name: "index_matches_on_final_salvo_winner_id"
+    t.index ["player1_id"], name: "index_matches_on_player1_id"
+    t.index ["player2_id"], name: "index_matches_on_player2_id"
+    t.index ["round_id"], name: "index_matches_on_round_id"
+  end
+
   create_table "participants", force: :cascade do |t|
     t.integer "tournament_id"
     t.string "name"
@@ -120,6 +137,22 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.string "image"
     t.string "ability"
     t.index ["xws"], name: "index_pilots_on_xws"
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.bigint "roundtype_id"
+    t.integer "round_number"
+    t.bigint "tournament_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["roundtype_id"], name: "index_rounds_on_roundtype_id"
+    t.index ["tournament_id"], name: "index_rounds_on_tournament_id"
+  end
+
+  create_table "roundtypes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "season_seven_surveys", force: :cascade do |t|
@@ -152,7 +185,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.string "name"
     t.integer "ffg"
     t.string "size"
-    t.integer "xws"
+    t.string "xws"
     t.integer "faction_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -214,4 +247,10 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "matches", "participants", column: "final_salvo_winner_id"
+  add_foreign_key "matches", "participants", column: "player1_id"
+  add_foreign_key "matches", "participants", column: "player2_id"
+  add_foreign_key "matches", "rounds"
+  add_foreign_key "rounds", "roundtypes"
+  add_foreign_key "rounds", "tournaments"
 end
