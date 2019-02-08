@@ -11,7 +11,7 @@
 
   <div class="form-group form-row">
     <div class="col-md-2">
-      <%= form.number_field(:participant_number, max: 256, min: 0, required: true, label: 'Number of Players')%>
+      <%= form.number_field(:participant_number, value: @tournament.participants.size, max: 256, min: 0, required: true, label: 'Number of Players')%>
     </div>
     <div class="col-md-5">
       <%= form.collection_select(:format_id, Format.all, :id, :name, label: 'Tournament Format:') %>
@@ -35,10 +35,11 @@
   </div>
 
   <p class='form-group'>
-<%= label_tag('', "You can optionally load player data from Tabletop.TO, Cryodex or Best Coast Pairings. 
-You'll still have to fill out the tournament details in the form above.") %>
+<%= label_tag('', "You can optionally load player and round data from tabletop.to, cryodex, Best Coast Pairings, or manually. 
+You'll still have to fill out the Tournament details in the form above.") %>
   </p>
 
+<p>
   <div class="form-group form-row">
     <div class="col-md-6">
       <%= form.text_field(:tabletop_url, label: 'Optional Tabletop.TO or Best Coast Pairings URL.') %>
@@ -46,13 +47,18 @@ You'll still have to fill out the tournament details in the form above.") %>
     <div class='col-md-6'>
       <%= form.text_area(:cryodex_json, label: 'Optional Cryodex or Tabletop.TO json')%>
     </div>
+    <div class="col-md-2">
+      <%= form.number_field(:round_number, value: @tournament.rounds.size, max: 256, min: 0, label: 'Optional Number of Rounds')%>
+    </div>
   </div>
-
-
+</p>
+<p>
+  <dive class="form-group for row">
   <div class="actions">
     <%= form.submit %>
     <%= link_to 'Back', tournaments_path, {class: 'btn btn-danger'} %>
   </div>
-
+  </div>
+</p>
 
 <% end %>

@@ -1,0 +1,39 @@
+<%= bootstrap_form_for(@match) do |form| %>
+
+
+  <div class="form-group form-row">
+    <div class="col-md-5">
+      <%= form.collection_select(:player1_id, Tournament.find_by(id:Round.find_by(id:@match.round_id).tournament_id).participants, :id, :name, label: 'Player1:', :include_blank => true) %>
+    </div>
+    <div class="col-md-4">
+      <%= form.number_field(:player1_points, label: 'Player 1 points:')%>
+    </div>
+  </div>
+
+  <div class="form-group form-row">
+    <div class="col-md-5">
+      <%= form.collection_select(:player2_id, Tournament.find_by(id:Round.find_by(id:@match.round_id).tournament_id).participants, :id, :name, label: 'Player2:', :include_blank => true) %>
+    </div>
+    <div class="col-md-4">
+      <%= form.number_field(:player2_points, label: 'Player 2 points:')%>
+    </div>
+  </div>
+
+  <div class="form-group form-row">
+    <div class="col-md-4">
+      <%= form.text_field(:result, label: 'Result') %>
+    </div>
+  </div>
+
+
+  <div class="form-group form-row">
+    <div class="col-md-5">
+      <%= form.collection_select(:winner_id, Tournament.find_by(id:Round.find_by(id:@match.round_id).tournament_id).participants, :id, :name, label: 'Winner:', :include_blank => true) %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit('Submit', class: 'btn btn-success') %>
+    <%= link_to 'Back to Round', @match.round, {class: 'btn btn-danger'} %>
+  </div>
+<% end %>

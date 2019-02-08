@@ -56,6 +56,29 @@
 </table>
 <%# link_to 'Edit', edit_tournament_path(@tournament) %>
 <%# link_to 'Back', tournaments_path %>
+
+<% if @tournament.rounds.present? and @tournament.rounds.size > 0 %>
+<table  class="table table-striped">
+  <thead>
+    <tr>
+      <th>Round Number</th>
+      <th>Round Type</th>
+      <th>Matches</th>
+      <th> </th>
+    </tr>
+  </thead>
+
+  <% @tournament.rounds.order(:round_number).each do |round| %>
+    <tr>
+    <td><%=link_to round.round_number, round %></td>
+    <td><%=round.roundtype_id.present? ? Roundtype.find_by(id:round.roundtype_id).name : "" %></td>
+    <td><%=round.matches.size %></td>
+    <td><%= link_to 'Edit', edit_round_path(round) %></td>
+
+    </tr>
+  <% end%>
+</table>
+<% end %>
 <%= link_to "Export to CSV", tournament_path(@tournament.id, format: :csv),  { :class=>"btn btn-primary" }%>
 
   <div style="display: none">

@@ -28,6 +28,7 @@ class ParticipantsController < ApplicationController
 
     respond_to do |format|
       if @participant.save
+        update_parents(@participant)
         format.html { redirect_to @participant, notice: 'Participant was successfully created.' }
         format.json { render :show, status: :created, location: @participant }
       else
@@ -42,6 +43,7 @@ class ParticipantsController < ApplicationController
   def update
     respond_to do |format|
       if @participant.update_with_xws(participant_params['participant'])
+        update_parents(@participant)
         format.html { redirect_to @participant.tournament, notice: 'Participant was successfully updated.' }
         format.json { render :show, status: :ok, location: @participant }
       else
@@ -62,9 +64,24 @@ class ParticipantsController < ApplicationController
   end
 
   private
+    def update_parents(participant)
+      tourney = Tournament.find_by(id:participant.tournament_id)
+      if tourney.present?
+        tourney.touch
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_participant
       @participant = Participant.find(params[:id])
+
+      rescue ActiveRecord::RecordNotFound
+        render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+      # handle not found error
+      rescue ActiveRecord::ActiveRecordError
+        render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+      # handle other ActiveRecord errors
+      rescue StandardError
+        render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

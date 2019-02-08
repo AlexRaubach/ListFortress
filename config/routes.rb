@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :season_seven_surveys
   resources :participants
   resources :tournaments
+  resources :rounds
+  resources :matches
 
   get 'login', to: redirect('/auth/google_oauth2'), as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
@@ -14,6 +16,18 @@ Rails.application.routes.draw do
   get 'league', to: 'league#index'
 
   root to: 'tournaments#index'
+
+  #api
+  namespace :api do
+    namespace :v1 do
+      resources :tournaments, only: [:index, :show] do
+        resources :participants, only: [:show]
+        resources :rounds, only: [:show] do
+          resources :matches, only: [:show]
+        end
+      end
+    end
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
