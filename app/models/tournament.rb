@@ -29,7 +29,7 @@ class Tournament < ApplicationRecord
     end
     # If url or json import can't find any players, create blank ones
     create_empty_squads(participant_number.to_i) unless success
-    puts round_number
+
     # If TTT or Crodex import weren't successful create empty rounds
     create_empty_rounds(round_number.to_i) unless success
   end
@@ -115,9 +115,8 @@ class Tournament < ApplicationRecord
     )
 
     matches_array = round_hash.dig('matches')
-    puts matches_array
+
     matches_array.each do |match_hash|
-      puts match_hash
       create_match_from_json(round.id, match_hash)
     end
   end
