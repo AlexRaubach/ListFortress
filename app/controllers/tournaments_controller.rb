@@ -16,8 +16,8 @@ class TournamentsController < ApplicationController
   def show
     respond_to do |format|
       #@tournament = Tournament.where(id:params[:id])
-      format.html 
-      format.csv { send_data  Tournament.where(id:params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
+      format.html
+      format.csv { send_data Tournament.where(id: params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
     end
   end
 
@@ -79,13 +79,13 @@ class TournamentsController < ApplicationController
   def set_tournament
     @tournament = Tournament.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+      render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
     # handle not found error
     rescue ActiveRecord::ActiveRecordError
-      render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+      render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
     # handle other ActiveRecord errors
     rescue StandardError
-      render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+      render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

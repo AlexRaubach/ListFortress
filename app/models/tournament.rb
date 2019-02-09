@@ -6,7 +6,7 @@ class Tournament < ApplicationRecord
   belongs_to :version, optional: true
   belongs_to :tournament_type
   attr_accessor :participant_number, :tabletop_url, :cryodex_json, :round_number
-  scope :updated_after, -> (update_date) { where!('updated_at > ?', update_date) if update_date.present? }
+  scope :updated_after, ->(update_date) { where!('updated_at > ?', update_date) if update_date.present? }
 
   def create_squads
     success = false
@@ -36,10 +36,9 @@ class Tournament < ApplicationRecord
 
   def create_empty_rounds(number)
     return if number.zero?
-    x = 1
+
     number.times do |i|
-      Round.create(tournament_id:id, round_number:x)
-      x=x+1
+      Round.create(round_number: i + 1, tournament_id: id)
     end
   end
 
@@ -51,7 +50,7 @@ class Tournament < ApplicationRecord
     end
   end
 
-  def serializable_hash(options={})
+  def serializable_hash(options = {})
     super({}.merge(options || {}))
   end
 
@@ -122,20 +121,20 @@ class Tournament < ApplicationRecord
   end
 
   def create_match_from_json(round_id, match_hash)
-    player1 = Participant.find_by(tournament_id:id,name:match_hash['player1'])
-    player2 = Participant.find_by(tournament_id:id,name:match_hash['player2'])
-    winner = Participant.find_by(tournament_id:id,name:match_hash['winner'])
+    player1 = Participant.find_by(tournament_id: id, name: match_hash['player1'])
+    player2 = Participant.find_by(tournament_id: id, name: match_hash['player2'])
+    winner = Participant.find_by(tournament_id: id, name: match_hash['winner'])
     player1points = match_hash['player1points']
     player2points = match_hash['player2points']
     if !winner.present? && player1points.present? && player2points.present?
-      if player1points>player2points
+      if player1points > player2points
         winner = player1
-      elsif player2points>player1points
+      elsif player2points > player1points
         winner = player2
       end
     end
 
-    match = Match.create(
+    Match.create(
       round_id: round_id,
       player1_id: player1.present? ? player1.id : nil,
       player1_points: match_hash['player1points'],
@@ -200,9 +199,6 @@ class Tournament < ApplicationRecord
     return false unless response.code == 200
 
     doc = Nokogiri::HTML(response.parsed_response)
-    
-    l = doc.css('div.row > div.tight > p > a').map { |link| link['href'] }
-
     doc.css('div.event-list > li').each do |participant_doc|
       Participant.create(
         tournament_id: id,
@@ -210,18 +206,19 @@ class Tournament < ApplicationRecord
         score: participant_doc.css('.scoresLabel li')[0]&.text&.to_i,
         mov: participant_doc.css('.scoresLabel li')[2]&.text&.to_i,
         swiss_rank: participant_doc.css('.placing')&.text&.to_i
-      )
-    end
+        )
+      end
 
+    l = doc.css('div.row > div.tight > p > a').map { |link| link['href'] }
     if l.present?
       match = url.match(/bestcoastpairings.com\/r\/([a-zA-Z\d]*)/)
       rounds = l[0].match(/\/event\/[a-zA-Z\d]*\?.*round=([\d]*)/)
-      
+
       if rounds.present?
         rounds_counter = rounds[1].to_i
         rounds_counter.times do |i|
-          round_url = "https://www.bestcoastpairings.com/event/" + match[1] + "?round=" + (i+1).to_s + "&embed=true"
-          scrape_rounds_from_best_coast_pairings(round_url,(i+1))
+          round_url = 'https://www.bestcoastpairings.com/event/' + match[1] + '?round=' + (i + 1).to_s + '&embed=true'
+          scrape_rounds_from_best_coast_pairings(round_url, (i + 1))
         end
       end
     end
@@ -233,18 +230,17 @@ class Tournament < ApplicationRecord
     return false unless response.code == 200
 
     doc = Nokogiri::HTML(response.parsed_response)
-    
-    round = Round.find_or_create_by(tournament_id:id,round_number:round_number,roundtype_id:1)
-    
+    round = Round.find_or_create_by(tournament_id: id, round_number: round_number, roundtype_id: 1)
+
     doc.css('table.newTable > tr').drop(1).each do |match_doc|
       cells = match_doc.css('td')
       player1 = cells[0].css('span')[0]&.text
       player1_points = cells[0].css('span')[2]&.text&.to_i
       player2 = cells[2].css('span')[0]&.text
       player2_points = cells[2].css('span')[2]&.text&.to_i
-      
-      match = Match.create(round_id:round.id)
-      player1_obj = Participant.find_by(name:player1)
+
+      match = Match.create(round_id: round.id)
+      player1_obj = Participant.find_by(name: player1)
       if player1_obj.present?
         match.player1_id = player1_obj.id
       end
@@ -255,18 +251,18 @@ class Tournament < ApplicationRecord
         match.player2_id = player2_obj.id
       end
       match.player2_points = player2_points
-      if player1_points.to_i>player2_points.to_i
-        match.result = "win"
+      if player1_points.to_i > player2_points.to_i
+        match.result = 'win'
         match.winner_id = match.player1_id
-      elsif player1_points.to_i<player2_points.to_i
-        match.result = "win"
+      elsif player1_points.to_i < player2_points.to_i
+        match.result = 'win'
         match.winner_id = match.player2_id
-      elsif player1_points.to_i==player2_points.to_i
+      elsif player1_points.to_i == player2_points.to_i
         if player2_points.nil?
-          match.result = "bye"
+          match.result = 'bye'
           match.winner_id = match.player1_id
         else
-          match.result = "tie"
+          match.result = 'tie'
         end
       end
       match.save!
@@ -278,8 +274,8 @@ class Tournament < ApplicationRecord
       partnum = tournament_data['participant_number'].to_i
       partsize = participants.present? ? participants.size : 0
       if partnum > partsize
-        (partnum-partsize).times do |i|
-          Participant.create(tournament_id:id)
+        (partnum-partsize).times do
+          Participant.create(tournament_id: id)
         end
       end
     end
@@ -288,13 +284,12 @@ class Tournament < ApplicationRecord
       roundnum = tournament_data['round_number'].to_i
       roundsize = rounds.present? ? rounds.size : 0
       if roundnum > roundsize
-        (roundnum-roundsize).times do |i|
-          Round.create(tournament_id:id)
+        (roundnum - roundsize).times do
+          Round.create(tournament_id: id)
         end
       end
     end
 
     update(tournament_data)
   end
-
 end
