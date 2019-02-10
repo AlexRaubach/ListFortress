@@ -1,19 +1,22 @@
 class CreateMatches < ActiveRecord::Migration[5.2]
   def change
     create_table :matches do |t|
-      t.references :player1
+      t.references :player1, polymorphic: true, index: true
       t.integer :player1_points
-      t.references :player2
+      t.column :player1_xws, 'jsonb'
+
+      t.references :player2, polymorphic: true, index: true
       t.integer :player2_points
+      t.column :player2_xws, 'jsonb'
+
       t.references :round, foreign_key: true
-      t.string :result 
-      t.references :winner
-      
+      t.string :result
+      t.references :winner, polymorphic: true, index: true
+      t.string :logfile_url
+      t.integer :match_state
+      t.datetime :scheduled_time
+
       t.timestamps
     end
-
-    add_foreign_key :matches, :participants, column: :player1_id, primary_key: :id
-    add_foreign_key :matches, :participants, column: :player2_id, primary_key: :id
-    add_foreign_key :matches, :participants, column: :winner_id, primary_key: :id
   end
 end
