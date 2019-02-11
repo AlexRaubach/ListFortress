@@ -9,12 +9,15 @@ class CreateMatches < ActiveRecord::Migration[5.2]
       t.integer :player2_points
       t.column :player2_xws, 'jsonb'
 
-      t.references :round, foreign_key: true
-      t.string :result
       t.references :winner, polymorphic: true, index: true
+      t.references :round, foreign_key: true
+
+      t.string :result
       t.string :logfile_url
       t.integer :match_state
       t.datetime :scheduled_time
+      t.boolean :extended
+      t.boolean :locked
 
       t.timestamps
     end

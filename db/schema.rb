@@ -92,20 +92,29 @@ ActiveRecord::Schema.define(version: 2019_02_03_012013) do
   end
 
   create_table "matches", force: :cascade do |t|
+    t.string "player1_type"
     t.bigint "player1_id"
     t.integer "player1_points"
+    t.jsonb "player1_xws"
+    t.string "player2_type"
     t.bigint "player2_id"
     t.integer "player2_points"
+    t.jsonb "player2_xws"
+    t.string "winner_type"
+    t.bigint "winner_id"
     t.bigint "round_id"
     t.string "result"
+    t.string "logfile_url"
+    t.integer "match_state"
+    t.datetime "scheduled_time"
+    t.boolean "extended"
+    t.boolean "locked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "final_salvo"
-    t.bigint "final_salvo_winner_id"
-    t.index ["final_salvo_winner_id"], name: "index_matches_on_final_salvo_winner_id"
-    t.index ["player1_id"], name: "index_matches_on_player1_id"
-    t.index ["player2_id"], name: "index_matches_on_player2_id"
+    t.index ["player1_type", "player1_id"], name: "index_matches_on_player1_type_and_player1_id"
+    t.index ["player2_type", "player2_id"], name: "index_matches_on_player2_type_and_player2_id"
     t.index ["round_id"], name: "index_matches_on_round_id"
+    t.index ["winner_type", "winner_id"], name: "index_matches_on_winner_type_and_winner_id"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -247,9 +256,6 @@ ActiveRecord::Schema.define(version: 2019_02_03_012013) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "matches", "participants", column: "final_salvo_winner_id"
-  add_foreign_key "matches", "participants", column: "player1_id"
-  add_foreign_key "matches", "participants", column: "player2_id"
   add_foreign_key "matches", "rounds"
   add_foreign_key "rounds", "roundtypes"
   add_foreign_key "rounds", "tournaments"
