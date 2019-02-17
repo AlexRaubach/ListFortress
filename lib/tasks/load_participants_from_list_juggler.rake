@@ -1,19 +1,19 @@
 desc 'Load historical tournament data from List Juggler'
 task load_participants_from_lj: :environment do
-
   SEASON_IDS = [2, 3, 5, 6, 7, 8].freeze
+  BASE_URL = 'http://lists.starwarsclubhouse.com/api/v1/vassal_league/'.freeze
 
   SEASON_IDS.each_with_index do |season_number, i|
-    url = 'http://lists.starwarsclubhouse.com/api/v1/vassal_league/' + season_number.to_s 
+    url = BASE_URL + season_number.to_s
     response = HTTParty.get(url)
     return false unless response.code == 200
 
     season_json = response.parsed_response
 
     season = Season.create(
-      active: false, 
-      sign_up_active: false, 
-      locked: true, 
+      active: false,
+      sign_up_active: false,
+      locked: true,
       season_number: i + 1,
       name: season_json['name']
     )
