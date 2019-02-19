@@ -1,5 +1,5 @@
 desc 'Creates a csv with all the data needed to seed S8'
-task generate_season_8_seeding_data: :environment do
+task generate_season_seven_seeding_data: :environment do
   file = "#{Rails.root}/season8.csv"
   CSV.open(file, 'w') do |csv|
     csv << ['id', 'name', 'time_zone_offset', 'desired_start_time', 'adjusted_start_time', 'provisional_tier', 'lj_name', 'wins in last season']
