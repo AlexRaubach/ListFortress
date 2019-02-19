@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'league_participant/show'
+  get 'league_participant/index'
   get 'seasons/index'
   get 'seasons/show'
   resources :season_seven_surveys
