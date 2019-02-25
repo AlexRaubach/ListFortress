@@ -214,15 +214,17 @@ class Tournament < ApplicationRecord
       )
     end
 
-    if l.present?
+    if l.present? && l[0].present?
       match = url.match(/bestcoastpairings.com\/r\/([a-zA-Z\d]*)/)
       rounds = l[0].match(/\/event\/[a-zA-Z\d]*\?.*round=([\d]*)/)
       
       if rounds.present?
-        rounds_counter = rounds[1].to_i
-        rounds_counter.times do |i|
-          round_url = "https://www.bestcoastpairings.com/event/" + match[1] + "?round=" + (i+1).to_s + "&embed=true"
-          scrape_rounds_from_best_coast_pairings(round_url,(i+1))
+        rounds_counter = rounds[1].try(:to_i)
+        if rounds_counter.present?
+          rounds_counter.times do |i|
+            round_url = "https://www.bestcoastpairings.com/event/" + match[1] + "?round=" + (i+1).to_s + "&embed=true"
+            self.try(:scrape_rounds_from_best_coast_pairings,round_url,(i+1))
+          end
         end
       end
     end
