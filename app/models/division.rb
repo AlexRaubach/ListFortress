@@ -7,7 +7,11 @@ class Division < ApplicationRecord
 
     if division_members.length.positive?
       division_members.each do |division_member|
-        Match.create(player1: participant, player2: division_member)
+        Match.create(
+          player1: participant,
+          player2: division_member,
+          league_match: true
+        )
       end
     end
 
