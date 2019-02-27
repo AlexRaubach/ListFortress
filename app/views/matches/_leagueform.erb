@@ -1,0 +1,38 @@
+<%= bootstrap_form_for(@match) do |form| %>
+
+
+  <div class="form-group form-row">
+    <div class="col-md-4">
+      <%= form.number_field(:player1_points, label: 'Player 1 points:')%>
+    </div>
+  </div>
+
+  <div class="form-group form-row">
+    <div class="col-md-4">
+      <%= form.number_field(:player2_points, label: 'Player 2 points:')%>
+    </div>
+  </div>
+
+    <div class="form-group form-row">
+    <div class="col-md-4">
+      <%= form.datetime_select(:scheduled_time, label: 'Scheduled Match Time:')%>
+    </div>
+  </div>
+
+  <div class="form-group form-row">
+    <div class="col-md-5">
+      <%= form.select(
+        :winner_id,
+        [
+          [@match.player1_id, @match&.player1&.user&.display_name ? @match&.player1&.user&.display_name : "Player 1" ],
+          [@match.player2_id, @match&.player2&.user&.display_name ? @match&.player2&.user&.display_name : "Player 2"]
+        ]
+      label: 'Winner:',
+      include_blank: true) %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit('Submit', class: 'btn btn-success') %>
+  </div>
+<% end %>
