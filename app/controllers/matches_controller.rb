@@ -38,12 +38,29 @@ class MatchesController < ApplicationController
   # PATCH/PUT /matches/1.json
   def update
     respond_to do |format|
+      if @match.league
+        if match_params['player1_url_temp']
+          xws = Participant.get_xws_from_url(match_params['player1_url_temp'])
+          if xws.present?
+            @match.player1_url = match_params['player1_url_temp']
+            @match.player1_xws = xws
+          end
+        end
+        if match_params['player2_url_temp']
+          xws = Participant.get_xws_from_url(match_params['player2_url_temp'])
+          if xws.present?
+            @match.player2_url = match_params['player2_url_temp']
+            @match.player2_xws = xws
+          end
+        end
+      end
+
       if @match.update(match_params['match'])
         update_parents(@match)
         format.html { redirect_to @match, notice: 'Match was successfully updated.' }
         format.json { render json: @match.errors, status: :unprocessable_entity }
       else
-        format.html { render :edit }
+        format.html { render :edit, notice: "The record could not be updated" }
         format.json { render json: @match.errors, status: :unprocessable_entity }
       end
     end
@@ -62,12 +79,15 @@ class MatchesController < ApplicationController
   private
 
   def update_parents(match)
+    return if match.round.nil?
+
     round = Round.find_by(id: match.round_id)
-    if round.present?
-      round.touch
-      tourney = Tournament.find_by(id: round.tournament_id)
-      tourney.touch if tourney.present?
-    end
+
+    return if round.blank?
+
+    round.touch
+    tourney = Tournament.find_by(id: round.tournament_id)
+    tourney.touch if tourney.present?
   end
 
   # Use callbacks to share common setup or constraints between actions.
