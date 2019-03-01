@@ -112,7 +112,6 @@ ActiveRecord::Schema.define(version: 2019_02_27_125129) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "promotion"
-    t.integer "league_match"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -135,6 +134,9 @@ ActiveRecord::Schema.define(version: 2019_02_27_125129) do
     t.boolean "locked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "league_match"
+    t.string "player1_url"
+    t.string "player2_url"
     t.index ["player1_type", "player1_id"], name: "index_matches_on_player1_type_and_player1_id"
     t.index ["player2_type", "player2_id"], name: "index_matches_on_player2_type_and_player2_id"
     t.index ["round_id"], name: "index_matches_on_round_id"
