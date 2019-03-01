@@ -10,7 +10,7 @@ task generate_season_seven_matches: :environment do
     ['Jakku', 'Nkllon', 'Csilla',
      'Celwiss', 'Ilum', 'Plunder Moon',
      'Bakura', 'The Redoubt', 'Nirauan',
-     'Lwhekk']
+     'kariek', 'Lwhekk']
     ].freeze
 
   season = Season.create(season_number: 7)
@@ -26,9 +26,27 @@ task generate_season_seven_matches: :environment do
     end
   end
 
-  csv = CSV.parse("#{Rails.root}/public/s7_divisions.csv")
+  csv_text = File.open("#{Rails.root}/public/s7_divisions.csv")
+  csv = CSV.parse(csv_text)
   csv.each do |user_info|
-    
-  end
+    user_id = user_info[0]
+    # name = user_info[1]
+    division_tier = user_info[2]
+    division_letter = user_info[3]
 
+    league_participant = LeagueParticipant.create(user_id: user_id)
+
+    division = Division.find_by(
+      tier: division_tier,
+      letter: division_letter,
+      season_id: season.id
+    )
+
+    if division.nil?
+      puts "Nil division " + division_tier + division_letter
+      next
+    end
+
+    division.add_participant(league_participant)
+  end
 end
