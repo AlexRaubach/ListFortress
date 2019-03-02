@@ -7,6 +7,7 @@ class SeasonSevenSurveysController < ApplicationController
     @season_seven_surveys = SeasonSevenSurvey.all.includes(:user)
   end
 
+=begin
   # GET /season_seven_surveys/1
   # GET /season_seven_surveys/1.json
   def show
@@ -77,6 +78,7 @@ class SeasonSevenSurveysController < ApplicationController
       format.json { head :no_content }
     end
   end
+=end
 
   private
 
