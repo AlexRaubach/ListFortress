@@ -1,6 +1,6 @@
 <div class="container">
   <h1 class="text-center">Edit a Match</h1>
-  <% if @match.league%>
+  <% if @match.league_match%>
     <%= render 'leagueform', participant: @match%>
   <% else %>
     <%= render 'form', participant: @match %>
