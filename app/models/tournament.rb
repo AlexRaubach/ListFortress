@@ -43,7 +43,7 @@ class Tournament < ApplicationRecord
   end
 
   def create_empty_squads(number)
-    return if number.zero?
+    return if number.blank? || number.zero?
 
     number.times do |i|
       Participant.create(swiss_rank: i + 1, tournament_id: id)
