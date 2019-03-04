@@ -1,7 +1,6 @@
 <div class="container">
-<h1>LeagueParticipant#show</h1>
-
-<p></p>
+<% name = @league_participant&.user&.display_name %>
+<h1 class="text-center">Overview for <%= name %></h1>
 
 <table class="table table-striped">
   <thead>
@@ -21,10 +20,10 @@
     <% @matches.each do |match| %>
     <tr>
       <td><%= match.id %></td>
-      <td><%= LeagueParticipant.find(match.player1_id).user.display_name %></td>
+      <td><%= link_to LeagueParticipant.find(match.player1_id).user.display_name, league_participant_path(match.player1_id) %></td>
       <td><%= match.player1_points%></td>
       <td><%= match.player1_xws %></td>
-      <td><%= LeagueParticipant.find(match.player2_id).user.display_name %></td>
+      <td><%= link_to LeagueParticipant.find(match.player2_id).user.display_name, league_participant_path(match.player2_id) %></td>
       <td><%= match.player2_points%></td>
       <td><%= match.player2_xws %></td>
       <td><%= LeagueParticipant.find(match.winner_id).user.display_name if match.winner_id %></td>
