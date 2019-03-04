@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'league_participant/:id', to: 'league_participant#show'
+  get 'league_participant/:id', to: 'league_participant#show', as: 'league_participant'
   get 'seasons/index'
   get 'seasons/show'
   resources :season_seven_surveys
