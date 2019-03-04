@@ -38,7 +38,7 @@ class MatchesController < ApplicationController
   # PATCH/PUT /matches/1.json
   def update
     respond_to do |format|
-      if @match.league
+      if @match.league_match
         if match_params['player1_url_temp']
           xws = Participant.get_xws_from_url(match_params['player1_url_temp'])
           if xws.present?
