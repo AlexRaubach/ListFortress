@@ -39,17 +39,17 @@ class MatchesController < ApplicationController
   def update
     respond_to do |format|
       if @match.league_match
-        if match_params['player1_url_temp']
-          xws = Participant.get_xws_from_url(match_params['player1_url_temp'])
+        if match_params['match']['player1_url_temp']
+          xws = Participant.get_xws_from_url(match_params['match']['player1_url_temp'])
           if xws.present?
-            @match.player1_url = match_params['player1_url_temp']
+            @match.player1_url = match_params['match']['player1_url_temp']
             @match.player1_xws = xws
           end
         end
-        if match_params['player2_url_temp']
-          xws = Participant.get_xws_from_url(match_params['player2_url_temp'])
+        if match_params['match']['player2_url_temp']
+          xws = Participant.get_xws_from_url(match_params['match']['player2_url_temp'])
           if xws.present?
-            @match.player2_url = match_params['player2_url_temp']
+            @match.player2_url = match_params['match']['player2_url_temp']
             @match.player2_xws = xws
           end
         end
@@ -69,10 +69,12 @@ class MatchesController < ApplicationController
   # DELETE /matches/1
   # DELETE /matches/1.json
   def destroy
-    @match.destroy
-    respond_to do |format|
-      format.html { redirect_to matches_url, notice: 'Match was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user&.admin
+      @match.destroy
+      respond_to do |format|
+        format.html { redirect_to matches_url, notice: 'Match was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -106,7 +108,7 @@ class MatchesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def match_params
     params.permit(:id, match:
-    [:player1_id, :player1_points, :player2_id, :player2_points, :result, :round_id, :winner_id]
-  )
+    [:player1_id, :player1_points, :player2_id, :player2_points,
+     :result, :round_id, :winner_id, :player1_url_temp, :player2_url_temp])
   end
 end
