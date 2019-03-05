@@ -1,26 +1,27 @@
 <%= bootstrap_form_for(@match) do |form| %>
 
+  <div class='row'>
+    <div class="form-group col-md-4">
+      <%= form.number_field(:player1_points, label: 'Points earned by Player 1 / ' + @match.player1&.user&.display_name )%>
+    </div>
 
-  <div class="form-group form-row">
-    <div class="col-md-4">
-      <%= form.number_field(:player1_points, label: 'Player 1 points:')%>
+    <div class="form-group col-md-4">
+      <%= form.number_field(:player2_points, label: 'Points earned by Player 2 / ' + @match.player2&.user&.display_name)%>
     </div>
   </div>
-
-  <div class="form-group form-row">
-    <div class="col-md-4">
-      <%= form.number_field(:player2_points, label: 'Player 2 points:')%>
-    </div>
-  </div>
-
-    <div class="form-group form-row">
-    <div class="col-md-4">
       <%# form.datetime_select(:scheduled_time, label: 'Scheduled Match Time:')%>
+
+  <div class="row">
+    <div class="form-group col-md-4">
+      <%= form.text_field(:player1_url_temp, label: 'Player 1 List URL (YASB2/FFG)')%>
+    </div>
+    <div class="form-group col-md-4">
+      <%= form.text_field(:player2_url_temp, label: 'Player 2 List URL (YASB2/FFG)')%>
     </div>
   </div>
 
-  <div class="form-group form-row">
-    <div class="col-md-5">
+  <div class="form-row">
+    <div class="form-group col-md-4">
       <%= form.select(
         :winner_id,
         [
@@ -29,9 +30,12 @@
         ],
       label: 'Winner:', include_blank: true) %>
     </div>
+    <div class="form-group col-md-4">
+      <div class="actions">
+        <%= form.submit('Submit', class: 'btn btn-success') %>
+      </div>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit('Submit', class: 'btn btn-success') %>
-  </div>
+
 <% end %>
