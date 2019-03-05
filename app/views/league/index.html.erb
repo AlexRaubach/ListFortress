@@ -26,12 +26,12 @@ Status: <br>
       '(player1_id = :id AND player1_type = :type) OR (player2_id = :id AND player2_type = :type)',
       id: lp_id, type: 'LeagueParticipant'
     )%>
-<% if matches %>
-    <%matches.each do |match|%>
-        <%= link_to 'Match 1' + match.id.to_s, '/matches/' + match.id.to_s %>
-    <% end %>
+<%# if matches %>
+    <%# matches.each do |match|%>
+        <%# link_to 'Match 1' + match.id.to_s, '/matches/' + match.id.to_s %>
+    <%# end %>
 
-<% end %>
+<%# end %>
 </p>
 
 <section class="latest">
