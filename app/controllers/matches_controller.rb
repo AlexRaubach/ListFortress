@@ -57,7 +57,7 @@ class MatchesController < ApplicationController
 
       if @match.update(match_params['match'])
         update_parents(@match)
-        format.html { redirect_to @match, notice: 'Match was successfully updated.' }
+        format.html { redirect_to league_path, notice: 'Match was successfully updated.' }
         format.json { render json: @match.errors, status: :unprocessable_entity }
       else
         format.html { render :edit, notice: "The record could not be updated" }
