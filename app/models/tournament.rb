@@ -255,14 +255,14 @@ class Tournament < ApplicationRecord
       match.player2_points = player2_points
       if player1_points.to_i > player2_points.to_i
         match.result = 'win'
-        match.winner_id = match.player1_id
+        match.winner = player1_obj
       elsif player1_points.to_i < player2_points.to_i
         match.result = 'win'
-        match.winner_id = match.player2_id
+        match.winner = player2_obj
       elsif player1_points.to_i == player2_points.to_i
         if player2_points.nil?
           match.result = 'bye'
-          match.winner_id = match.player1_id
+          match.winner = player1_obj
         else
           match.result = 'tie'
         end

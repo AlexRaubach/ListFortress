@@ -13,7 +13,7 @@ class MatchesController < ApplicationController
     respond_to do |format|
       # @match = Match.where(id:params[:id])
       format.html
-      format.csv { send_data  Match.where(id: params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
+      format.csv { send_data Match.where(id: params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
     end
   end
 
@@ -39,20 +39,30 @@ class MatchesController < ApplicationController
   def update
     respond_to do |format|
       if @match.league_match
-        if match_params['match']['player1_url_temp']
-          xws = Participant.get_xws_from_url(match_params['match']['player1_url_temp'])
+        url1 = match_params['match']['player1_url_temp']
+        if url1
+          xws = Participant.get_xws_from_url(url1)
           if xws.present?
-            @match.player1_url = match_params['match']['player1_url_temp']
+            @match.player1_url = url1
             @match.player1_xws = xws
           end
         end
-        if match_params['match']['player2_url_temp']
-          xws = Participant.get_xws_from_url(match_params['match']['player2_url_temp'])
+        url2 = match_params['match']['player2_url_temp']
+        if url2
+          xws = Participant.get_xws_from_url(url2)
           if xws.present?
-            @match.player2_url = match_params['match']['player2_url_temp']
+            @match.player2_url = url2
             @match.player2_xws = xws
           end
         end
+        # The form only returns an ID but winners are polymorphic
+        # so we need to set the type.
+        if match_params['match']['winner_id']
+          @match.winner_type = 'LeagueParticipant'
+        end
+      # If it isn't a league match and has a winner, set the type
+      elsif match_params['match']['winner_id']
+        @match.winner_type = 'Participant'
       end
 
       if @match.update(match_params['match'])
