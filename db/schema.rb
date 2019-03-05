@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_06_202527) do
+ActiveRecord::Schema.define(version: 2019_02_27_125129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "addresses", force: :cascade do |t|
     t.integer "league_player_id"
@@ -35,6 +56,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.integer "tier"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "letter"
   end
 
   create_table "factions", force: :cascade do |t|
@@ -89,6 +111,36 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.string "list_juggler_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "promotion"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.string "player1_type"
+    t.bigint "player1_id"
+    t.integer "player1_points"
+    t.jsonb "player1_xws"
+    t.string "player2_type"
+    t.bigint "player2_id"
+    t.integer "player2_points"
+    t.jsonb "player2_xws"
+    t.string "winner_type"
+    t.bigint "winner_id"
+    t.bigint "round_id"
+    t.string "result"
+    t.string "logfile_url"
+    t.integer "match_state"
+    t.datetime "scheduled_time"
+    t.boolean "extended"
+    t.boolean "locked"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "league_match"
+    t.string "player1_url"
+    t.string "player2_url"
+    t.index ["player1_type", "player1_id"], name: "index_matches_on_player1_type_and_player1_id"
+    t.index ["player2_type", "player2_id"], name: "index_matches_on_player2_type_and_player2_id"
+    t.index ["round_id"], name: "index_matches_on_round_id"
+    t.index ["winner_type", "winner_id"], name: "index_matches_on_winner_type_and_winner_id"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -122,6 +174,22 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.index ["xws"], name: "index_pilots_on_xws"
   end
 
+  create_table "rounds", force: :cascade do |t|
+    t.bigint "roundtype_id"
+    t.integer "round_number"
+    t.bigint "tournament_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["roundtype_id"], name: "index_rounds_on_roundtype_id"
+    t.index ["tournament_id"], name: "index_rounds_on_tournament_id"
+  end
+
+  create_table "roundtypes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "season_seven_surveys", force: :cascade do |t|
     t.integer "user_id"
     t.string "full_name"
@@ -152,7 +220,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.string "name"
     t.integer "ffg"
     t.string "size"
-    t.integer "xws"
+    t.string "xws"
     t.integer "faction_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -214,4 +282,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_202527) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "matches", "rounds"
+  add_foreign_key "rounds", "roundtypes"
+  add_foreign_key "rounds", "tournaments"
 end

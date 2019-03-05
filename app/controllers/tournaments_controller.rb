@@ -1,13 +1,13 @@
 class TournamentsController < ApplicationController
   before_action :set_tournament, only: [:show, :edit, :update, :destroy]
-  #before_action :authenticate, only: [:destroy]
+  # before_action :authenticate, only: [:destroy]
 
   # GET /tournaments
   # GET /tournaments.json
   def index
     @tournaments = Tournament.all
                              .includes(:tournament_type, :format)
-                             .order(date: :desc)
+                             .order(date: :desc, id: :desc)
                              .paginate(page: params[:page], per_page: 25)
   end
 
@@ -16,8 +16,8 @@ class TournamentsController < ApplicationController
   def show
     respond_to do |format|
       #@tournament = Tournament.where(id:params[:id])
-      format.html 
-      format.csv { send_data  Tournament.where(id:params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
+      format.html
+      format.csv { send_data Tournament.where(id: params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
     end
   end
 
@@ -64,7 +64,7 @@ class TournamentsController < ApplicationController
   # DELETE /tournaments/1
   # DELETE /tournaments/1.json
   def destroy
-    if tournament_params['id'] == ENV['admin_id']
+    if current_user&.admin
       @tournament.destroy
       respond_to do |format|
         format.html { redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.' }
@@ -78,14 +78,14 @@ class TournamentsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_tournament
     @tournament = Tournament.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
-    # handle not found error
-    rescue ActiveRecord::ActiveRecordError
-      render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
-    # handle other ActiveRecord errors
-    rescue StandardError
-      render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
+  rescue ActiveRecord::RecordNotFound
+    render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
+  # handle not found error
+  rescue ActiveRecord::ActiveRecordError
+    render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
+  # handle other ActiveRecord errors
+  rescue StandardError
+    render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -10,20 +10,28 @@ Status: <br>
     <% if current_user %>
         <% user = current_user %>
         <%= 'You are logged in as ' + user&.name.to_s  + ' and your display name is ' +user.display_name.to_s %> <br>
-        <%if user.season_seven_survey %>
-            <%= 'You are signed up for season 7!' %>
-            <%= link_to("You can edit your survey here", controller: "season_seven_surveys", action: "edit", id:  user.season_seven_survey.id) %>
-        <%else%>
-            <%= 'You have not signed up for Season 7. Do so here: ' %>
-            <%= link_to 'Register', controller: 'season_seven_surveys', action: 'new' %>
-        <%end%>
-        <br>
-        <%= link_to("You can view all Season 7 signups here", controller: "season_seven_surveys", action: "index")%>
         <br>
         You can always logout by visiting <a href="/logout">here</a>
     <% else%>
         <a href="/auth/slack"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
     <% end%>
+</p>
+
+<p>
+<div><%= link_to 'View all matches at your Season 7 profile page', user&.league_participants&.first %></div>
+<% lp_id = user&.league_participants&.first&.id %>
+<%# Needs to be redone for future seasons %>
+
+<% matches = Match.where(
+      '(player1_id = :id AND player1_type = :type) OR (player2_id = :id AND player2_type = :type)',
+      id: lp_id, type: 'LeagueParticipant'
+    )%>
+<%# if matches %>
+    <%# matches.each do |match|%>
+        <%# link_to 'Match 1' + match.id.to_s, '/matches/' + match.id.to_s %>
+    <%# end %>
+
+<%# end %>
 </p>
 
 <section class="latest">

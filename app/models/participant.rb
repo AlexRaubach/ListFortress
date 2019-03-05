@@ -1,5 +1,8 @@
 class Participant < ApplicationRecord
   belongs_to :tournament, counter_cache: true
+  has_many :matches, as: :player_1
+  has_many :matches, as: :player_2
+  has_many :matches, as: :winner
   attr_accessor :squad_url
 
   def serializable_hash(options={})

@@ -28,12 +28,11 @@
 
   <div class="form-group form-row">
     <div class="col-md-5">
-      <%= form.collection_select(:winner_id, Tournament.find_by(id:Round.find_by(id:@match.round_id).tournament_id).participants, :id, :name, label: 'Winner:', :include_blank => true) %>
+      <%= form.collection_select(:winner_id, Tournament.find_by(id:Round.find_by(id:@match.round_id).tournament_id).participants, :id, :name, label: 'Winner:', include_blank: true) %>
     </div>
   </div>
 
   <div class="actions">
     <%= form.submit('Submit', class: 'btn btn-success') %>
-    <%= link_to 'Back to Round', @match.round, {class: 'btn btn-danger'} %>
   </div>
 <% end %>

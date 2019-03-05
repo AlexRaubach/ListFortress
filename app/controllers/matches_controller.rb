@@ -4,17 +4,6 @@ class MatchesController < ApplicationController
   # GET /matches
   # GET /matches.json
   def index
-    @matches = Match.all
-  end
-
-  # GET /matches/1
-  # GET /matches/1.json
-  def show
-    @match = Match.find_by(params[:id])
-    
-  end
-
-  def index
     @matches = Match.all.paginate(page: params[:page], per_page: 25)
   end
 
@@ -22,9 +11,9 @@ class MatchesController < ApplicationController
   # GET /tournaments/1.json
   def show
     respond_to do |format|
-      #@match = Match.where(id:params[:id])
-      format.html 
-      format.csv { send_data  Tournament.where(id:params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
+      # @match = Match.where(id:params[:id])
+      format.html
+      format.csv { send_data  Match.where(id: params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
     end
   end
 
@@ -49,12 +38,29 @@ class MatchesController < ApplicationController
   # PATCH/PUT /matches/1.json
   def update
     respond_to do |format|
+      if @match.league_match
+        if match_params['match']['player1_url_temp']
+          xws = Participant.get_xws_from_url(match_params['match']['player1_url_temp'])
+          if xws.present?
+            @match.player1_url = match_params['match']['player1_url_temp']
+            @match.player1_xws = xws
+          end
+        end
+        if match_params['match']['player2_url_temp']
+          xws = Participant.get_xws_from_url(match_params['match']['player2_url_temp'])
+          if xws.present?
+            @match.player2_url = match_params['match']['player2_url_temp']
+            @match.player2_xws = xws
+          end
+        end
+      end
+
       if @match.update(match_params['match'])
         update_parents(@match)
-        format.html { redirect_to @match, notice: 'Match was successfully updated.' }
+        format.html { redirect_to league_path, notice: 'Match was successfully updated.' }
         format.json { render json: @match.errors, status: :unprocessable_entity }
       else
-        format.html { render :edit }
+        format.html { render :edit, notice: "The record could not be updated" }
         format.json { render json: @match.errors, status: :unprocessable_entity }
       end
     end
@@ -63,41 +69,46 @@ class MatchesController < ApplicationController
   # DELETE /matches/1
   # DELETE /matches/1.json
   def destroy
-    @match.destroy
-    respond_to do |format|
-      format.html { redirect_to matches_url, notice: 'Match was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user&.admin
+      @match.destroy
+      respond_to do |format|
+        format.html { redirect_to matches_url, notice: 'Match was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
   private
-    def update_parents(match)
-      round = Round.find_by(id:match.round_id)
-        if round.present?
-          round.touch
-          tourney = Tournament.find_by(id:round.tournament_id)
-          if tourney.present?
-            tourney.touch
-          end
-        end
-    end
-    # Use callbacks to share common setup or constraints between actions.
-    def set_match
-      @match = Match.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
-      # handle not found error
-      rescue ActiveRecord::ActiveRecordError
-        render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
-      # handle other ActiveRecord errors
-      rescue StandardError
-        render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => false)
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def match_params
-      params.permit(:id, match:
-      [:player1_id, :player1_points, :player2_id, :player2_points, :result, :round_id, :winner_id]
-    )
-    end
+  def update_parents(match)
+    return if match.round.nil?
+
+    round = Round.find_by(id: match.round_id)
+
+    return if round.blank?
+
+    round.touch
+    tourney = Tournament.find_by(id: round.tournament_id)
+    tourney.touch if tourney.present?
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_match
+    @match = Match.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
+    # handle not found error
+  rescue ActiveRecord::ActiveRecordError
+    render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
+    # handle other ActiveRecord errors
+  rescue StandardError
+    render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def match_params
+    params.permit(:id, match:
+    [:player1_id, :player1_points, :player2_id, :player2_points,
+     :result, :round_id, :winner_id, :player1_url_temp, :player2_url_temp])
+  end
 end
