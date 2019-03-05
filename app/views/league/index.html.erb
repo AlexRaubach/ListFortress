@@ -18,8 +18,14 @@ Status: <br>
 </p>
 
 <p>
+<div><%= link_to 'View all matches at your Season 7 profile page', user&.league_participants&.first %></div>
 <% lp_id = user&.league_participants&.first&.id %>
-<% matches = Match.where("player1_id = ? or player2_id = ?", lp_id, lp_id)%>
+<%# Needs to be redone for future seasons %>
+
+<% matches = Match.where(
+      '(player1_id = :id AND player1_type = :type) OR (player2_id = :id AND player2_type = :type)',
+      id: lp_id, type: 'LeagueParticipant'
+    )%>
 <% if matches %>
     <%matches.each do |match|%>
         <%= link_to 'Match 1' + match.id.to_s, '/matches/' + match.id.to_s %>
