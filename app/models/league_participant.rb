@@ -1,8 +1,12 @@
 class LeagueParticipant < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :division, optional: true
-  has_many :matches, as: :player_1
-  has_many :matches, as: :player_2
-  has_many :matches, as: :winner
+  has_many :wins, as: :winner, class_name: 'Match'
 
+  def matches
+    Match.where(
+      '(player1_id = :id AND player1_type = :type) OR (player2_id = :id AND player2_type = :type)',
+      id: id, type: 'LeagueParticipant'
+    )
+  end
 end
