@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   get 'league_participant/:id', to: 'league_participant#show', as: 'league_participant'
-  get 'seasons/index'
-  get 'seasons/show'
+  resources :seasons, only: [:show, :index]
   resources :season_seven_surveys
   resources :participants
   resources :tournaments
@@ -15,12 +14,11 @@ Rails.application.routes.draw do
   get 'home', to: 'home#show'
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match '/logout', to: 'sessions#destroy', via: [:get, :post]
-  
   get 'league', to: 'league#index'
 
   root to: 'tournaments#index'
 
-  #api
+  # api
   namespace :api do
     namespace :v1 do
       resources :tournaments, only: [:index, :show] do
