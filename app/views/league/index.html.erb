@@ -4,7 +4,6 @@
 <h1> League Home Page </h1>
 
 
-
 <p>
 Status: <br>
     <% if current_user %>
@@ -12,26 +11,14 @@ Status: <br>
         <%= 'You are logged in as ' + user&.name.to_s  + ' and your display name is ' +user.display_name.to_s %> <br>
         <br>
         You can always logout by visiting <a href="/logout">here</a>
+        <p>
+        <% if user&.league_participants&.first %>
+            <div><%= link_to 'View all matches at your Season 7 profile page', user&.league_participants&.first %></div>
+        <% end %>
+        </p>
     <% else%>
         <a href="/auth/slack"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
     <% end%>
-</p>
-
-<p>
-<div><%= link_to 'View all matches at your Season 7 profile page', user&.league_participants&.first %></div>
-<% lp_id = user&.league_participants&.first&.id %>
-<%# Needs to be redone for future seasons %>
-
-<% matches = Match.where(
-      '(player1_id = :id AND player1_type = :type) OR (player2_id = :id AND player2_type = :type)',
-      id: lp_id, type: 'LeagueParticipant'
-    )%>
-<%# if matches %>
-    <%# matches.each do |match|%>
-        <%# link_to 'Match 1' + match.id.to_s, '/matches/' + match.id.to_s %>
-    <%# end %>
-
-<%# end %>
 </p>
 
 <section class="latest">
