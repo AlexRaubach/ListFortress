@@ -1,2 +1,13 @@
-<h1>Seasons#show</h1>
-<p>Find me in app/views/seasons/show.html.erb</p>
+<div class="container">
+  <h1>Overview for Season <%= @season.season_number %></h1>
+
+  <table  class="table table-striped">
+    <% @season.divisions.each do |division| %>
+      <tr>
+        <td><%= division.letter %></td>
+        <td><%= division.tier %></td>
+        <td><%= link_to division.name, division_path(division) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
