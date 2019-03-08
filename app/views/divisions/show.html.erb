@@ -1,0 +1,25 @@
+<div>
+
+Test
+
+<table class="table">
+  <tr>
+    <th>Divisional Rank</th>
+    <th>Player Name</th>
+    <th>Wins</th>
+    <th>MoV</th>
+  <tr>
+
+  <% @division.league_participants.each do |participant| %>
+    <tr>
+      <td></td>
+      <td><%= participant.user ? participant.user&.display_name : participant.list_juggler_name  %></td>
+      <td><%= participant.score %></td>
+      <td><%= participant.mov %></td>
+
+    <tr>
+
+  <% end %>
+</table>
+
+</div>
