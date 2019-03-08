@@ -9,4 +9,12 @@ class LeagueParticipant < ApplicationRecord
       id: id, type: 'LeagueParticipant'
     )
   end
+
+  def name
+    return user.display_name if user
+
+    return list_juggler_name if list_juggler_name
+
+    id.to_s
+  end
 end
