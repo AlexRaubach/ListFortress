@@ -1,4 +1,4 @@
-<div class="container">
+<div class="fluid-container">
 <% name = @league_participant&.user&.display_name %>
 <h1 class="text-center">Overview for <%= name %></h1>
 
@@ -22,10 +22,22 @@
       <td><%= match.id %></td>
       <td><%= link_to LeagueParticipant.find(match.player1_id).user.display_name, league_participant_path(match.player1_id) %></td>
       <td><%= match.player1_points%></td>
-      <td><%= 'Squad Present' if match.player1_xws.present? %></td>
+      <td>
+      <% if match.player1_xws.present? %>
+        <% XWS.formatted_list(match.player1_xws).each do |line| %>
+          <%= line %> <br>
+        <% end %>
+      <% end %>
+      </td>
       <td><%= link_to LeagueParticipant.find(match.player2_id).user.display_name, league_participant_path(match.player2_id) %></td>
       <td><%= match.player2_points%></td>
-      <td><%= 'Squad present' if match.player2_xws.present? %></td>
+      <td>
+      <%  if match.player2_xws.present? %>
+        <% XWS.formatted_list(match.player2_xws).each do |line| %>
+          <%= line %> <br>
+        <% end%>
+      <% end %>
+      </td>
       <td><%= LeagueParticipant.find(match.winner_id).user.display_name if match.winner_id %></td>
       <td><%= link_to('Edit', edit_match_path(match)) %></td>
     </tr>
