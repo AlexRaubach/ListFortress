@@ -45,9 +45,11 @@
     <td><%=participant.mov %></td>
     <td><%=participant.sos %></td>
     <td>
-      <% participant.formatted_list.each do |line| %>
+    <% if participant.list_json %>
+      <% XWS.formatted_list(participant.list_json).each do |line| %>
         <%= line %> <br>
       <% end %>
+    <% end %>
     </td>
     <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
 
