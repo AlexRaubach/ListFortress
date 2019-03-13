@@ -1,6 +1,7 @@
 class LeagueParticipant < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :division, optional: true
+  has_one :season, through: :division
   has_many :wins, as: :winner, class_name: 'Match'
 
   def matches
