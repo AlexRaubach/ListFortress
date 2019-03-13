@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'home', to: 'home#show'
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match '/logout', to: 'sessions#destroy', via: [:get, :post]
+  get 'league/interdivisional', to: 'league#interdivisional'
   get 'league', to: 'league#index'
 
   root to: 'tournaments#index'
