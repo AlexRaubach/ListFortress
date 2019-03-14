@@ -3,12 +3,12 @@
 <h1>Create an Interdivisional Match</h1>
 
 
-<% if current_user && current_user.league_participants.first %>
-  <% current_league_participant = current_user.league_participants.first %>
-  <% participants = LeagueParticipant
-  .joins(:division, :season)
-  .where("divisions.season_id = ? AND divisions.tier = ? AND divisions.id != ?", 
-  current_league_participant.season.id, current_league_participant.division.tier, current_league_participant.division.id) %>
+<% if @participants.present? %>
+
+  <%= bootstrap_form_tag url: '/league/interdivisional' do |f| %>
+    <%= f.select :player2_id, @participants.collect{|p| [p.user.display_name, p.id]} %>
+    <%= f.submit %>
+  <% end %>
 
 <% else %>
   <h3><%="You must be signed in and enrolled in the latest league to create a match."%></h3>
