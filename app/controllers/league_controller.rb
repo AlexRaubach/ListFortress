@@ -15,15 +15,17 @@ class LeagueController < ApplicationController
                         current_user.league_participants.first.division.tier,
                         current_user.league_participants.first.division.id
                       )
+                      .order('users.display_name asc')
     end
   end
 
   def create_interdivisional
     match = Match.new(
-                      leage_match: true,
-                      player1: current_user,
-                      player2: LeagueParticipant.find(params['player2_id'])
-                    )
+      league_match: true,
+      player1: current_user.league_participants.first,
+      player2: LeagueParticipant.find(params['player2_id'])
+    )
+
     respond_to do |format|
       if match.save
         format.html { redirect_to '/league', notice: 'Interdivisional Match was successfully created.' }
@@ -32,5 +34,4 @@ class LeagueController < ApplicationController
       end
     end
   end
-
 end
