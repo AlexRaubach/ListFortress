@@ -8,16 +8,13 @@ Contributions are welcome. Feel free to make a pull request or send me a message
 
 # Setup 
 
-You should have Ruby 2.4.4 installed and Postgres.
+You should have Ruby 2.4.5 installed and Postgres.
 
-* Fork and download the repo `git clone --recurse-submodules ...`
+* Fork and download the repo `git clone --recurse-submodules ` + the repo url
 
 * Check that the submodule files are present. If you didn't use `--recurse-submodules` then run `git submodule init` + ` git submodule update`
 
-* Create ./config/application.yml file with the following secrets for your Postgres install.
-
-  * db_username: user
-  * db_password: password
+* Create an config file at ./config/application.yml to hold your secrets. A sample file can be found at ./config/application_sample.yml
 
 * Install the required gems `bundle install`
 
