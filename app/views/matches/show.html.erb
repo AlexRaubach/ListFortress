@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_match_path(@match) %> |
+<%= link_to('Player 1', @match.player1) + '   |   ' + link_to('Player 2', @match.player2) %>
+
+<br>
+<%= link_to 'Edit', edit_match_path(@match) %> 
 
