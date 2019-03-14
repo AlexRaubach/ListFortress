@@ -28,7 +28,7 @@ class LeagueController < ApplicationController
 
     respond_to do |format|
       if match.save
-        format.html { redirect_to '/league', notice: 'Interdivisional Match was successfully created.' }
+        format.html { redirect_to match.player1, notice: 'Interdivisional Match was successfully created.' }
       else
         format.html { render :interdivisional, notice: 'Match could not be saved' }
       end
