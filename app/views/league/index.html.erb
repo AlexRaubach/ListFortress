@@ -14,6 +14,7 @@ Status: <br>
         <p>
         <% if user&.league_participants&.first %>
             <div><%= link_to 'View all matches at your Season 7 profile page', user&.league_participants&.first %></div>
+            <div><%= link_to 'You can now create interdivisional matches', league_interdivisional_path %></div>
         <% end %>
         </p>
     <% else%>
