@@ -40,7 +40,7 @@ class MatchesController < ApplicationController
     respond_to do |format|
       if @match.league_match
         url1 = match_params['match']['player1_url_temp']
-        if url1
+        if url1.present?
           xws = Participant.get_xws_from_url(url1)
           if xws.present?
             @match.player1_url = url1
@@ -48,7 +48,7 @@ class MatchesController < ApplicationController
           end
         end
         url2 = match_params['match']['player2_url_temp']
-        if url2
+        if url2.present?
           xws = Participant.get_xws_from_url(url2)
           if xws.present?
             @match.player2_url = url2
