@@ -5,15 +5,15 @@
 <p> 
 You can play interdivisional games if you have trouble scheduling games with the members of your division. <br>
 You can only schedule games with players of other divisions that are in the same tier. <br>
-To schedule a game, please join your tier’s channel in slack e.g. #4_outerrim and post your request or find an active player in your tier and send a dm.
+To find a game, please join your tier’s channel in slack e.g. #4_outerrim and post your request or find an active player in your tier and send a dm.
 Please schedule the game before using this form to create the match.
 </p>
-
+<br>
 
 <% if @participants.present? %>
 
   <%= bootstrap_form_tag url: '/league/interdivisional' do |f| %>
-    <%= f.select :player2_id, @participants.collect{|p| [p.user.display_name, p.id]} %>
+    <%= f.select :player2_id, @participants.collect{|p| [p.user.display_name, p.id]}, label: 'Opponent:' %>
     <%= f.submit %>
   <% end %>
 
