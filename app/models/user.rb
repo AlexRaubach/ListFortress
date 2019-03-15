@@ -8,6 +8,15 @@ class User < ApplicationRecord
     find_by(uid: auth['uid'], provider: auth['provider'])
   end
 
+  # TODO handle future seasons better
+  def current_league_participant
+    LeagueParticipant
+      .joins(:season)
+      .where('user_id = ? AND seasons.season_number = ?', id, 7)
+      .limit(1)
+      .order(:created_at)
+  end
+
   def self.create_with_omniauth(auth)
     user = User.create(
       name: auth&.info&.name,
