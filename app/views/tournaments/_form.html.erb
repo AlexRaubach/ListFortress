@@ -2,7 +2,7 @@
 
   <div class="form-group form-row">
     <div class="col-md-3">
-      <%= form.date_field(:date, value: Date.today, label: 'Tournament Date')%>
+      <%= form.date_field(:date, label: 'Tournament Date', required: true)%>
     </div>
     <div class="col-md-9">
       <%= form.text_field(:name, required: true, label: 'Tournament Name')%>
