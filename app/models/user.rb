@@ -3,18 +3,17 @@ class User < ApplicationRecord
   has_many :league_participants
   has_one :season_seven_survey
 
-
   def self.find_with_omniauth(auth)
     find_by(uid: auth['uid'], provider: auth['provider'])
   end
 
-  # TODO handle future seasons better
+  # TODO: handle future seasons better
   def current_league_participant
     LeagueParticipant
       .joins(:season)
       .where('user_id = ? AND seasons.season_number = ?', id, 7)
-      .limit(1)
       .order(:created_at)
+      .first
   end
 
   def self.create_with_omniauth(auth)
