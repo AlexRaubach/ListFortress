@@ -3,7 +3,7 @@ class LeagueController < ApplicationController
   end
 
   def interdivisional
-    if current_user&.league_participants&.first
+    if current_user&.current_league_participant
       @participants = LeagueParticipant
                       .joins(:division, :season)
                       .includes(:user)
@@ -11,9 +11,9 @@ class LeagueController < ApplicationController
                         'divisions.season_id = ?
                         AND divisions.tier = ?
                         AND divisions.id != ?',
-                        current_user.league_participants.first.season.id,
-                        current_user.league_participants.first.division.tier,
-                        current_user.league_participants.first.division.id
+                        current_user.current_league_participant.season.id,
+                        current_user.current_league_participant.division.tier,
+                        current_user.current_league_participant.division.id
                       )
                       .order('users.display_name asc')
     end
@@ -22,12 +22,13 @@ class LeagueController < ApplicationController
   def create_interdivisional
     match = Match.new(
       league_match: true,
-      player1: current_user.league_participants.first,
+      player1: current_user.current_league_participant,
       player2: LeagueParticipant.find(params['player2_id'])
     )
 
     respond_to do |format|
-      if match.save
+      # check for a current user to prevent saving a match with only one user due to log out after loading ID page
+      if current_user.current_league_participant.present? && match.save
         format.html { redirect_to match.player1, notice: 'Interdivisional Match was successfully created.' }
       else
         format.html { render :interdivisional, notice: 'Match could not be saved' }
