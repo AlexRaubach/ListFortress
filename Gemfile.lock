@@ -80,6 +80,7 @@ GEM
     chromedriver-helper (2.1.0)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
+    closure-compiler (1.1.14)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -236,7 +237,7 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2018.9)
       tzinfo (>= 1.0.0)
-    uglifier (4.1.18)
+    uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
     unicode_utils (1.4.0)
     web-console (3.7.0)
@@ -264,6 +265,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   chromedriver-helper
+  closure-compiler
   coffee-rails (~> 4.2)
   country_select
   duktape
@@ -281,7 +283,7 @@ DEPENDENCIES
   selenium-webdriver
   turbolinks (~> 5)
   tzinfo-data
-  uglifier (= 4.1.18)
+  uglifier (= 3.2.0)
   web-console (>= 3.3.0)
   will_paginate (~> 3.1.0)
   will_paginate-bootstrap4
