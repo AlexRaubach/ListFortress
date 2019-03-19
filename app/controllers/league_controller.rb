@@ -22,13 +22,13 @@ class LeagueController < ApplicationController
   def create_interdivisional
     match = Match.new(
       league_match: true,
-      player1: current_user.current_league_participant,
+      player1: current_user&.current_league_participant,
       player2: LeagueParticipant.find(params['player2_id'])
     )
 
     respond_to do |format|
       # check for a current user to prevent saving a match with only one user due to log out after loading ID page
-      if current_user.current_league_participant.present? && match.save
+      if current_user&.current_league_participant&.present? && match.save
         format.html { redirect_to match.player1, notice: 'Interdivisional Match was successfully created.' }
       else
         format.html { render :interdivisional, notice: 'Match could not be saved' }
