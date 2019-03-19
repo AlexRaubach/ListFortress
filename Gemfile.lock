@@ -236,7 +236,7 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2018.9)
       tzinfo (>= 1.0.0)
-    uglifier (4.1.19)
+    uglifier (4.1.18)
       execjs (>= 0.3.0, < 3)
     unicode_utils (1.4.0)
     web-console (3.7.0)
@@ -281,7 +281,7 @@ DEPENDENCIES
   selenium-webdriver
   turbolinks (~> 5)
   tzinfo-data
-  uglifier (= 4.1.19)
+  uglifier (= 4.1.18)
   web-console (>= 3.3.0)
   will_paginate (~> 3.1.0)
   will_paginate-bootstrap4
