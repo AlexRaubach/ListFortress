@@ -1,26 +1,27 @@
 <div class='container'>
 
-<h1>
+<h1 class="text-center">
 Overview for <%= @division.name %>
 </h1>
 
+<br>
 
-
-<table class="table">
+<table class="table table-striped">
   <tr>
-    <%# <th>Divisional Rank</th> %>
+    <th>Divisional Rank</th>
     <th>Player Name</th>
     <th>Wins</th>
     <th>MoV</th>
-  <tr>
+  </tr>
 
-  <% @division.league_participants.each do |participant| %>
+  <% @players.each_with_index do |participant, index| %>
     <tr>
       <%# @display_name = participant.user ? participant.user&.display_name : participant.list_juggler_name %>
+      <td><%= index + 1 %> </td>
       <td><%= link_to(participant.name, league_participant_path(participant)) %></td>
       <td><%= participant.score ? participant.score : '?' %></td>
       <td><%= participant.mov ? participant.mov : '?' %></td>
-    <tr>
+    </tr>
 
   <% end %>
 </table>
