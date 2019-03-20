@@ -15,13 +15,14 @@ task calculate_S7_scores: :environment do
                 .order(:updated_at)
                 .limit(maximum_matches)
                 .where(
-                  '(player1_id = :id AND player1_type = :type)
-                  OR (player2_id = :id AND player2_type = :type)',
+                  'winner_id is not null and
+                   ((player1_id = :id AND player1_type = :type)
+                   OR (player2_id = :id AND player2_type = :type))',
                   id: player.id, type: 'LeagueParticipant'
                 )
 
       matches.each do |match|
-        score += 1 if match.winner == player
+        score += 1 if match.winner_id == player.id
 
         next if match.player1_points.nil? || match.player2_points.nil?
 
