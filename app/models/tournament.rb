@@ -244,13 +244,13 @@ class Tournament < ApplicationRecord
       match = Match.create(round_id: round.id)
       player1_obj = Participant.find_by(name: player1)
       if player1_obj.present?
-        match.player1_id = player1_obj.id
+        match.player1 = player1_obj
       end
 
       match.player1_points = player1_points
       player2_obj = Participant.find_by(name:player2)
       if player2_obj.present?
-        match.player2_id = player2_obj.id
+        match.player2 = player2_obj
       end
       match.player2_points = player2_points
       if player1_points.to_i > player2_points.to_i
