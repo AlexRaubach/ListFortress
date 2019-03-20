@@ -1,10 +1,11 @@
 desc 'Update all S7 League Participant Scores and MoV'
-task generate_season_seven_matches: :environment do
+task calculate_S7_scores: :environment do
   season_seven = Season.find_by(season_number: 7)
 
   season_seven.divisions.each do |division|
     # Coruscant players should play 2 additional games
     maximum_matches = division.tier == 1 ? 10 : 8
+    puts 'Calculating scores for division ' + division.name
 
     division.league_participants.each do |player|
       mov = 0
