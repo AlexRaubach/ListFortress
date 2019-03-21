@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'league_participant/:id', to: 'league_participant#show', as: 'league_participant'
-  resources :seasons, only: [:show, :index]
+  resources :seasons, only: [:index, :show], param: :season_number
   resources :divisions, only: [:show]
   resources :season_seven_surveys
   resources :participants
