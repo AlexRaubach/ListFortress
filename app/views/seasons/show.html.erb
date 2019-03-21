@@ -10,4 +10,11 @@
       </tr>
     <% end %>
   </table>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to 'Seasons', seasons_path %></li>
+      <li class="breadcrumb-item active" aria-current="page">Season <%= @season.season_number %> </li>
+    </ol>
+  </nav>
 </div>

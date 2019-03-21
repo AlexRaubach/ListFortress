@@ -1,11 +1,19 @@
 <div class='container'>
-<h1>All Seasons</h1>
-<table  class="table table-striped">
-<% @seasons.each do |season| %>
-  <tr>
-    <td><%= season.season_number%></td>
-    <td><%= link_to  season.name, season_path(season) %><td>
-  </tr>
-<% end %>
-</table>
+  <h1>All Seasons</h1>
+
+  <table  class="table table-striped">
+    <% @seasons.each do |season| %>
+      <tr>
+        <td><%= season.season_number%></td>
+        <td><%= link_to  season.name, season_path(season) %><td>
+      </tr>
+    <% end %>
+  </table>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Seasons </li>
+    </ol>
+  </nav>
+
 </div>
