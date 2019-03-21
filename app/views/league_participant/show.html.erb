@@ -45,6 +45,14 @@
   </tbody>
 </table>
 
-  <%= link_to 'Back to Division', division_path(@league_participant.division_id) %> |
-  <%= link_to 'Back to Season', season_path(@league_participant.division.season_id) %>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to 'Seasons', seasons_path %></li>
+      <li class="breadcrumb-item"><%= link_to 'Season ' + @league_participant&.division&.season&.season_number&.to_s, 
+        season_path(@league_participant&.division&.season) %></li>
+      <li class="breadcrumb-item"><%= link_to @league_participant&.division&.name + ' Division', @league_participant&.division %></li>
+      <li class="breadcrumb-item active" aria-current="page">League Participant <%= name %></li>
+    </ol>
+  </nav>
+
 </div>
