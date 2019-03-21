@@ -4,9 +4,13 @@
 <h1> League Home Page </h1>
 
 
+<div>
+    <%= link_to 'You can browse the current season here', season_path(season_number: 7) %>
+</div>
+
 <p>
-Status: <br>
     <% if current_user %>
+        Status: <br>
         <% user = current_user %>
         <%= 'You are logged in as ' + user&.name.to_s  + ' and your display name is ' +user.display_name.to_s %> <br>
         <br>
