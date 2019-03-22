@@ -13,6 +13,7 @@
       <th>Player 2 Points</th>
       <th>Player 2 Squad</th>
       <th>Winner Name</th>
+      <th>Log File</th>
       <th>Edit</th>
     </tr>
   </thead>
@@ -39,6 +40,8 @@
       <% end %>
       </td>
       <td><%= LeagueParticipant.find(match.winner_id).name if match.winner_id %></td>
+      <td>
+      <%= rails_blob_path(match.log_file, disposition: "attachment") if match.log_file.attached? %></td>
       <td><%= link_to('Edit', edit_match_path(match)) %></td>
     </tr>
     <% end %>
