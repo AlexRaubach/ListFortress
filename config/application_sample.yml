@@ -10,13 +10,19 @@
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 
-
-google_client_id: ''
-gooogle_client_secret: ''
-
 db_username: ''
 db_password: ''
 
+# Used for user auth for the league
 slack_client_id: ''
 slack_client_secret: ''
 slack_signing_secret: ''
+
+#currently unused but could be an alternitive auth provider
+google_client_id: ''
+gooogle_client_secret: ''
+
+# used for league log file storage
+aws_access_key_id: ''
+aws_secret_access_key: ''
+aws_bucket: ''
