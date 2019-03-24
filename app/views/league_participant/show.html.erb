@@ -41,7 +41,7 @@
       </td>
       <td><%= LeagueParticipant.find(match.winner_id).name if match.winner_id %></td>
       <td>
-      <%= rails_blob_path(match.log_file, disposition: "attachment") if match.log_file.attached? %></td>
+      <%= link_to( 'Log file', rails_blob_path(match.log_file, disposition: "attachment")) if match.log_file.attached? %></td>
       <td><%= link_to('Edit', edit_match_path(match)) %></td>
     </tr>
     <% end %>
