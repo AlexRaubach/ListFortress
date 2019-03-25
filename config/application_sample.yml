@@ -22,7 +22,8 @@ slack_signing_secret: ''
 google_client_id: ''
 gooogle_client_secret: ''
 
-# used for league log file storage
+# used for league log file storage via ActiveStorage
 aws_access_key_id: ''
 aws_secret_access_key: ''
 aws_bucket: ''
+aws_region: ''
