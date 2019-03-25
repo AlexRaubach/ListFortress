@@ -1,7 +1,7 @@
 class LeagueParticipantController < ApplicationController
   def show
     @league_participant = LeagueParticipant.find(params[:id])
-    @matches = @league_participant.matches.order(id: :asc)
+    @matches = @league_participant.matches.order(id: :asc).with_attached_log_file
   end
 
   private
