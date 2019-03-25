@@ -57,11 +57,11 @@ class MatchesController < ApplicationController
         end
         # The form only returns an ID but winners are polymorphic
         # so we need to set the type.
-        if match_params['match']['winner_id']
+        if match_params['match']['winner_id'].present?
           @match.winner_type = 'LeagueParticipant'
         end
       # If it isn't a league match and has a winner, set the type
-      elsif match_params['match']['winner_id']
+      elsif match_params['match']['winner_id'].present?
         @match.winner_type = 'Participant'
       end
 
@@ -119,6 +119,7 @@ class MatchesController < ApplicationController
   def match_params
     params.permit(:id, match:
     [:player1_id, :player1_points, :player2_id, :player2_points,
-     :result, :round_id, :winner_id, :player1_url_temp, :player2_url_temp])
+     :result, :round_id, :winner_id,
+     :player1_url_temp, :player2_url_temp, :log_file])
   end
 end

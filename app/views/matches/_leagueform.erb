@@ -30,6 +30,9 @@
         ],
       label: 'Winner:', include_blank: true) %>
     </div>
+    <div>
+      <%= form.file_field :log_file, direct_upload: true %>
+    </div>
     <div class="form-group col-md-4">
       <div class="actions">
         <%= form.submit('Submit', class: 'btn btn-success') %>

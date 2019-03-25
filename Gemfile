@@ -56,6 +56,10 @@ gem 'jquery-rails'
 gem "bootstrap_form"
 gem 'sass', '3.6.0'
 
+# Use S3 and Active Storage
+gem "aws-sdk-s3", require: false
+gem "mini_magick"
+
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
