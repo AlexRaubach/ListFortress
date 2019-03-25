@@ -1,7 +1,7 @@
 class Round < ApplicationRecord
   belongs_to :tournament
   has_one :roundtype
-  has_many :matches
+  has_many :matches, dependent: :destroy
   attr_accessor :match_number
 
   def create_matches

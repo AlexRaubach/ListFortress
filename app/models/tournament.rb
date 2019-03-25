@@ -1,7 +1,7 @@
 class Tournament < ApplicationRecord
   require 'csv'
   has_many :participants
-  has_many :rounds
+  has_many :rounds, dependent: :destroy
   belongs_to :format
   belongs_to :version, optional: true
   belongs_to :tournament_type
