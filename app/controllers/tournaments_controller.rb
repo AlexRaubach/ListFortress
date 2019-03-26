@@ -77,7 +77,7 @@ class TournamentsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_tournament
-    @tournament = Tournament.find(params[:id])
+    @tournament = Tournament.includes(rounds: :matches).find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
   # handle not found error
