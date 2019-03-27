@@ -16,8 +16,8 @@
         <br>
         You can always logout by visiting <a href="/logout">here</a>
         <p>
-        <% if user&.league_participants&.first %>
-            <div><%= link_to 'View all matches at your Season 7 profile page', user&.league_participants&.first %></div>
+        <% if user&.current_league_participant %>
+            <div><%= link_to 'View all matches at your Season 7 profile page', user&.current_league_participant %></div>
             <div><%= link_to 'You can now create interdivisional matches', league_interdivisional_path %></div>
         <% end %>
         </p>
