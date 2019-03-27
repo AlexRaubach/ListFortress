@@ -8,7 +8,7 @@ class LeagueParticipant < ApplicationRecord
     Match.where(
       '(player1_id = :id AND player1_type = :type) OR (player2_id = :id AND player2_type = :type)',
       id: id, type: 'LeagueParticipant'
-    ).order(:id)
+    ).includes(:player1, :player2).order(:id)
   end
 
   def name

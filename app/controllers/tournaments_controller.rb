@@ -15,7 +15,6 @@ class TournamentsController < ApplicationController
   # GET /tournaments/1.json
   def show
     respond_to do |format|
-      #@tournament = Tournament.where(id:params[:id])
       format.html
       format.csv { send_data Tournament.where(id: params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
     end

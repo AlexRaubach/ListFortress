@@ -55,7 +55,7 @@ class Tournament < ApplicationRecord
   end
 
   def self.to_csv
-    header = %w{tournamentName type format date playerName squad score mov sos swiss_rank top_cut_rank}
+    header = %w[tournamentName type format date playerName squad score mov sos swiss_rank top_cut_rank]
     CSV.generate(headers: true) do |csv|
       csv << header
 
