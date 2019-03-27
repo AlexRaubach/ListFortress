@@ -11,6 +11,7 @@ Overview for <%= @division.name %>
     <th>Divisional Rank</th>
     <th>Player Name</th>
     <th>Wins</th>
+    <th>Losses</th>
     <th>MoV</th>
   </tr>
 
@@ -20,6 +21,7 @@ Overview for <%= @division.name %>
       <td><%= index + 1 %> </td>
       <td><%= link_to(participant.name, league_participant_path(participant)) %></td>
       <td><%= participant.score ? participant.score : '?' %></td>
+      <td><%= participant.losses ? participant.losses : '?' %></td>
       <td><%= participant.mov ? participant.mov : '?' %></td>
     </tr>
 

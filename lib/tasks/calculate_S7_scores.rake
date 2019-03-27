@@ -40,6 +40,7 @@ task calculate_S7_scores: :environment do
       end
 
       player.score = score
+      player.losses = matches.size - score
       player.mov = mov
       player.save
     end
