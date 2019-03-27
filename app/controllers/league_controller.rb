@@ -16,6 +16,8 @@ class LeagueController < ApplicationController
                         current_user.current_league_participant.division.id
                       )
                       .order('users.display_name asc')
+    else
+      redirect_to league_path, notice: 'You must be signed in and registered for the league to access that page'
     end
   end
 
