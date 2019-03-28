@@ -11,9 +11,11 @@ gem 'pg'
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
+# Use closure-compiler as compressor for JavaScript assets
 gem "closure-compiler"
+
+# Uglifier produced bad JS that resulted in errors in production.
+# gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'duktape'
 # Use CoffeeScript for .coffee assets and views
@@ -62,6 +64,10 @@ gem "mini_magick"
 
 # Use NewRelic for application profiling
 gem "newrelic_rpm"
+
+# Use Dallii and connectionpool for memcached
+gem 'dalli'
+gem 'connection_pool'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
