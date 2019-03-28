@@ -14,6 +14,7 @@ class TournamentsController < ApplicationController
   # GET /tournaments/1
   # GET /tournaments/1.json
   def show
+    @participants = @tournament.participants.order(:swiss_rank)
     respond_to do |format|
       format.html
       format.csv { send_data Tournament.where(id: params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}

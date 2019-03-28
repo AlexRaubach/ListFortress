@@ -5,7 +5,7 @@
     <%= @tournament.name %>
   </h1>
   <p>
-  Player Count: <%= @tournament.participants.size %>
+  Player Count: <%= @participants.size %>
   Type: <%= @tournament.tournament_type&.name %>
   Format: <%= @tournament.format&.name %>
   </p>
@@ -36,7 +36,7 @@
     </tr>
   </thead>
 
-  <% @tournament.participants.order(:swiss_rank).each do |participant| %>
+  <% @participants.each do |participant| %>
     <tr>
     <td><%=participant.swiss_rank %></td>
     <td><%=participant.top_cut_rank %></td>
