@@ -60,6 +60,8 @@ gem 'sass', '3.6.0'
 gem "aws-sdk-s3", require: false
 gem "mini_magick"
 
+# Use NewRelic for application profiling
+gem "newrelic_rpm"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
