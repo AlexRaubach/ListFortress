@@ -65,6 +65,9 @@ gem "mini_magick"
 # Use NewRelic for application profiling
 gem "newrelic_rpm"
 
+# Use Barnes for heroku metrics
+gem "barnes"
+
 # Use Dallii and connectionpool for memcached
 gem 'dalli'
 gem 'connection_pool'
