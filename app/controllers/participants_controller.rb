@@ -43,7 +43,6 @@ class ParticipantsController < ApplicationController
   def update
     respond_to do |format|
       if @participant.update_with_xws(participant_params['participant'])
-        update_parents(@participant)
         format.html { redirect_to @participant.tournament, notice: 'Participant was successfully updated.' }
         format.json { render :show, status: :ok, location: @participant }
       else
@@ -64,12 +63,6 @@ class ParticipantsController < ApplicationController
   end
 
   private
-    def update_parents(participant)
-      tourney = Tournament.find_by(id:participant.tournament_id)
-      if tourney.present?
-        tourney.touch
-      end
-    end
     # Use callbacks to share common setup or constraints between actions.
     def set_participant
       @participant = Participant.find(params[:id])

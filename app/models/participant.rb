@@ -1,5 +1,5 @@
 class Participant < ApplicationRecord
-  belongs_to :tournament, counter_cache: true
+  belongs_to :tournament, counter_cache: true, touch: true
   has_many :matches, as: :player_1
   has_many :matches, as: :player_2
   has_many :matches, as: :winner
