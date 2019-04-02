@@ -17,7 +17,7 @@ gem "closure-compiler"
 # Uglifier produced bad JS that resulted in errors in production.
 # gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'duktape'
+# gem 'duktape'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -53,10 +53,9 @@ gem 'country_select'
 gem 'httparty'
 
 # Use Bootstrap for application styling
-gem 'bootstrap-sass'
+gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem "bootstrap_form"
-gem 'sass', '3.6.0'
 
 # Use S3 and Active Storage
 gem "aws-sdk-s3", require: false
