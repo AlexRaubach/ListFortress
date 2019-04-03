@@ -3,8 +3,8 @@
 <h1 class="text-center">Tournaments</h1>
 <div class="container">
 
-  <div class="text-center">
-    <%= will_paginate @tournaments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer%>
+  <div>
+    <%= will_paginate @tournaments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center) %>
   </div>
 
   <table  class="table table-striped">
@@ -40,8 +40,8 @@
     </tbody>
   </table>
 
-  <div class="text-center">
-    <%= will_paginate @tournaments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer%>
+  <div>
+    <%= will_paginate @tournaments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center) %>
   </div>
 
   <div class="text-right">
