@@ -1,5 +1,14 @@
 <div class="container">
-  <h1>Overview for Season <%= @season.season_number %></h1>
+  <h1 class="text-center m-5">
+    Overview for Vassal League Season <%= @season.season_number %>
+  </h1>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to 'Seasons', seasons_path %></li>
+      <li class="breadcrumb-item active" aria-current="page">Season <%= @season.season_number %> </li>
+    </ol>
+  </nav>
 
   <table  class="table table-striped">
     <% @season.divisions.each do |division| %>
