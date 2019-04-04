@@ -3,10 +3,22 @@
 
 <h1 class="text-center m-5"> Vassal League Home Page </h1>
 
+<div class="row">
+    <section class="col">
 
-<div>
-    <%= link_to 'You can browse the current season here', season_path(season_number: 7) %>
+
+
+    </section>
+    <section class="col">
+        <h3 class="text-center m-3">League Resources</h3>
+        <ul class="list-group">
+            <li class="list-group-item"><%= link_to "Current Season", season_path(season_number: 7) %></li>
+            <li class="list-group-item"><%= link_to 'Create Interdivisional Match', league_interdivisional_path %></li>
+        </ul>
+    </section>
 </div>
+
+
 
 <p>
     <% if current_user %>
@@ -28,7 +40,7 @@
 
 <section class="latest">
     <div class="header">
-        <h2 id="maillist">Latest news</h2>
+        <h2 id="maillist" class="text-center">Latest news</h2>
     </div>
     <div class="content">
         <iframe id="googleDoc"
