@@ -57,6 +57,9 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem "bootstrap_form"
 
+# Use Font Awesome as a glyph source
+gem 'font-awesome-sass', '~> 5.8.1'
+
 # Use S3 and Active Storage
 gem "aws-sdk-s3", require: false
 gem "mini_magick"

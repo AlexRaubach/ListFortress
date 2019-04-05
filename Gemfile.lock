@@ -126,6 +126,8 @@ GEM
     ffi (1.10.0-x64-mingw32)
     figaro (1.1.1)
       thor (~> 0.14)
+    font-awesome-sass (5.8.1)
+      sassc (>= 1.11)
     ginjo-omniauth-slack (2.4.1)
       omniauth-oauth2 (>= 1.4.0)
     globalid (0.4.2)
@@ -303,6 +305,7 @@ DEPENDENCIES
   country_select
   dalli
   figaro
+  font-awesome-sass (~> 5.8.1)
   ginjo-omniauth-slack
   httparty
   jbuilder (~> 2.5)
