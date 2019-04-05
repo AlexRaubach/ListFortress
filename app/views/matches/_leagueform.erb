@@ -1,21 +1,23 @@
 <%= bootstrap_form_for(@match) do |form| %>
 
+
+
   <div class='row'>
-    <div class="form-group col-md-4">
-      <%= form.number_field(:player1_points, max: 200, label: 'Points killed by Player 1 / ' + @match.player1&.user&.display_name )%>
+    <div class="form-group col-md-6">
+      <%= form.number_field(:player1_points, max: 200, label: 'Points killed by Player 1 / ' + @match.player1&.user&.name )%>
     </div>
 
-    <div class="form-group col-md-4">
-      <%= form.number_field(:player2_points, max: 200, label: 'Points killed by Player 2 / ' + @match.player2&.user&.display_name)%>
+    <div class="form-group col-md-6">
+      <%= form.number_field(:player2_points, max: 200, label: 'Points killed by Player 2 / ' + @match.player2&.user&.name)%>
     </div>
   </div>
       <%# form.datetime_select(:scheduled_time, label: 'Scheduled Match Time:')%>
 
   <div class="row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-6">
       <%= form.text_field(:player1_url_temp, label: 'Player 1 List URL (YASB2/FFG)')%>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-6">
       <%= form.text_field(:player2_url_temp, label: 'Player 2 List URL (YASB2/FFG)')%>
     </div>
   </div>
@@ -25,20 +27,26 @@
       <%= form.select(
         :winner_id,
         [
-          [@match&.player1&.user&.display_name ? @match&.player1&.user&.display_name : "Player 1", @match.player1_id ],
-          [@match&.player2&.user&.display_name ? @match&.player2&.user&.display_name : "Player 2", @match.player2_id]
+          [@match&.player1&.user&.name ? @match&.player1&.user&.name : "Player 1", @match.player1_id ],
+          [@match&.player2&.user&.name ? @match&.player2&.user&.name : "Player 2", @match.player2_id]
         ],
       label: 'Winner:', include_blank: true) %>
     </div>
-    <div>
+    <div class="form-group col-md-8">
       <%= form.file_field :log_file, direct_upload: true %>
     </div>
-    <div class="form-group col-md-4">
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-12">
       <div class="actions">
         <%= form.submit('Submit', class: 'btn btn-success') %>
       </div>
+      <P> It may take up to an hour for standings to update after you submit a match. </p>
     </div>
   </div>
+
+
 
 
 <% end %>
