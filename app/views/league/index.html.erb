@@ -12,12 +12,30 @@
     <section class="col">
         <h3 class="text-center m-3">League Resources</h3>
         <ul class="list-group">
-            <li class="list-group-item"><%= link_to "Current Season", season_path(season_number: 7) %></li>
-            <li class="list-group-item"><%= link_to 'Create Interdivisional Match', league_interdivisional_path %></li>
-            <li class="list-group-item"><%= link_to 'Get an invite to the League Slack', 'https://xwingvassalleagueslack.herokuapp.com/' %></li>
-            <li class="list-group-item"><%= link_to 'Download the latest Vassal Module', 'http://www.vassalengine.org/wiki/Module:Star_Wars:_X-Wing_Miniatures_Game' %></li>
-            <li class="list-group-item"><%= link_to 'Community Rules Supplement', 'https://docs.google.com/document/d/1cSNaoKAThwjDhjjixO7u-MZZ3l5xu-LgKnRohhTIkYk/edit?fbclid=IwAR1R6idVlSw7ioiBqmQvCLd_IkKAdHZvsJZAyr8n5qOHZ7UC_FUlxNphsgk' %></li>
-            <li class="list-group-item"><%= link_to 'YASB2 Squadbuilder', 'https://raithos.github.io' %></li>
+            <li class="list-group-item">
+                <%= icon('fas', 'list-ol') %>
+                <%= link_to 'Browse Current Season', season_path(season_number: 7) %>
+            </li>
+            <li class="list-group-item">
+                <%= icon('fas', 'pencil-alt') %>
+                <%= link_to 'Create Interdivisional Match', league_interdivisional_path %>
+            </li>
+            <li class="list-group-item">
+                <%= icon('fab', 'slack') %>
+                <%= link_to 'Get an invite to the League Slack', 'https://xwingvassalleagueslack.herokuapp.com/' %>
+            </li>
+            <li class="list-group-item">
+                <%= icon('fas', 'cubes') %>
+                <%= link_to 'Download the latest Vassal Module', 'http://www.vassalengine.org/wiki/Module:Star_Wars:_X-Wing_Miniatures_Game' %>
+            </li>
+            <li class="list-group-item">
+                <%=icon('fas', 'ruler') %>
+                <%= link_to 'Community Rules Supplement', 'https://docs.google.com/document/d/1cSNaoKAThwjDhjjixO7u-MZZ3l5xu-LgKnRohhTIkYk/edit?fbclid=IwAR1R6idVlSw7ioiBqmQvCLd_IkKAdHZvsJZAyr8n5qOHZ7UC_FUlxNphsgk' %>
+            </li>
+            <li class="list-group-item">
+                <%= icon('fab', 'galactic-republic') %>
+                <%= link_to 'YASB2 Squadbuilder', 'https://raithos.github.io' %>
+            </li>
         </ul>
     </section>
 </div>
