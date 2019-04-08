@@ -1,88 +1,87 @@
 <div class="container-fluid">
-<p>
-  <h1 class="text-center">
-    <%= @tournament.name %>
-  </h1>
+<% cache @tournament do %>
   <p>
-  Player Count: <%= @participants.size %>
-  Type: <%= @tournament.tournament_type&.name %>
-  Format: <%= @tournament.format&.name %>
-  </p>
-  <p>
-  <% if @tournament.location.present? %>
-    Location: <%= @tournament.location %>
-  <% end %>
-  <% if @tournament.state.present? %>
-    State: <%= @tournament.state %>
-  <% end %>
-  <% if @tournament.country.present? %>
-    Country: <%= @tournament.country %>
-  <% end %>
-  </p>
-</p>
-<table  class="table table-striped">
-  <thead>
-    <tr>
-      <th>Rank</th>
-      <th>Top Cut</th>
-      <th width="20%">Name</th>
-      <th>Score</th>
-      <th>MoV</th>
-      <th>SoS</th>
-      <th>Squad</th>
-      <th> </th>
-
-    </tr>
-  </thead>
-
-  <% @participants.each do |participant| %>
-    <tr>
-    <td><%=participant.swiss_rank %></td>
-    <td><%=participant.top_cut_rank %></td>
-    <td><%=participant.name %></td>
-    <td><%=participant.score %></td>
-    <td><%=participant.mov %></td>
-    <td><%=participant.sos %></td>
-    <td>
-    <% if participant.list_json %>
-      <% XWS.formatted_list(participant.list_json).each do |line| %>
-        <%= line %> <br>
-      <% end %>
+    <h1 class="text-center">
+      <%= @tournament.name %>
+    </h1>
+    <p>
+    Player Count: <%= @participants.size %>
+    Type: <%= @tournament.tournament_type&.name %>
+    Format: <%= @tournament.format&.name %>
+    </p>
+    <p>
+    <% if @tournament.location.present? %>
+      Location: <%= @tournament.location %>
     <% end %>
-    </td>
-    <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
+    <% if @tournament.state.present? %>
+      State: <%= @tournament.state %>
+    <% end %>
+    <% if @tournament.country.present? %>
+      Country: <%= @tournament.country %>
+    <% end %>
+    </p>
+  </p>
+  <table  class="table table-striped">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Top Cut</th>
+        <th width="20%">Name</th>
+        <th>Score</th>
+        <th>MoV</th>
+        <th>SoS</th>
+        <th>Squad</th>
+        <th> </th>
 
-    </tr>
-  <% end%>
-</table>
-<%# link_to 'Edit', edit_tournament_path(@tournament) %>
-<%# link_to 'Back', tournaments_path %>
+      </tr>
+    </thead>
 
-<% if @tournament.rounds.present? and @tournament.rounds.size > 0 %>
-<table  class="table table-striped">
-  <thead>
-    <tr>
-      <th>Round Number</th>
-      <th>Round Type</th>
-      <th>Matches</th>
-      <th> </th>
-    </tr>
-  </thead>
+    <% @participants.each do |participant| %>
+      <tr>
+      <td><%=participant.swiss_rank %></td>
+      <td><%=participant.top_cut_rank %></td>
+      <td><%=participant.name %></td>
+      <td><%=participant.score %></td>
+      <td><%=participant.mov %></td>
+      <td><%=participant.sos %></td>
+      <td>
+      <% if participant.list_json %>
+        <% XWS.formatted_list(participant.list_json).each do |line| %>
+          <%= line %> <br>
+        <% end %>
+      <% end %>
+      </td>
+      <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
 
-  <% @tournament.rounds.order(:round_number).each do |round| %>
-    <tr>
-    <td><%=link_to round.round_number, round %></td>
-    <td><%=round.roundtype_id.present? ? Roundtype.find_by(id:round.roundtype_id).name : "" %></td>
-    <td><%=round.matches.size %></td>
-    <td><%= link_to 'Edit', edit_round_path(round) %></td>
+      </tr>
+    <% end%>
+  </table>
+  <%# link_to 'Edit', edit_tournament_path(@tournament) %>
+  <%# link_to 'Back', tournaments_path %>
 
-    </tr>
-  <% end%>
-</table>
+  <% if @tournament.rounds.present? and @tournament.rounds.size > 0 %>
+    <table  class="table table-striped">
+      <thead>
+        <tr>
+          <th>Round Number</th>
+          <th>Round Type</th>
+          <th>Matches</th>
+          <th> </th>
+        </tr>
+      </thead>
+
+      <% @tournament.rounds.order(:round_number).each do |round| %>
+        <tr>
+        <td><%=link_to round.round_number, round %></td>
+        <td><%=round.roundtype_id.present? ? Roundtype.find_by(id:round.roundtype_id).name : "" %></td>
+        <td><%=round.matches.size %></td>
+        <td><%= link_to 'Edit', edit_round_path(round) %></td>
+
+        </tr>
+      <% end%>
+    </table>
+  <% end %>
+  <%= link_to "Export to CSV", tournament_path(@tournament.id, format: :csv),  { :class=>"btn btn-primary" }%>
+
 <% end %>
-<%= link_to "Export to CSV", tournament_path(@tournament.id, format: :csv),  { :class=>"btn btn-primary" }%>
-
-  <div style="display: none">
-    <%= link_to 'Destroy', @tournament, method: :delete, data: { confirm: 'Are you sure?' } %>
-  </div>
 </div>
