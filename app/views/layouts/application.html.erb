@@ -11,6 +11,11 @@
 
   <body>
     <%= render 'layouts/navbar.html.erb'%>
+    <% flash.each do |key, value| %>
+      <div class="<%= flash_class(key) %> text-center">
+        <%= value %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
