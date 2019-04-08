@@ -1,14 +1,22 @@
 <div class="container">
 <p id="notice"><%= notice %></p>
 
-<h1 class="text-center m-5"> Vassal League Home Page </h1>
+<h1 class="text-center m-5"> X-Wing Vassal League </h1>
 
 <div class="row">
     <section class="col">
-    <div>
-        <img src="logo-xw-lrg.png" class="w-25">
-    </div>
+        <div class="text-center">
+            <img src="logo-xw-lrg.png" class="w-25">
+        </div>
+        <br>
+        <p>
+            Welcome to the home of the X-Wing Vassal League. 
+            We use the <%= link_to 'Vassal Engine', 'http://www.vassalengine.org/' %> to play the Second Edition X-Wing Miniatures Game.
+            <br>
+            <br>
+            Check back at the end of May to sign up for the next season.
 
+        </p>
 
     </section>
     <section class="col border border-dark rounded-lg">
@@ -65,7 +73,7 @@
 
 <section class="latest">
     <div class="header">
-        <h2 id="maillist" class="text-center">Latest news</h2>
+        <h1 id="maillist" class="text-center">Latest news</h1>
     </div>
     <div class="content">
         <iframe id="googleDoc"
