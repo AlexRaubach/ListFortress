@@ -12,9 +12,12 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
-  get 'home', to: 'home#show'
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match '/logout', to: 'sessions#destroy', via: [:get, :post]
+
+  # get 'home', to: 'home#show'
+  get 'about', to: 'home#about'
+
   get 'league/interdivisional', to: 'league#interdivisional'
   post 'league/interdivisional', to: 'league#create_interdivisional'
   get 'league', to: 'league#index'
