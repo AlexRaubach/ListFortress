@@ -26,4 +26,8 @@
       <li class="breadcrumb-item active" aria-current="page">Season <%= @season.season_number %> </li>
     </ol>
   </nav>
+
+  <div>
+    <%= link_to 'Export as CSV', season_path(season_number: @season.season_number, format: :csv), { class: "btn btn-primary" }%>
+  </div>
 </div>

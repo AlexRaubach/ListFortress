@@ -6,6 +6,13 @@ class SeasonsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.csv {
+        send_data @season.to_csv,
+                  filename: "vassal_league_season#{@season.season_number}_#{Time.new.strftime('%Y-%m-%d')}.csv"
+      }
+    end
   end
 
   private
