@@ -1,16 +1,15 @@
 <div class="container">
 
-<h1 class="text-center"> About List Fortress </h1>
+<h1 class="text-center m-5"> About List Fortress </h1>
 
 <div class="row">
   <section class="col">
     <h3 class="text-center">What is it?</h3>
     <p>
-      Second Edition X-Wing Miniatures is a boardgame centered around building a squad of starships and upgrades. 
-      You then fly your squad through an asteroid field while trying to outmaneuver and destroy your opponents squad.
+      X-Wing Miniatures Second Edition is a two player boardgame centered around building and dogfighting with a squad of starships from the Star Wars Universe.
     </p>
     <p>
-      List Fortress is a website for collecting and displaying X-Wing Miniatures tournament results. 
+      List Fortress is a website for crowdsourcing the collection and organization of X-Wing Miniatures tournament results. 
     </p>
   </section>
 
@@ -20,22 +19,21 @@
     <p>
       List Fortress is built with Ruby on Rails, PostgreSQL and Bootstrap. 
       <br>
-      The source code is available at <%= link_to 'Github', 'https://github.com/AlexRaubach/ListFortress'%> with an MIT license.
-      
-      List Fortress is currently hosted on Heroku and uses Memcached for caching and Amazon S3 for file storage.
+      <br>
+      The source code is available at <%= link_to 'Github', 'https://github.com/AlexRaubach/ListFortress'%> under an MIT license.
     </p>
 
-    <h3> Acknowledgements </h3>
+    <h3 class="text-center"> Acknowledgements </h3>
 
     <p>
-      <ul>
-        <li>The Scum and Villainy Podcast</li>
-        <li>Sozin: For his advice and encouragement when planning the site</li>
-        <li>Chris Allen: For all his tireless work for the community</li>
-        <li>Mwhited: For all the help getting matches recorded</li>
-        <li>so_crates: For running the XWS conversion services</li>
-        <li>Everyone who contributes to XWS</li>
-        <li>And everyone who helps enter data: This wouldn't be possible without you</li>
+      <ul class="list-group">
+        <li  class="list-group-item">The Scum and Villainy Podcast <%= icon('fab', 'mandalorian') %></li>
+        <li  class="list-group-item">Sozin: For his advice and encouragement when planning the site</li>
+        <li  class="list-group-item">Chris Allen: For all his tireless work</li>
+        <li  class="list-group-item">Mwhited: For all the help setting up matches</li>
+        <li  class="list-group-item">so_crates: For running the XWS conversion services</li>
+        <li  class="list-group-item">Everyone who contributes to XWS: <%= icon('fas', 'heart') %></li>
+        <li  class="list-group-item">Everyone who helps enter data: This wouldn't be possible without you</li>
       </ul>
     </p>
 
