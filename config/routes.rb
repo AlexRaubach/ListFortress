@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'about', to: 'home#about'
 
   get 'league/interdivisional', to: 'league#interdivisional'
-  post 'league/interdivisional', to: 'league#create_interdivisional'
+  # post 'league/interdivisional', to: 'league#create_interdivisional'
   get 'league', to: 'league#index'
 
   root to: 'tournaments#index'
