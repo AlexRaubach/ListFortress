@@ -38,7 +38,7 @@ class XWS
   end
 
   def self.get_upgrade_name_from_xws(xws_upgrade)
-    return '?' if xws_upgrade.nil?
+    return '?' if xws_upgrade.blank?
 
     Rails.cache.fetch(xws_upgrade) do
       upgrade = Upgrade.find_by xws: xws_upgrade
@@ -49,6 +49,8 @@ class XWS
   end
 
   def self.formatted_upgrade_string(upgrade_hash)
+    return '' if upgrade_hash.blank?
+
     string = ''
     upgrade_hash.values.each do |upgrade_array|
       upgrade_array.each do |upgrade_xws|
