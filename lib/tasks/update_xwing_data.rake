@@ -52,7 +52,7 @@ task update_xwing_data: :environment do
     JSON.parse(file)
   end
 
-  system 'cd xwing-data2 && git checkout master && git pull && cd ..'
+  # system 'cd xwing-data2 && git checkout master && git pull && cd ..'
 
   upgrade_file_names = Dir.glob("#{Rails.root}/xwing-data2/data/upgrades/*.json")
   upgrade_file_names.each do |upgrade_file|
