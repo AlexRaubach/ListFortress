@@ -5,6 +5,7 @@
 #   gem 'sqlite3'
 #
 default: &default
+  host: 127.0.0.1
   adapter: postgresql
   pool: 5
   timeout: 5000
