@@ -7,6 +7,7 @@ class Tournament < ApplicationRecord
   belongs_to :tournament_type
   attr_accessor :participant_number, :tabletop_url, :cryodex_json, :round_number
   scope :updated_after, ->(update_date) { where!('updated_at > ?', update_date) if update_date.present? }
+  validates :date, presence: true
 
   def create_squads
     success = false
