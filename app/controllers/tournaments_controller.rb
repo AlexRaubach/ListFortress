@@ -75,6 +75,14 @@ class TournamentsController < ApplicationController
     end
   end
 
+  # RSS feed
+  def feed
+    @tournaments = Tournament.last(30)
+    respond_to do |format|
+      format.rss {render layout: false}
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
