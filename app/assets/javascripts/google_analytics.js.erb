@@ -1,0 +1,7 @@
+document.addEventListener('turbolinks:load', function(event) {
+  if (typeof gtag === 'function') {
+    gtag('config', '<%= ENV['google_analytic_tag'] %>', {
+      'page_location': event.data.url
+    })
+  }
+})
