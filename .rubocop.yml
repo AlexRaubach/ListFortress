@@ -1,0 +1,9 @@
+AllCops:
+  TargetRubyVersion: 2.5.5
+  Exclude:
+  - 'db/**/*'
+  - 'config/**/*'
+  - 'script/**/*'
+  - 'bin/{rails,rake}'
+  - !ruby/regexp /old_and_unused\.rb$/
+  - '**/*.erb'
