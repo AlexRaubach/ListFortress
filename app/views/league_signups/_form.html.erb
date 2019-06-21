@@ -1,0 +1,39 @@
+<%= bootstrap_form_with(model: league_signup, local: true) do |form| %>
+  <% if league_signup.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(league_signup.errors.count, "error") %> prohibited this league_signup from being saved:</h2>
+
+      <ul>
+      <% league_signup.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group form-row">
+    <%= form.text_field(:full_name, label: 'First and last name (not displayed publicly) *', value: current_user&.name) %>
+  </div>
+  <div class="form-group form-row">
+    <%= form.text_field(:display_name, label: 'Name you want publicly displayed *', required: true, value: current_user&.display_name) %>
+  </div>
+
+  <div>
+    <%= form.time_zone_select(:time_zone, nil, default: 'Eastern Time (US & Canada)') %>
+  </div>
+  <div>
+    <%= form.number_field(:time, label: "Select your prefered match start hour. 20 = 8pm in your selected time zone. This will be used to roughly group people by prefered start time", max: 24, min: 0, required: true)%>
+  </div>
+
+  <div>
+    <%= form.text_field(:email, label: "Email Address. This may have been imported from slack, please remove, change or keep it as you see fit.", value: current_user&.email) %>
+  </div>
+
+  <div>
+      <%= form.text_field(:other, label: "If you missed season 7 but played in an earlier season AND you should be seeded Tier 3 or higher, please provide a link to your last division and say what tier you should be in.") %>
+  <div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>League Signups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @league_signups.each do |league_signup| %>
+      <tr>
+        <td><%= link_to 'Show', league_signup %></td>
+        <td><%= link_to 'Edit', edit_league_signup_path(league_signup) %></td>
+        <td><%= link_to 'Destroy', league_signup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New League Signup', new_league_signup_path %>
