@@ -24,12 +24,22 @@ class LeagueSignupsController < ApplicationController
   # POST /league_signups
   # POST /league_signups.json
   def create
-    @league_signup = LeagueSignup.new(league_signup_params)
+    return false if current_user.nil?
+
+    current_user.display_name = league_signup_params['display_name']
+    current_user.name = league_signup_params['full_name']
+    current_user.save
+
+    @league_signup = LeagueSignup.new(league_signup_params.except(:full_name, :display_name))
+
     
+    @league_signup.season_number = 8
+    @league_signup.user = current_user
+
 
     respond_to do |format|
       if @league_signup.save
-        format.html { redirect_to @league_signup, notice: 'League signup was successfully created.' }
+        format.html { redirect_to '/league', notice: 'League signup was successfully created.' }
         format.json { render :show, status: :created, location: @league_signup }
       else
         format.html { render :new }
@@ -40,17 +50,23 @@ class LeagueSignupsController < ApplicationController
 
   # PATCH/PUT /league_signups/1
   # PATCH/PUT /league_signups/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @league_signup.update(league_signup_params)
-  #       format.html { redirect_to @league_signup, notice: 'League signup was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @league_signup }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @league_signup.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+    return false if current_user.nil?
+
+    current_user.display_name = league_signup_params['display_name']
+    current_user.name = league_signup_params['full_name']
+    current_user.save
+
+    respond_to do |format|
+      if @league_signup.update(league_signup_params.except(:full_name, :display_name))
+        format.html { redirect_to '/league', notice: 'League signup was successfully updated.' }
+        format.json { render :show, status: :ok, location: @league_signup }
+      else
+        format.html { render :edit }
+        format.json { render json: @league_signup.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /league_signups/1
   # DELETE /league_signups/1.json
@@ -70,6 +86,6 @@ class LeagueSignupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def league_signup_params
-      params.fetch(:league_signup, {})
+      params.fetch(:league_signup, {}).permit!
     end
 end
