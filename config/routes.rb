@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :league_signups
   get 'league_participant/:id', to: 'league_participant#show', as: 'league_participant'
   get 'tournaments/feed', to: 'tournaments#feed', as: 'tournament_feed'
   resources :seasons, only: [:index, :show], param: :season_number
