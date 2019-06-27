@@ -243,17 +243,14 @@ class Tournament < ApplicationRecord
       player2_points = cells[2].css('span')[2]&.text&.to_i
 
       match = Match.create(round_id: round.id)
-      player1_obj = Participant.find_by(name: player1)
-      if player1_obj.present?
-        match.player1 = player1_obj
-      end
-
+      player1_obj = Participant.find_by(name: player1, tournament_id: id)
+      match.player1 = player1_obj if player1_obj.present?
       match.player1_points = player1_points
-      player2_obj = Participant.find_by(name:player2)
-      if player2_obj.present?
-        match.player2 = player2_obj
-      end
+
+      player2_obj = Participant.find_by(name: player2, tournament_id: id)
+      match.player2 = player2_obj if player2_obj.present?
       match.player2_points = player2_points
+
       if player1_points.to_i > player2_points.to_i
         match.result = 'win'
         match.winner = player1_obj
