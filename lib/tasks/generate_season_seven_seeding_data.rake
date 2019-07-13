@@ -1,4 +1,4 @@
-desc 'Creates a csv with all the data needed to seed S8'
+desc 'Creates a csv with all the data needed to seed S7'
 task generate_season_seven_seeding_data: :environment do
   file = "#{Rails.root}/season8.csv"
   CSV.open(file, 'w') do |csv|

@@ -18,4 +18,14 @@ class LeagueParticipant < ApplicationRecord
 
     id.to_s
   end
+
+  def promote
+    self.promotion = 1
+    save
+  end
+
+  def demote
+    self.promotion = -1
+    save
+  end
 end
