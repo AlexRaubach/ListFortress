@@ -39,9 +39,11 @@ class MatchesController < ApplicationController
   def update
     respond_to do |format|
       if @match.league_match
-        #Remove before Season 8 starts. Need to check if match is part of an old season.
-        format.html { render :edit, notice: "The record could not be updated" }
-        return false
+        # Only update matches belonging to the current season
+        unless @match&.player1&.division&.season&.season_number == 8
+          format.html { render :edit, notice: "The record could not be updated" }
+          return false
+        end
 
         url1 = match_params['match']['player1_url_temp']
         if url1.present?
@@ -51,6 +53,7 @@ class MatchesController < ApplicationController
             @match.player1_xws = xws
           end
         end
+
         url2 = match_params['match']['player2_url_temp']
         if url2.present?
           xws = Participant.get_xws_from_url(url2)

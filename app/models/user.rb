@@ -12,7 +12,7 @@ class User < ApplicationRecord
   def current_league_participant
     LeagueParticipant
       .joins(:season)
-      .where('user_id = ? AND seasons.season_number = ?', id, 7)
+      .where('user_id = ? AND seasons.season_number = ?', id, 8)
       .order(:created_at)
       .first
   end
