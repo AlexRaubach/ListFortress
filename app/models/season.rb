@@ -2,8 +2,14 @@ class Season < ApplicationRecord
   has_many :divisions
   has_many :league_participants, through: :divisions
 
+  CURRENT_SEASON = 8
+
   def to_param
     season_number
+  end
+
+  def current_season?
+    season_number == CURRENT_SEASON
   end
 
   def to_csv
