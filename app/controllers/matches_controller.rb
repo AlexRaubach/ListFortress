@@ -40,7 +40,7 @@ class MatchesController < ApplicationController
     respond_to do |format|
       if @match.league_match
         # Only update matches belonging to the current season
-        unless @match&.player1&.division&.season&.season_number == 8
+        unless @match&.player1&.division&.season&.current_season?
           format.html { render :edit, notice: "The record could not be updated" }
           return false
         end
