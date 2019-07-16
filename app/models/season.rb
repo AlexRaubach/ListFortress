@@ -3,6 +3,7 @@ class Season < ApplicationRecord
   has_many :league_participants, through: :divisions
 
   CURRENT_SEASON = 8
+  INTERDIVISIONAL_ALLOWED = false
 
   def to_param
     season_number
