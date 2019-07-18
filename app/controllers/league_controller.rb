@@ -3,23 +3,24 @@ class LeagueController < ApplicationController
   end
 
   def interdivisional
-    redirect_to league_path, alert: "Season 7 has ended"
-    # if current_user&.current_league_participant 
-    #   @participants = LeagueParticipant
-    #                   .joins(:division, :season)
-    #                   .includes(:user)
-    #                   .where(
-    #                     'divisions.season_id = ?
-    #                     AND divisions.tier = ?
-    #                     AND divisions.id != ?',
-    #                     current_user.current_league_participant.season.id,
-    #                     current_user.current_league_participant.division.tier,
-    #                     current_user.current_league_participant.division.id
-    #                   )
-    #                   .order('users.display_name asc')
-    # else
-    #   redirect_to league_path, notice: 'You must be signed in and registered for the league to access that page'
-    # end
+    if Season::INTERDIVISIONAL_ALLOWED && current_user&.current_league_participant
+      @participants = LeagueParticipant
+                      .joins(:division, :season)
+                      .includes(:user)
+                      .where(
+                        'divisions.season_id = ?
+                        AND divisions.tier = ?
+                        AND divisions.id != ?',
+                        current_user.current_league_participant.season.id,
+                        current_user.current_league_participant.division.tier,
+                        current_user.current_league_participant.division.id
+                      )
+                      .order('users.display_name asc')
+    elsif Season::INTERDIVISIONAL_ALLOWED
+      redirect_to league_path, notice: 'You must be signed in and registered for the league to access that page'
+    else
+      redirect_to league_path, alert: 'Interdivisional play is currently disabled'
+    end
   end
 
   def create_interdivisional
