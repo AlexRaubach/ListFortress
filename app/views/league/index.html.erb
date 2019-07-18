@@ -13,8 +13,7 @@
             We use the <%= link_to 'Vassal Engine', 'http://www.vassalengine.org/' %> to play the Second Edition X-Wing Miniatures Game.
             <br>
             <br>
-            League Signups are now open. Sign in with slack to find the link. <br>
-            <%= link_to 'View All Signups', league_signups_path %>
+            <%# link_to 'View All Signups', league_signups_path %>
 
         </p>
 
@@ -65,13 +64,13 @@
         <br>
         You can always logout by visiting <a href="/logout">here</a>
         <p>
-        <% if user.league_signups.present? %>
-            <%= 'You are signed up for Season 8' %>
-        <% else %>
-            <%= link_to 'Sign up for Season 8', new_league_signup_path %>
-        <% end %>
+        <%# if user.league_signups.present? %>
+            <%# 'You are signed up for Season 8' %>
+        <%# else %>
+            <%# link_to 'Sign up for Season 8', new_league_signup_path %>
+        <%# end %>
         <% if user&.current_league_participant %>
-            <div><%# link_to 'View all matches at your Season 7 profile page', user&.current_league_participant %></div>
+            <div><%= link_to 'View all matches at your Season 8 profile page', user.current_league_participant %></div>
             <div><%# link_to 'You can now create interdivisional matches', league_interdivisional_path %></div>
         <% end %>
         </p>
