@@ -8,8 +8,8 @@ class Api::V1::BaseController < ActionController::API
 
   protected
   def paginate(resource)
-    p params[:page]
-    p params[:per_page]
+    # p params[:page]
+    # p params[:per_page]
     resource = resource.page(params[:page] || 1)
     if params[:per_page]
       resource = resource.per_page(params[:per_page])

@@ -52,3 +52,5 @@ task generate_league_matches: :environment do
     division.add_participant(league_participant)
   end
 end
+
+d = Division.find_by(tier: 5, letter: 'D', season_id: 9)
