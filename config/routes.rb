@@ -35,6 +35,9 @@ Rails.application.routes.draw do
           resources :matches, only: [:show]
         end
       end
+      
+      resources :seasons, only: [:index, :show]
+      
     end
   end
 
