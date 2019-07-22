@@ -8,7 +8,17 @@ class Round < ApplicationRecord
     return if :match_number.zero?
 
     :match_number.times do |i|
-      Match.new(round_id:id).save
+      Match.new(round_id: id).save
+    end
+  end
+
+  def sort_value
+    # if swiss sort asc
+    if roundtype_id == 1
+      round_number
+    # If top cut sort desc and make them come after the swiss rounds
+    else
+      100 - round_number
     end
   end
 
