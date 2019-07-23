@@ -1,6 +1,6 @@
 class Api::V1::SeasonsController < ActionController::API
   def index
-    seasons = Season.all
+    seasons = Season.all.order(:season_number)
 
     render json: seasons, each_serializer: Api::V1::SeasonSerializer
   end

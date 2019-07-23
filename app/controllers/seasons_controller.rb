@@ -2,7 +2,7 @@ class SeasonsController < ApplicationController
   before_action :set_season, only: :show
 
   def index
-    @seasons = Season.all
+    @seasons = Season.all.order(:season_number)
   end
 
   def show
@@ -10,7 +10,7 @@ class SeasonsController < ApplicationController
       format.html
       format.csv {
         send_data @season.to_csv,
-                  filename: "vassal_league_season#{@season.season_number}_#{Time.new.strftime('%Y-%m-%d')}.csv"
+                  filename: "vassal_league_season_#{@season.season_number}_#{Time.new.strftime('%Y-%m-%d')}.csv"
       }
     end
   end

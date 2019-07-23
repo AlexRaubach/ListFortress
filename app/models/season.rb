@@ -1,6 +1,7 @@
 class Season < ApplicationRecord
   has_many :divisions
   has_many :league_participants, through: :divisions
+  validates_uniqueness_of :season_number
 
   CURRENT_SEASON = 8
   INTERDIVISIONAL_ALLOWED = false
