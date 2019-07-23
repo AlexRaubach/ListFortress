@@ -8,6 +8,6 @@ class Api::V1::SeasonsController < ActionController::API
   def show
     season = Season.find(params[:id])
 
-    render json: season, each_serializer: Api::V1::SeasonSerializer
+    render json: season, serializer: Api::V1::SeasonDetailsSerializer
   end
 end
