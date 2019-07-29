@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       end
       
       resources :seasons, only: [:index, :show]
+      resources :divisions, only: [:index, :show]
       
     end
   end
