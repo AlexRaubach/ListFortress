@@ -15,7 +15,7 @@ class Season < ApplicationRecord
   end
 
   def to_csv
-    header = %w[id name score losses
+    header = %w[user_id id name score losses
                 mov division_id division_name
                 division_tier division_letter]
 
@@ -24,7 +24,7 @@ class Season < ApplicationRecord
 
       divisions.each do |division|
         division.league_participants.each do |player|
-          output = [player.id, player.name, player.score, player.losses,
+          output = [player.user.id, player.id, player.name, player.score, player.losses,
                     player.mov, division.id, division.name,
                     division.tier, division.letter]
           csv << output
