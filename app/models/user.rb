@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :league_participants
   has_one :season_seven_survey
   has_many :league_signups
+  has_one :address
 
   def self.find_with_omniauth(auth)
     find_by(uid: auth['uid'], provider: auth['provider'])

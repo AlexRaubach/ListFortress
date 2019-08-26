@@ -1,0 +1,66 @@
+<%= bootstrap_form_with(url: '/me', local: true) do |form| %>
+
+  <div class="form-group form-row">
+    <div class="col-md-6">
+      <%= form.text_field(:full_name, label: 'First and last name. Not displayed, only for shipping *', value: current_user&.name) %>
+    </div>
+    <div class="col-md-6">
+      <%= form.text_field(:display_name, label: 'Name you want publicly displayed *', required: true, value: current_user&.display_name) %>
+    </div>
+  </div>
+  <div class="form-group form-row">
+    <div class="col-md-4">
+      <%= form.number_field(:prize_level, label: 'Number of League Acrylic Prizes', value: @address.prize_level) %>
+    </div>
+    <p class="col-md-8">
+      If you are in Tier 1 or win your division, you're eligible for a acrylic prize. 
+      Please put the number corresponding to the last prize you recieved.
+      <br>0: No Rulers/Templates
+      <br>1: Range 1 Ruler
+      <br>2: Range 2 Ruler
+      <br>3: Range 3 Ruler
+      <br>4: 1 Speed Templates
+      <br>5: 2 Speed Templates
+    </p>
+  </div>
+  <p class="text-center m-3">
+    Please input your address correctly so we can get you your prize.
+    If you're not in the US, believe you're going to recieve a prize, and don't know how to format your address,
+    please reach out to Antigrapist on the league slack or post on #leaguehelp
+  </p>
+  <div class="form-group form-row">
+    <div class="col-md-12">
+      <%= form.text_field(:first_line, label: 'Street Line 1', value: @address.first_line) %>
+    </div>
+  </div>
+  <div class="form-group form-row">
+    <div class="col-md-12">
+      <%= form.text_field(:second_line, label: 'Street line 2 (if needed)', value: @address.second_line) %>
+    </div>
+  </div>
+  <div class="form-group form-row">
+    <div class="col-md-5">
+      <%= form.text_field(:city, label: 'City ', value: @address.city) %>
+    </div>
+    <div class="col-md-4">
+      <%= form.text_field(:county_province, label: 'State / Province ', value: @address.county_province) %>
+    </div>
+    <div class="col-md-3">
+      <%= form.text_field(:zip_or_postcode, label: 'ZIP / Postal Code', value: @address.zip_or_postcode ) %>
+    </div>
+  </div>
+  <div class="form-group form-row">
+    <div class="col-md-6">
+      <%= form.text_field(:country, label: 'Country Full Name (omit if in USA)', value: @address.country) %>
+    </div>
+  </div>
+
+  <div class="form-group form-row">
+    <div class="actions col-md-1">
+      <%= form.submit %>
+    </div>
+    <div class="actions col-md-3">
+      <%= link_to 'Back to League Home', league_path, :class => "btn btn-primary"%>
+    </div>
+  </div>
+<% end %>

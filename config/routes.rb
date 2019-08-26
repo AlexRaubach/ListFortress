@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :rounds
   resources :matches
 
-  get 'login', to: redirect('/auth/google_oauth2'), as: 'login'
+  get 'login', to: redirect('/auth/slack'), as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get 'league/interdivisional', to: 'league#interdivisional'
   post 'league/interdivisional', to: 'league#create_interdivisional'
   get 'league', to: 'league#index'
+  get 'me', to: 'me#home'
+  post 'me', to: 'me#update'
 
   root to: 'tournaments#index'
 
