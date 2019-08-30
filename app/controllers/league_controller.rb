@@ -3,19 +3,36 @@ class LeagueController < ApplicationController
   end
 
   def interdivisional
-    if Season::INTERDIVISIONAL_ALLOWED && current_user&.current_league_participant
-      @participants = LeagueParticipant
-                      .joins(:division, :season)
-                      .includes(:user)
-                      .where(
-                        'divisions.season_id = ?
-                        AND divisions.tier = ?
-                        AND divisions.id != ?',
-                        current_user.current_league_participant.season.id,
-                        current_user.current_league_participant.division.tier,
-                        current_user.current_league_participant.division.id
-                      )
-                      .order('users.display_name asc')
+    tier = current_user&.current_league_participant&.division&.tier
+    if Season::INTERDIVISIONAL_ALLOWED && tier
+      if tier < 4
+        @participants = LeagueParticipant
+                        .joins(:division, :season)
+                        .includes(:user)
+                        .where(
+                          'divisions.season_id = ?
+                          AND divisions.tier = ?
+                          AND divisions.id != ?',
+                          current_user.current_league_participant.season.id,
+                          tier,
+                          current_user.current_league_participant.division.id
+                        )
+                        .order('users.display_name asc')
+      else
+        @participants = LeagueParticipant
+                        .joins(:division, :season)
+                        .includes(:user)
+                        .where(
+                          'divisions.season_id = ?
+                          AND (divisions.tier = ? OR divisions.tier = ?)
+                          AND divisions.id != ?',
+                          current_user.current_league_participant.season.id,
+                          4,
+                          5,
+                          current_user.current_league_participant.division.id
+                        )
+                        .order('users.display_name asc')
+      end
     elsif Season::INTERDIVISIONAL_ALLOWED
       redirect_to league_path, notice: 'You must be signed in and registered for the league to access that page'
     else
