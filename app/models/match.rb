@@ -9,4 +9,14 @@ class Match < ApplicationRecord
   def serializable_hash(options={})
     super({only: [:id, :player1_id, :player1_points, :player2_id, :player2_points, :result, :winner_id]}.merge(options||{}))
   end
+  
+  def self.duplicate_exists?(first_ID, second_ID, league_match_bool)
+    Match.where("league_match = :league_match_status AND (
+                  (player1_id = firstID and player2_id = secondID) 
+                  OR
+                  (player1_id = secondID and player2_id = firstID)
+                )",
+                {firstID: first_ID, secondID: second_ID, league_match_status: league_match_bool}
+              ).exists?
+  end
 end
