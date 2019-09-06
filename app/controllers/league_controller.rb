@@ -49,7 +49,11 @@ class LeagueController < ApplicationController
 
     respond_to do |format|
       # check for a current user to prevent saving a match with only one user due to log out after loading ID page
-      if current_user&.current_league_participant&.present? && match.save
+      if current_user&.current_league_participant&.blank?
+        format.html { render :interdivisional, notice: 'You must be signed in to create a match' }
+      elsif Match.duplicate_exists?(match.player1_id, match.player2_id, true)
+        format.html { render :interdivisional, notice: 'A match already exists between these two players' }
+      elsif match.save
         format.html { redirect_to match.player1, notice: 'Interdivisional Match was successfully created.' }
       else
         format.html { render :interdivisional, notice: 'Match could not be saved' }
