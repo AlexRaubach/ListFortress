@@ -1,0 +1,32 @@
+<div>
+  <table  class="table table-striped">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Display Name</th>
+        <th>Full Name</th>
+        <th>LP ID</th>
+        <th>Tier</th>
+        <th>Letter</th>
+        <th>Wins</th>
+        <th>MoV</th>
+        <th>Address</th>
+        <th>Prize Level</th>
+      </tr>
+    </thead>
+    <% @winners.each do |winner| %>
+      <tr>
+        <td>winner.user.id</td>
+        <td>winner.user.display_name</td>
+        <td>winner.user.name</td>
+        <td>winner.id</td>
+        <td>winner.division.tier</td>
+        <td>winner.division.letter</td>
+        <td>winner.wins</td>
+        <td>winner.mov</td>
+        <td>winner.user.address.full_address</td>
+        <td>winner.user.address.prize_level</td>
+      </tr>
+    <% end %>
+  </table>
+</div>
