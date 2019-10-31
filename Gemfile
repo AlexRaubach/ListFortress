@@ -12,7 +12,7 @@ gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sassc-rails'
 # Use closure-compiler as compressor for JavaScript assets
-gem "closure-compiler"
+gem 'closure-compiler'
 
 # Uglifier produced bad JS that resulted in errors in production.
 # gem 'uglifier'
@@ -36,11 +36,11 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Sign in with google / slack
-gem 'omniauth-google-oauth2'
 gem 'ginjo-omniauth-slack'
+gem 'omniauth-google-oauth2'
 
 # manage secrets
-gem "figaro"
+gem 'figaro'
 
 # Pagination
 gem 'will_paginate', '~> 3.1.0'
@@ -54,25 +54,28 @@ gem 'httparty'
 
 # Use Bootstrap for application styling
 gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap_form'
 gem 'jquery-rails'
-gem "bootstrap_form"
 
 # Use Font Awesome as a glyph source
 gem 'font-awesome-sass', '~> 5.8.1'
 
 # Use S3 and Active Storage
-gem "aws-sdk-s3", require: false
-gem "mini_magick"
+gem 'aws-sdk-s3', require: false
+gem 'mini_magick'
 
 # Use NewRelic for application profiling
-gem "newrelic_rpm"
+gem 'newrelic_rpm'
 
 # Use Barnes for heroku metrics
-gem "barnes"
+gem 'barnes'
 
 # Use Dallii and connectionpool for memcached
-gem 'dalli'
 gem 'connection_pool'
+gem 'dalli'
+
+# Use has_scope to easily filter models
+gem 'has_scope'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
