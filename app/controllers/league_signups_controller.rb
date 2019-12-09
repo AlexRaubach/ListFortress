@@ -14,7 +14,7 @@ class LeagueSignupsController < ApplicationController
 
   # GET /league_signups/new
   def new
-    redirect_to login if current_user.blank?
+    redirect_to '/login' if current_user.blank?
 
     @league_signup = LeagueSignup.new
   end
