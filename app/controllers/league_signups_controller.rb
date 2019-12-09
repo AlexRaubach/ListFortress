@@ -14,6 +14,8 @@ class LeagueSignupsController < ApplicationController
 
   # GET /league_signups/new
   def new
+    redirect_to login if current_user.blank?
+
     @league_signup = LeagueSignup.new
   end
 
@@ -32,10 +34,8 @@ class LeagueSignupsController < ApplicationController
 
     @league_signup = LeagueSignup.new(league_signup_params.except(:full_name, :display_name))
 
-    
     @league_signup.season_number = 9
     @league_signup.user = current_user
-
 
     respond_to do |format|
       if @league_signup.save
