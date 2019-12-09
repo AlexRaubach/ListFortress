@@ -4,7 +4,7 @@ class LeagueSignupsController < ApplicationController
   # GET /league_signups
   # GET /league_signups.json
   def index
-    @league_signups = LeagueSignup.all
+    @league_signups = LeagueSignup.all.where(season_number: 9)
   end
 
   # GET /league_signups/1
@@ -33,7 +33,7 @@ class LeagueSignupsController < ApplicationController
     @league_signup = LeagueSignup.new(league_signup_params.except(:full_name, :display_name))
 
     
-    @league_signup.season_number = 8
+    @league_signup.season_number = 9
     @league_signup.user = current_user
 
 
