@@ -1,13 +1,13 @@
-desc 'Creates a csv with all the data needed to seed S8'
+desc 'Creates a csv with all the data needed to seed S9'
 task generate_league_seeding_data: :environment do
-  file = "#{Rails.root}/public/season8.csv"
+  file = "#{Rails.root}/public/season9.csv"
 
   CSV.open(file, 'w') do |csv|
     csv << ['user_id', 'user_name', 'time_zone_offset', 'desired_start_time',
             'adjusted_start_time', 'other_info',
-            'S7 Tier', 'promotion', 'S7 wins', 'S7 losses', 'S7 mov']
+            'Tier', 'promotion', 'wins', 'losses', 'mov', 'Season number']
 
-    LeagueSignup.all.each do |signup|
+    LeagueSignup.all.where(season_number: 9).each do |signup|
       csv_data = []
 
       csv_data << signup.user_id
@@ -18,13 +18,17 @@ task generate_league_seeding_data: :environment do
       csv_data << (signup.time - offset) % 24
       csv_data << signup.other
 
-      lp = signup&.user&.current_league_participant
+      lp = signup&.user&.league_participants&.order(id: :desc)&.first
+      # this is faster and easier than sorting by season
       if lp
         csv_data << lp.division.tier
         csv_data << lp.promotion
         csv_data << lp.score
         csv_data << lp.losses
         csv_data << lp.mov
+        csv_data << lp.season.season_number
+      else
+        csv_data << 'new player?'
       end
 
       csv << csv_data
