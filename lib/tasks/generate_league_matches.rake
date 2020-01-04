@@ -6,16 +6,16 @@ task generate_league_matches: :environment do
     ['Chardaan', 'Kashyyyk', 'Myrkr', 'Nal Hutta', 'Manaan'],
     ['Bespin', 'Dagobah', 'Tatooine',
      'Endor', 'Dantooine', 'Hoth', 'Yavin'
-    #  , 'Kamino', 'Mon Calamari', 'Mandalore'
+      # , 'Kamino', 'Mon Calamari', 'Mandalore'
     ],
-    ['Jakku', 'Nkllon', 'Csilla',
-     'Celwiss', 'Ilum', 'Plunder Moon', 'Bakura'
-    #  , 'The Redoubt', 'Nirauan',
-    #  'Kariek', 'Lwhekk'
-    ]
+    # ['Jakku', 'Nkllon', 'Csilla',
+    #  'Celwiss', 'Ilum', 'Plunder Moon', 'Bakura'
+    # #  , 'The Redoubt', 'Nirauan',
+    # #  'Kariek', 'Lwhekk'
+    # ]
   ].freeze
 
-  season = Season.create(season_number: 8, name: 'X-Wing Vassal League Season Eight')
+  season = Season.create(season_number: 9, name: 'X-Wing Vassal League Season Nine')
 
   DIVISION_NAMES.each_with_index do |tier_data, tier_number|
     tier_data.each_with_index do |tier_name, division_number|
@@ -28,13 +28,13 @@ task generate_league_matches: :environment do
     end
   end
 
-  csv_text = File.open("#{Rails.root}/public/s8_divisions.csv")
+  csv_text = File.open("#{Rails.root}/public/s9.csv")
   csv = CSV.parse(csv_text)
   csv.each do |user_info|
     user_id = user_info[0]
     # name = user_info[1]
-    division_tier = user_info[3]
-    division_letter = user_info[4]
+    division_tier = user_info[1]
+    division_letter = user_info[2]
 
     league_participant = LeagueParticipant.create(user_id: user_id)
 
@@ -45,7 +45,7 @@ task generate_league_matches: :environment do
     )
 
     if division.nil?
-      puts "Nil division " + division_tier + division_letter
+      puts 'Nil division ' + division_tier.to_s + division_letter.to_s
       next
     end
 
