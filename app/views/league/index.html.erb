@@ -72,10 +72,10 @@
         <%# else %>
             <%# link_to 'Sign up for Season 9', new_league_signup_path %>
         <%# end %>
-        <%= if user&.current_league_participant %>
+        <% if user&.current_league_participant %>
             <div><%= link_to 'View all matches at your Season 9 profile page', user.current_league_participant %></div>
             <div><%# link_to 'You can now create interdivisional matches', league_interdivisional_path %></div>
-        <%= end %>
+        <% end %>
         </p>
     <% else%>
         <a href="/auth/slack"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
