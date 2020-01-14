@@ -52,3 +52,19 @@ task generate_league_matches: :environment do
     division.add_participant(league_participant)
   end
 end
+
+def add_to_league(season_number, user_id, div_tier, div_letter)
+  season = Season.find_by(season_number: season_number)
+
+  division = Division.find_by(
+    tier: div_tier,
+    letter: div_letter,
+    season_id: season.id
+  )
+
+  puts 'Nil division ' + div_tier.to_S + div_letter.to_s if division.nil?
+
+  league_participant = LeagueParticipant.create(user_id: user_id)
+
+  division.add_participant(league_participant)
+end
