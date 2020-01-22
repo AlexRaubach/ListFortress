@@ -25,22 +25,23 @@ class Participant < ApplicationRecord
   end
 
   def self.get_xws_from_yasb2(query_string)
-    url = 'https://yasb2-xws.herokuapp.com/' + query_string
+    url = 'http://squad2xws.herokuapp.com/yasb/xws' + query_string
     response = HTTParty.get(url)
     JSON(response.parsed_response)
   end
 
   def self.get_xws_from_ffg(uuid)
-    url = 'http://sb2xws.herokuapp.com/translate/' + uuid
+    url = 'http://squad2xws.herokuapp.com/translate/' + uuid
     response = HTTParty.get(url)
     JSON(response.parsed_response)
   end
 
-  def self.get_xws_from_stopgap(squad_id)
-    url = 'https://o8l90u2pyd.execute-api.eu-west-2.amazonaws.com/live/idtoxws?id=' + squad_id
-    response = HTTParty.get(url)
-    JSON(response.parsed_response)
-  end
+  # RIP stopgap squad builder. 
+  # def self.get_xws_from_stopgap(squad_id)
+  #   url = 'https://o8l90u2pyd.execute-api.eu-west-2.amazonaws.com/live/idtoxws?id=' + squad_id
+  #   response = HTTParty.get(url)
+  #   JSON(response.parsed_response)
+  # end
 
   def get_name_from_xws(xws_string, type)
     case type
