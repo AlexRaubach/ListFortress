@@ -74,7 +74,7 @@
         <%# end %>
         <% if user&.current_league_participant %>
             <div><%= link_to 'View all matches at your Season 9 profile page', user.current_league_participant %></div>
-            <div><%# link_to 'You can now create interdivisional matches', league_interdivisional_path %></div>
+            <div><%= link_to 'You can now create interdivisional matches', league_interdivisional_path %></div>
         <% end %>
         </p>
     <% else%>

@@ -4,7 +4,7 @@ class Season < ApplicationRecord
   validates_uniqueness_of :season_number
 
   CURRENT_SEASON = 9
-  INTERDIVISIONAL_ALLOWED = false
+  INTERDIVISIONAL_ALLOWED = true
 
   def to_param
     season_number
