@@ -11,28 +11,27 @@ class Participant < ApplicationRecord
 
   def self.get_xws_from_url(url)
     match = url.match(/raithos.github.io\/(?<query_string>.*)/)
-    if match
-      list_json = Participant.get_xws_from_yasb2(match[1])
-      return list_json
-    end
+    return Participant.get_xws_from_yasb2(match[1]) if match
 
     match = url.match(/squadbuilder.fantasyflightgames.com\/[\w-]*\/([\w-]{36})/)
-    if match
-      list_json = Participant.get_xws_from_ffg(match[1])
-      return list_json
-    end
+    return Participant.get_xws_from_ffg(match[1]) if match
+
     nil
   end
 
   def self.get_xws_from_yasb2(query_string)
     url = 'http://squad2xws.herokuapp.com/yasb/xws' + query_string
     response = HTTParty.get(url)
+    return nil if response.code != 200
+
     JSON(response.parsed_response)
   end
 
   def self.get_xws_from_ffg(uuid)
     url = 'http://squad2xws.herokuapp.com/translate/' + uuid
     response = HTTParty.get(url)
+    return nil if response.code != 200
+
     JSON(response.parsed_response)
   end
 
@@ -58,6 +57,7 @@ class Participant < ApplicationRecord
     Rails.cache.fetch(xws_pilot) do
       pilot = Pilot.find_by xws: xws_pilot
       return xws_pilot if pilot.nil?
+
       pilot.name
     end
   end
@@ -66,6 +66,7 @@ class Participant < ApplicationRecord
     Rails.cache.fetch(xws_ship) do
       ship = Ship.find_by xws: xws_ship
       return xws_ship if ship.nil?
+
       ship.name
     end
   end
@@ -74,6 +75,7 @@ class Participant < ApplicationRecord
     Rails.cache.fetch(xws_upgrade) do
       upgrade = Upgrade.find_by xws: xws_upgrade
       return xws_upgrade if upgrade.nil?
+
       upgrade.name
     end
   end
@@ -90,6 +92,7 @@ class Participant < ApplicationRecord
 
   def formatted_list
     return [] if self.list_json.blank?
+
     begin
       list = JSON.parse(self.list_json)
       output = []
@@ -114,5 +117,4 @@ class Participant < ApplicationRecord
 
     update(participant_data)
   end
-
 end
