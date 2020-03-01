@@ -55,7 +55,7 @@ GEM
     autoprefixer-rails (9.7.4)
       execjs
     aws-eventstream (1.0.3)
-    aws-partitions (1.276.0)
+    aws-partitions (1.278.0)
     aws-sdk-core (3.90.1)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -68,7 +68,7 @@ GEM
       aws-sdk-core (~> 3, >= 3.83.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
-    aws-sigv4 (1.1.0)
+    aws-sigv4 (1.1.1)
       aws-eventstream (~> 1.0, >= 1.0.2)
     barnes (0.0.8)
       multi_json (~> 1)
@@ -173,7 +173,7 @@ GEM
     multipart-post (2.1.1)
     newrelic_rpm (6.9.0.363)
     nio4r (2.5.2)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     oauth2 (1.4.4)
       faraday (>= 0.8, < 2.0)
@@ -194,7 +194,8 @@ GEM
     pg (1.2.2)
     popper_js (1.16.0)
     public_suffix (4.0.3)
-    puma (3.12.2)
+    puma (4.3.3)
+      nio4r (~> 2.0)
     rack (2.2.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -299,7 +300,7 @@ DEPENDENCIES
   newrelic_rpm
   omniauth-google-oauth2
   pg
-  puma (~> 3.12)
+  puma
   rails (~> 5.2.4)
   sassc-rails
   selenium-webdriver
