@@ -26,7 +26,7 @@ Lastly, you'll need a recent version of Node installed in WSL. I'd suggest just 
 
 If you haven't already, in wsl, run `code .` from the root of the project folder to open vscode while causes it to recognize that you want it to run in wsl development mode.
 
-Finally, let's setup our db and application credentials. In the root of the project, run `cp config/application.yml.example config/application.yml` I use a gem called fiddler which reads application.yml, finds credientials stored there and puts them into the enviroment. It's important that you never commit your application.yml file to git as that will make all your secret keys public. This project already has .gitignore configured to exclude that file but just be careful on other projects. 
+Finally, let's setup our db and application credentials. In the root of the project, run `cp config/application.yml.sample config/application.yml` I use a gem called fiddler which reads application.yml, finds credientials stored there and puts them into the enviroment. It's important that you never commit your application.yml file to git as that will make all your secret keys public. This project already has .gitignore configured to exclude that file but just be careful on other projects. 
 
 The only values you need to supply for ListFortress is the db user and password that you should have from earlier. Slack and AWS are used for league features like SSO and file storage but you shouldn't need them to get started.
 
