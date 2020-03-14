@@ -10,16 +10,18 @@ Contributions are welcome. Feel free to make a pull request or send me a message
 
 # Setup 
 
-When building a new pc, I tried to document how I ended up installing and configuring everything. [Check out the more detailed write up](Setup.md)
+When building a new pc, I tried to document how I ended up installing and configuring everything. 
+[Check out the more detailed write up](Setup.md)
 
-* Install Ruby 2.5.7, a recent version of Node and Postgres. In production the JS compressor, closure-compiler, requires a recent version of Java. 
+* Install Ruby 2.6.5, a recent version of Node and Postgres. 
+  In production the JS compressor, closure-compiler, requires a recent version of Java. 
 
 * Fork and download the repo: `git clone --recurse-submodules ` + the repo url
 
-* Check that the submodule files are present. If you didn't use `--recurse-submodules` then run `git submodule init` + ` git submodule update`
+* Check that the submodule files are present. If you didn't use `--recurse-submodules` then run `git submodule init` + `git submodule update`
 
-* Create an config file at ./config/application.yml to hold your secrets. A sample file can be found at ./config/application.yml.sample 
-  Rename it and add any needed values. The db values are required if on windows but the others are optional.
+* Create an config file by running `cp config/application.yml.sample config/application.yml` and then provide the db username and password.
+  Slack, Google and AWS keys are optional unless you want to use SSO and log file cloud storage.
 
 * Install the required gems: `bundle install`
 
