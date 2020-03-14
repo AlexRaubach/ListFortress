@@ -2,11 +2,9 @@
 
 I built a new computer in Jan 2020 and I roughly documented the steps I took to get my development enviroment set up with some brief reasoning.
 
-Quick note: Gems are packages for 
+I run Windows for a variety of reasons but would like to get some of the benefits of developing on Linux. The best reason is because the production version of the site runs on Linux. Matching the OS allows me to run the exact same gem or ruby package versions in both development or production. My hosting provider, Heroku, will discard the list of gem versions i.e. Gemfile.Lock if it was created for a Windows install. 
 
-I run Windows for a variety of reasons but would like to get some of the benefits of developing on Linux. The best reason is because the production version of the site runs on Linux. Matching the OS allows me to run the exact same gem or ruby package versions in both development or production. My hosting provider, Heroku, will discard the list of gem versions, Gemfile.Lock, if it was created for a Windows install. 
-
-To get the benefits of Linux when developing and Windows when doing everything else, I use the Windows Subsystem for Linux. Basicly, it gives me a command prompt that runs a simple version of Linux that can be used to run our Ruby programs.
+To get all these benefits without having to actually run Linux, I use the Windows Subsystem for Linux. Basicly, it gives me a command prompt that runs a simple version of Linux that can be used to run and develop programs.
 
 Just go follow Microsoft's instructions for installing WSL. You'll have to enable a windows feature, restart and then install a distro from the windows store. I chose the Ubuntu distro and it's a solid choice but if you have strong opinions on a distro, you probably know enough to chose whichever distro you want.
 
@@ -16,19 +14,24 @@ Next, let's install a code editor. I highly suggest Visual Studio Code because i
 
 To finish our windows tasks, let's get our repo downloaded. Open WSL or another command line with git like Git Bash and navigiate to where you'd like to store the files. I personally use C:\dev (/mnt/c/dev on WSL) but it's up to you. Run `git clone https://github.com/AlexRaubach/ListFortress.git`
 
-To be continued... Remaining topics
+Next we want to install a program to manage our ruby installation and versions so we can easily switch between / upgrade ruby for one project without impacting other projects. The two popular solutions are [Rbenv](https://github.com/rbenv/rbenv) and RVM. I recomend rbenv if you don't already have a preference. Just follow the setup instructions, I also install [ruby-build](https://github.com/rbenv/ruby-build#readme) with rbenv which requires more setup but makes it easy to install a new ruby version with only one command. It will require the installation of more packages in WSL but generally you try to install ruby-build, get a error, google it, find which programs you're missing and how to install them and then repeat until installed. 
 
-Rbenv
+Next just find which version of ruby you need (check ./ruby-version in the repo's main folder if it's using rbenv) and install it. If you've followed my suggestions, this is as simple as `rbenv install 2.6.5` and `rbenv rehash`
 
-Ruby 
+Next install bundler, this gem handles tracking and versioning ruby third party packages i.e. gems. Just run `gem install bundler`.
 
-Bundler
+Now let's use bundler to install everything. In WSL, navigate to the project folder and run `bundler install`. This will read the Gemfile.lock file, see which version of every gem you need and then install it.
 
-install gems
+Lastly, you'll need a recent version of Node installed in WSL. I'd suggest just the most recent LTS version but it doesn't really matter if you're mostly working with Ruby like I am.
 
-Install other dependencies like Node
+If you haven't already, in wsl, run `code .` from the root of the project folder to open vscode while causes it to recognize that you want it to run in wsl development mode.
 
-set up the project with db credentials 
+Finally, let's setup our db and application credentials. In the root of the project, run `cp config/application.yml.example config/application.yml` I use a gem called fiddler which reads application.yml, finds credientials stored there and puts them into the enviroment. It's important that you never commit your application.yml file to git as that will make all your secret keys public. This project already has .gitignore configured to exclude that file but just be careful on other projects. 
 
-Get it running `rails s` and `rails c`
+The only values you need to supply for ListFortress is the db user and password that you should have from earlier. Slack and AWS are used for league features like SSO and file storage but you shouldn't need them to get started.
 
+Finally, try to run the server by `rails s` and then opening the specified webpage in your browser, the default is http://localhost:3000/
+
+If you want to test out something, you can also open a rails console by running `rails c`.
+
+If you use this guide and have questions or find it unclear, please reach out to me via the vassal league slack or open an issue and I'll try to help you out. Pull requests are also welcome.
