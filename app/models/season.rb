@@ -5,13 +5,14 @@ class Season < ApplicationRecord
 
   CURRENT_SEASON = 9
   INTERDIVISIONAL_ALLOWED = true
+  ACTIVE_SEASONS = [9, 1000, 1100]
 
   def to_param
     season_number
   end
 
   def current_season?
-    season_number == CURRENT_SEASON
+    season_number.in?(ACTIVE_SEASONS)
   end
 
   def to_csv
