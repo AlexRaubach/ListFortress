@@ -1,6 +1,5 @@
 AllCops:
   TargetRubyVersion: 2.6.5
-  Enabled: true
   Exclude:
   - 'db/**/*'
   - 'config/**/*'
@@ -8,3 +7,12 @@ AllCops:
   - 'bin/{rails,rake}'
   - !ruby/regexp /old_and_unused\.rb$/
   - '**/*.erb'
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
