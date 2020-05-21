@@ -1,10 +1,10 @@
-desc 'Creates S1000 and all the divisions and matches'
+desc 'Creates S1001 and all the divisions and matches'
 task generate_league_matches_s1000: :environment do
   DIVISION_NAMES = [
     ['Black Sun', 'Crimson Dawn']
   ].freeze
 
-  season = Season.create(season_number: 1000, name: 'X-Wing Hungarian Vassal League Season One')
+  season = Season.create(season_number: 1001, name: 'X-Wing Hungarian Vassal League Season Two')
 
   DIVISION_NAMES.each_with_index do |tier_data, tier_number|
     tier_data.each_with_index do |tier_name, division_number|
@@ -17,13 +17,15 @@ task generate_league_matches_s1000: :environment do
     end
   end
 
-  csv_text = File.open("#{Rails.root}/public/s1000.csv")
+  csv_text = File.open("#{Rails.root}/public/season1001.csv")
   csv = CSV.parse(csv_text)
   csv.each do |user_info|
     name = user_info[0]
     # name = user_info[1]
     division_tier = user_info[1]
     division_letter = user_info[2]
+
+    next if name.nil?
 
     league_participant = LeagueParticipant.create(list_juggler_name: name)
 
@@ -42,7 +44,7 @@ task generate_league_matches_s1000: :environment do
   end
 end
 
-def add_to_league(season_number, user_id, div_tier, div_letter)
+def add_to_league(season_number, name, div_tier, div_letter)
   season = Season.find_by(season_number: season_number)
 
   division = Division.find_by(
@@ -53,7 +55,7 @@ def add_to_league(season_number, user_id, div_tier, div_letter)
 
   puts 'Nil division ' + div_tier.to_S + div_letter.to_s if division.nil?
 
-  league_participant = LeagueParticipant.create(user_id: user_id)
+  league_participant = LeagueParticipant.create(list_juggler_name: name)
 
   division.add_participant(league_participant)
 end
