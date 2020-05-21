@@ -4,7 +4,7 @@ class LeagueSignupsController < ApplicationController
   # GET /league_signups
   # GET /league_signups.json
   def index
-    @league_signups = LeagueSignup.all.where(season_number: 9)
+    @league_signups = LeagueSignup.all.where(season_number: 10)
   end
 
   # GET /league_signups/1
@@ -34,12 +34,12 @@ class LeagueSignupsController < ApplicationController
 
     @league_signup = LeagueSignup.new(league_signup_params.except(:full_name, :display_name))
 
-    @league_signup.season_number = 9
+    @league_signup.season_number = 10
     @league_signup.user = current_user
 
     respond_to do |format|
       if @league_signup.save
-        format.html { redirect_to '/league', notice: 'League signup was successfully created.' }
+        format.html { redirect_to '/league_signups', notice: 'League signup was successfully created.' }
         format.json { render :show, status: :created, location: @league_signup }
       else
         format.html { render :new }
@@ -59,7 +59,7 @@ class LeagueSignupsController < ApplicationController
 
     respond_to do |format|
       if @league_signup.update(league_signup_params.except(:full_name, :display_name))
-        format.html { redirect_to '/league', notice: 'League signup was successfully updated.' }
+        format.html { redirect_to '/league_signups', notice: 'League signup was successfully updated.' }
         format.json { render :show, status: :ok, location: @league_signup }
       else
         format.html { render :edit }
