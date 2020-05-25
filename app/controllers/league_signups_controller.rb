@@ -4,7 +4,7 @@ class LeagueSignupsController < ApplicationController
   # GET /league_signups
   # GET /league_signups.json
   def index
-    @league_signups = LeagueSignup.all.where(season_number: 10)
+    @league_signups = LeagueSignup.where(season_number: 10).includes(:user)
   end
 
   # GET /league_signups/1
