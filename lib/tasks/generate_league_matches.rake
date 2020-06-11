@@ -1,21 +1,23 @@
-desc 'Creates S8 and all the divisions and matches'
+desc 'Creates a league season, divisions and matches'
 task generate_league_matches: :environment do
   DIVISION_NAMES = [
     ['Coruscant'],
-    ['Alderaan', 'Corellia', 'Kuat'],
-    ['Chardaan', 'Kashyyyk', 'Myrkr', 'Nal Hutta', 'Manaan'],
-    ['Bespin', 'Dagobah', 'Tatooine',
-     'Endor', 'Dantooine', 'Hoth', 'Yavin'
-      # , 'Kamino', 'Mon Calamari', 'Mandalore'
-    ],
-    # ['Jakku', 'Nkllon', 'Csilla',
+    ['Alderaan', 'Corellia'], # 'Kuat'
+    ['Chardaan', 'Kashyyyk', 'Myrkr'], # , 'Nal Hutta', 'Manaan'
+    [ # Tier 4
+      'Bespin', 'Dagobah', 'Tatooine',
+      'Endor', 'Dantooine', 'Hoth'
+      # , 'Yavin' , 'Kamino', 'Mon Calamari', 'Mandalore'
+    ]
+    # ,[    # Tier Five
+    #  'Jakku', 'Nkllon', 'Csilla',
     #  'Celwiss', 'Ilum', 'Plunder Moon', 'Bakura'
     # #  , 'The Redoubt', 'Nirauan',
     # #  'Kariek', 'Lwhekk'
     # ]
   ].freeze
 
-  season = Season.create(season_number: 9, name: 'X-Wing Vassal League Season Nine')
+  season = Season.create(season_number: 10, name: 'X-Wing Vassal League Season Ten')
 
   DIVISION_NAMES.each_with_index do |tier_data, tier_number|
     tier_data.each_with_index do |tier_name, division_number|
@@ -28,7 +30,7 @@ task generate_league_matches: :environment do
     end
   end
 
-  csv_text = File.open("#{Rails.root}/public/s9.csv")
+  csv_text = File.open("#{Rails.root}/public/s10.csv")
   csv = CSV.parse(csv_text)
   csv.each do |user_info|
     user_id = user_info[0]
