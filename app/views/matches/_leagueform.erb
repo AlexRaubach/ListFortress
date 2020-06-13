@@ -1,6 +1,13 @@
 <%= bootstrap_form_for(@match) do |form| %>
 
-
+  <%# Used to show which file was selected %>
+  <%= javascript_tag do %> 
+      $(document).on('ready turbolinks:load', function() {
+        $('.custom-file-input').change(function(){
+          $('.custom-file-label').text(this.value);
+        });
+      });
+  <% end %>
 
   <div class='row'>
     <div class="form-group col-md-6">
