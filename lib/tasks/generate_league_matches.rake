@@ -55,6 +55,12 @@ task generate_league_matches: :environment do
   end
 end
 
+# This is sample code used to add late signups without the batch process I use normally
+# you can fill in your new player array and then paste everything into the console.
+new_players = [
+  [341, 4, 'A'],
+]
+
 def add_to_league(season_number, user_id, div_tier, div_letter)
   season = Season.find_by(season_number: season_number)
 
@@ -69,4 +75,8 @@ def add_to_league(season_number, user_id, div_tier, div_letter)
   league_participant = LeagueParticipant.create(user_id: user_id)
 
   division.add_participant(league_participant)
+end
+
+new_players.each do |p|
+  add_to_league(10, p[0], p[1], p[2])
 end

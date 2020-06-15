@@ -1,6 +1,6 @@
 desc 'Assign all promotions and demotions'
 task assign_league_promotions: :environment do
-  season = Season.find_by(season_number: 8)
+  season = Season.find_by(season_number: 9)
 
   season.divisions.each do |division|
     puts 'assigning promotions for division ' + division.name
