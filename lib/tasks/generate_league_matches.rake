@@ -57,6 +57,7 @@ end
 
 # This is sample code used to add late signups without the batch process I use normally
 # you can fill in your new player array and then paste everything into the console.
+=begin 
 new_players = [
   [341, 4, 'A'],
 ]
@@ -80,3 +81,4 @@ end
 new_players.each do |p|
   add_to_league(10, p[0], p[1], p[2])
 end
+=end
