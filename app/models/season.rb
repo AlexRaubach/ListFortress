@@ -4,8 +4,8 @@ class Season < ApplicationRecord
   validates_uniqueness_of :season_number
 
   CURRENT_SEASON = 10 # used for user.current_league_participant
-  INTERDIVISIONAL_ALLOWED = false
-  ACTIVE_SEASONS = [1001, 10]
+  INTERDIVISIONAL_ALLOWED = true
+  ACTIVE_SEASONS = [1001, 10].freeze
 
   def to_param
     season_number

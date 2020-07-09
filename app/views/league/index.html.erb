@@ -67,14 +67,16 @@
         <br>
         You can always logout by visiting <a href="/logout">here</a> or you can change your user name / address <a href="/me">here</a>
         <p>
-        <%# if user.league_signups.where(season_number: 9).present? %>
-            <%# 'You are signed up for Season 9' %>
+        <%# if user&.league_signups&.where(season_number: 10)&.present? %>
+            <%# 'You are signed up for Season 10' %>
         <%# else %>
-            <%# link_to 'Sign up for Season 9', new_league_signup_path %>
+            <%# link_to 'Sign up for Season 10 here', new_league_signup_path %>
         <%# end %>
         <% if user&.current_league_participant %>
-            <div><%= link_to 'View all matches at your Season 9 profile page', user.current_league_participant %></div>
+            <div><%= link_to 'View all matches at the profile page', user.current_league_participant %></div>
+            <% if Season::INTERDIVISIONAL_ALLOWED %>
             <div><%= link_to 'You can now create interdivisional matches', league_interdivisional_path %></div>
+            <% end %>
         <% end %>
         </p>
     <% else%>
