@@ -36,7 +36,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Sign in with google / slack
-gem 'ginjo-omniauth-slack'
+gem 'ginjo-omniauth-slack', '~> 2.4.1'
 gem 'omniauth-google-oauth2'
 
 # manage secrets
