@@ -62,7 +62,7 @@
     <% if current_user %>
         Status: <br>
         <% user = current_user %>
-        <%= 'You are logged in as ' + user&.name.to_s  + ' and your display name is ' +user&.display_name&.to_s %> <br>
+        <%= 'You are logged in as ' + user&.name.to_s  + ' and your display name is ' +user&.display_name.to_s %> <br>
         <%= 'Your User ID is ' +  user&.id&.to_s %>
         <br>
         You can always logout by visiting <a href="/logout">here</a> or you can change your user name / address <a href="/me">here</a>
