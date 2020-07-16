@@ -16,7 +16,7 @@ To finish our windows tasks, let's get our repo downloaded. Open WSL or another 
 
 Next we want to install a program to manage our ruby installation and versions so we can easily switch between / upgrade ruby for one project without impacting other projects. The two popular solutions are [Rbenv](https://github.com/rbenv/rbenv) and RVM. I recomend rbenv if you don't already have a preference. Just follow the setup instructions, I also install [ruby-build](https://github.com/rbenv/ruby-build#readme) with rbenv which requires more setup but makes it easy to install a new ruby version with only one command. It will require the installation of more packages in WSL but generally you try to install ruby-build, get a error, google it, find which packages you're missing and how to install them and then repeat until installed. 
 
-Next just find which version of ruby you need (check ./ruby-version in the repo's main folder if it's using rbenv) and install it. If you've followed my suggestions, this is as simple as `rbenv install 2.6.6` and `rbenv rehash`
+Next just find which version of ruby you need (check .ruby-version in the repo's main folder if it's using rbenv) and install it. If you've followed my suggestions, this is as simple as `rbenv install 2.6.6` and `rbenv rehash`
 
 Next install bundler, this gem handles tracking and versioning ruby third party packages i.e. gems. Just run `gem install bundler`.
 
