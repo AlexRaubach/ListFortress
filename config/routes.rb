@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   # get 'home', to: 'home#show'
   get 'about', to: 'home#about'
 
-  get 'league/interdivisional', to: 'league#interdivisional'
+  get 'league/interdivisional', to: 'league#interdivisional', as: 'interdivisional'
   post 'league/interdivisional', to: 'league#create_interdivisional'
   get 'league', to: 'league#index'
   get 'me', to: 'me#home'
