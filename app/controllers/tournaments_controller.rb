@@ -14,8 +14,9 @@ class TournamentsController < ApplicationController
   # GET /tournaments/1
   # GET /tournaments/1.json
   def show
-    @participants = @tournament.participants.order(Arel.sql(
-      'swiss_rank = 0, swiss_rank asc, score desc, mov desc, id asc'
+    @participants = @tournament.participants.order(Arel.sql('
+      swiss_rank = 0, swiss_rank asc, score desc, mov desc, id asc
+      '
     ))
 
     @rounds = @tournament.rounds.sort_by(&:sort_value)
@@ -39,12 +40,19 @@ class TournamentsController < ApplicationController
   def create
     @tournament = Tournament.new(tournament_params['tournament'])
 
+    if @tournament.save
+      valid_tounament = @tournament.create_squads
+    else
+      valid_tounament = false
+    end
+
     respond_to do |format|
-      if @tournament.save
-        @tournament.create_squads
+      if valid_tounament
         format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
         format.json { render :show, status: :created, location: @tournament }
       else
+        @tournament.destroy
+        flash.now[:alert] = 'Something isn\'t right about this submission. Consider checking any urls'
         format.html { render :new }
         format.json { render json: @tournament.errors, status: :unprocessable_entity }
       end
@@ -81,7 +89,7 @@ class TournamentsController < ApplicationController
   def feed
     @tournaments = Tournament.last(30)
     respond_to do |format|
-      format.rss {render layout: false}
+      format.rss { render layout: false }
     end
   end
 

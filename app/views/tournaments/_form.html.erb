@@ -10,13 +10,10 @@
   </div>
 
   <div class="form-group form-row">
-    <div class="col-md-2">
-      <%= form.number_field(:participant_number, value: @tournament.participants.size, max: 999, min: 0, required: true, label: 'Number of Players')%>
-    </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
       <%= form.collection_select(:format_id, Format.all, :id, :name, label: 'Tournament Format:') %>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
       <%= form.collection_select(:tournament_type_id, TournamentType.all, :id, :name,  label: 'Tournament Type:') %>
     </div>
   </div>
@@ -35,20 +32,24 @@
   </div>
 
   <p class='form-group'>
-<%= label_tag('', "You can optionally load player and round data from tabletop.to, cryodex, Best Coast Pairings, or manually. 
-You'll still have to fill out the Tournament details in the form above.") %>
+<%= label_tag('', "You can load player and round data in three different ways. ") %> <br>
+
+<%= label_tag('', "1: You can link to a TableTop.TO or Best Coast Pairings event via url like https://tabletop.to/jank-tank-open") %> <br>
+<%= label_tag('', "2: Paste an export from cryodex") %> <br>
+<%= label_tag('', "3: Create an empty event with a set number of players and fill out the lists, names and scores manually.") %> <br>
+<%= label_tag('', "Fill out only one of the following boxes; if your chosen url or json export is invalid you'll have to create a new event.") %>
   </p>
 
 <p>
   <div class="form-group form-row">
-    <div class="col-md-6">
-      <%= form.text_field(:tabletop_url, label: 'Optional Tabletop.TO or Best Coast Pairings URL.') %>
+    <div class="col-md-5">
+      <%= form.text_field(:tabletop_url, label: 'Tabletop.TO or Best Coast Pairings URL') %>
     </div>
-    <div class='col-md-6'>
-      <%= form.text_area(:cryodex_json, label: 'Optional Cryodex or Tabletop.TO json')%>
+    <div class='col-md-5'>
+      <%= form.text_area(:cryodex_json, label: 'Cryodex json export')%>
     </div>
     <div class="col-md-2">
-      <%# form.number_field(:round_number, value: @tournament.rounds.size, max: 256, min: 0, label: 'Optional Number of Rounds')%>
+      <%= form.number_field(:participant_number, value: @tournament.participants.size, max: 999, min: 0, label: 'Number of Players (Manual Entry)')%>
     </div>
   </div>
 </p>

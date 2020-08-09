@@ -1,11 +1,12 @@
 class Tournament < ApplicationRecord
   require 'csv'
-  has_many :participants
+  has_many :participants, dependent: :destroy
   has_many :rounds, dependent: :destroy
   belongs_to :format
   belongs_to :version, optional: true
   belongs_to :tournament_type
   attr_accessor :participant_number, :tabletop_url, :cryodex_json, :round_number
+
   scope :updated_after, ->(update_date) { where!('updated_at > ?', update_date) if update_date.present? }
   validates :date, presence: true
 
@@ -22,17 +23,16 @@ class Tournament < ApplicationRecord
       # Check for Best Coast Pairings
       match = tabletop_url.match(/bestcoastpairings.com\/r\/([a-zA-Z\d]{8})/)
       if match
-        full_url = "https://www.bestcoastpairings.com/r/" + match[1] + "?embed=true"
+        full_url = 'https://www.bestcoastpairings.com/r/' + match[1] + '?embed=true'
         success = scrape_participants_from_best_coast_pairings(full_url)
       end
     elsif cryodex_json.present?
       success = participants_from_cryodex(cryodex_json)
+    elsif participant_number.present? && participant_number.to_i.positive?
+      create_empty_squads(participant_number.to_i)
+      success = true
     end
-    # If url or json import can't find any players, create blank ones
-    create_empty_squads(participant_number.to_i) unless success
-
-    # If TTT or Crodex import weren't successful create empty rounds
-    create_empty_rounds(round_number.to_i) unless success
+    success
   end
 
   def create_empty_rounds(number)
