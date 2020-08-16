@@ -47,12 +47,12 @@ class TournamentsController < ApplicationController
     end
 
     respond_to do |format|
-      if valid_tounament
+      if valid_tounament && @tournament.participants.count > 1
         format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
         format.json { render :show, status: :created, location: @tournament }
       else
         @tournament.destroy
-        flash.now[:alert] = 'Something isn\'t right about this submission. Consider checking any urls'
+        flash.now[:alert] = 'Something isn\'t right about this submission. Consider rechecking any urls'
         format.html { render :new }
         format.json { render json: @tournament.errors, status: :unprocessable_entity }
       end

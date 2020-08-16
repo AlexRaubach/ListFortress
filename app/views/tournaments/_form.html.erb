@@ -32,33 +32,44 @@
   </div>
 
   <p class='form-group'>
-<%= label_tag('', "You can load player and round data in three different ways. ") %> <br>
+    <%= label_tag('', "You can load player and round data in three different ways. Only one can be used at a time.") %> <br>
 
-<%= label_tag('', "1: You can link to a TableTop.TO or Best Coast Pairings event via url like https://tabletop.to/jank-tank-open") %> <br>
-<%= label_tag('', "2: Paste an export from cryodex") %> <br>
-<%= label_tag('', "3: Create an empty event with a set number of players and fill out the lists, names and scores manually.") %> <br>
-<%= label_tag('', "Fill out only one of the following boxes; if your chosen url or json export is invalid you'll have to create a new event.") %>
-  </p>
-
-<p>
   <div class="form-group form-row">
-    <div class="col-md-5">
-      <%= form.text_field(:tabletop_url, label: 'Tabletop.TO or Best Coast Pairings URL') %>
+    <div class='col-md-6'>
+      <%= form.text_field(:tabletop_url, 
+                    label: '1: You can link to a TableTop.TO or Best Coast Pairings event via url',
+                    placeholder: 'https://tabletop.to/url') 
+      %>
     </div>
-    <div class='col-md-5'>
-      <%= form.text_area(:cryodex_json, label: 'Cryodex json export')%>
+  </div>
+
+  <div class="form-group form-row">
+    <div class='col-md-6'>
+      <%= form.text_area(:cryodex_json, label: '2: Paste an export from cryodex', 
+        placeholder: '{"name": "YourTournament\'s json"... }',
+        help: 'Export an XWingTournament.JSON file from cryodex, open it in notepad and copy the contents'
+      )%>
     </div>
-    <div class="col-md-2">
-      <%= form.number_field(:participant_number, value: @tournament.participants.size, max: 999, min: 0, label: 'Number of Players (Manual Entry)')%>
+  </div>
+
+  <div class="form-group form-row">
+    <div class='col-md-4'>
+      <%= form.number_field(:participant_number, value: @tournament.participants.size, 
+        max: 999, min: 0, 
+        label: '3: Set the number of participants directly.',
+        help: 'You will have to manually enter names and scores.')
+      %>
     </div>
   </div>
 </p>
+
+
 <p>
-  <dive class="form-group for row">
-  <div class="actions">
-    <%= form.submit %>
-    <%= link_to 'Back', tournaments_path, {class: 'btn btn-danger'} %>
-  </div>
+  <div class="form-group for row">
+    <div class="actions">
+      <%= form.submit %>
+      <%= link_to 'Back', tournaments_path, {class: 'btn btn-danger'} %>
+    </div>
   </div>
 </p>
 
