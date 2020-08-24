@@ -1,11 +1,15 @@
 <h1 class="text-center">Tournaments</h1>
 <div class="container">
 
+  <div class="filter_box">
+    <%= render "filter" %>
+  </div>
+
   <div>
     <%= will_paginate @tournaments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center) %>
   </div>
 
-  <table  class="table table-striped">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Name</th>

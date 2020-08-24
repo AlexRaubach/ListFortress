@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-body">
+    <div class="float-right">
+      <%= button_to 'Reset', request.env['PATH_INFO'], method: :get, class: 'btn btn-warning btn-sm' %>
+    </div>
+
+    <div class="">
+    <%= bootstrap_form_tag do |form|%>
+      <%= label_tag(:country, 'Country')%>
+      <%= form.country_select(:country, {priority_countries: ["US"], include_blank:true}, {class: 'form-control col-md-4'}) %>
+      <%= form.number_field :max_participants, label: "Max #", control_class: "form-control col-md-2"%>
+    <% end %>
+    </div>
+  </div>
+</div>

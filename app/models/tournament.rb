@@ -8,6 +8,10 @@ class Tournament < ApplicationRecord
   attr_accessor :participant_number, :tabletop_url, :cryodex_json, :round_number
 
   scope :updated_after, ->(update_date) { where!('updated_at > ?', update_date) if update_date.present? }
+  scope :max_participants, ->(max) { where('participants_count <= ?', max) }
+  scope :min_participants, ->(min) { where('participants_count >= ?', min) }
+  scope :country, ->(country) { where('country = ?', country) }
+  scope :format, ->(format_id) { where('format_id = ?', format_id) }
   validates :date, presence: true
 
   def create_squads
