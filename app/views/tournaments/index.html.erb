@@ -1,12 +1,13 @@
 <h1 class="text-center">Tournaments</h1>
 <div class="container">
-
-  <div class="filter_box">
-    <%= render "filter" %>
+<button type="button" class="btn btn-info float-right">Filters</button>
+  <div>
+    <%= will_paginate @tournaments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, 
+      list_classes: %w(pagination justify-content-center) %>
   </div>
 
-  <div>
-    <%= will_paginate @tournaments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center) %>
+  <div id="tournament_filter_bar_card" class="filter_box d-none">
+    <%= render "filter" %>
   </div>
 
   <table class="table table-striped">
