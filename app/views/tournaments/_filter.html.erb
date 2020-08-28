@@ -7,20 +7,24 @@
       <%= bootstrap_form_tag do |form|%>
         <div class="form-group form-row">
           <div class="col-md-1">
-            <%= form.number_field :min_participants, label: "Min #:"%>
+            <%= form.number_field :min_participants, label: "Min #:", class: "filter-input"%>
           </div>
           <div class="col-md-1">
-            <%= form.number_field :max_participants, label: "Max #:"%>
+            <%= form.number_field :max_participants, label: "Max #:", class: "filter-input" %>
           </div>
           <div class="col-md-2">
-            <%= form.collection_select(:format_id, Format.all, :id, :name, label: 'Format:', include_blank:true) %>
+            <%= form.collection_select(:format_id, Format.all, :id, :name, 
+              {label: 'Format:', include_blank: true}, {class: "filter-input"}) 
+            %>
           </div>
           <div class="col-md-2">
-            <%= form.collection_select(:tournament_type_id, TournamentType.all, :id, :name,  label: 'Type:', include_blank:true) %>
+            <%= form.collection_select(:tournament_type_id, TournamentType.all, :id, :name, 
+              {label: 'Type:', include_blank: true}, {class: "filter-input"}) 
+            %>
           </div>
           <div class="col-md-2">
             <%= label_tag(:country, 'Country')%>
-            <%= form.country_select(:country, {priority_countries: ["US"], include_blank:true}, {class: 'form-control'}) %>
+            <%= form.country_select(:country, {priority_countries: ["US"], include_blank:true}, {class: 'form-control filter-input'}) %>
           </div>
         </div>
         <div class="form-group form-row">

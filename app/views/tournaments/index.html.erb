@@ -1,6 +1,6 @@
 <h1 class="text-center">Tournaments</h1>
 <div class="container">
-<button type="button" class="btn btn-info float-right">Filters</button>
+  <button type="button" class="btn btn-info float-right" onclick="toggle_filter_visibility()">Filters</button>
   <div>
     <%= will_paginate @tournaments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, 
       list_classes: %w(pagination justify-content-center) %>
