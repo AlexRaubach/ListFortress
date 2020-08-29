@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
   before_action :set_tournament, only: [:show, :edit, :update, :destroy]
-  has_scope :max_participants, :min_participants, :country, :format
+  has_scope :max_participants, :min_participants, :country, :format_id, :tournament_type_id
   # before_action :authenticate, only: [:destroy]
 
   # GET /tournaments

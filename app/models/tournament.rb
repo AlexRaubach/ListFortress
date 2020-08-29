@@ -11,7 +11,8 @@ class Tournament < ApplicationRecord
   scope :max_participants, ->(max) { where('participants_count <= ?', max) }
   scope :min_participants, ->(min) { where('participants_count >= ?', min) }
   scope :country, ->(country) { where('country = ?', country) }
-  scope :format, ->(format_id) { where('format_id = ?', format_id) }
+  scope :format_id, ->(format_id) { where('format_id = ?', format_id) }
+  scope :tournament_type_id, ->(tt_id) { where('tournament_type_id = ?', tt_id) }
   validates :date, presence: true
 
   def create_squads
