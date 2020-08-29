@@ -6,7 +6,7 @@
       list_classes: %w(pagination justify-content-center) %>
   </div>
 
-  <div id="tournament_filter_bar_card" class="filter_box d-none">
+  <div id="tournament_filter_bar_card" class="filter_box <%= cookies[:filter_bar].present? ? "" : " d-none" %>" >
     <%= render "filter" %>
   </div>
 
