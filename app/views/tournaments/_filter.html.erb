@@ -27,6 +27,19 @@
             <%= form.country_select(:country, {priority_countries: ["US"], include_blank:true}, {class: 'form-control filter-input'}) %>
           </div>
         </div>
+
+        <div class="form-group form-row">
+          <div class="col-md-2">
+            <%= form.text_field(:name_search, label: 'Name:', class: "filter-input")%>
+          </div>
+          <div class="col-md-2">
+            <%= form.date_field(:played_after, label: 'Date ≥', class: "filter-input")%>
+          </div>
+          <div class="col-md-2">
+            <%= form.date_field(:played_before, label: '≤ Date', class: "filter-input")%>
+          </div>
+        </div>
+
         <div class="form-group form-row">
           <div>
             <%= form.submit "Filter", name: nil, class: "btn btn-secondary mr-3" %>
@@ -34,8 +47,8 @@
           <div>
             <%= link_to 'Reset', request.env['PATH_INFO'], method: "get", class: 'btn btn-warning mr-3' %>
           </div>
-          
         </div>
+
       <% end %>
       <%= javascript_tag "update_filter_with_query_string_params()" %>
     </div>

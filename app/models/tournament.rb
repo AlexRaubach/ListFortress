@@ -13,6 +13,9 @@ class Tournament < ApplicationRecord
   scope :country, ->(country) { where('country = ?', country) }
   scope :format_id, ->(format_id) { where('format_id = ?', format_id) }
   scope :tournament_type_id, ->(tt_id) { where('tournament_type_id = ?', tt_id) }
+  scope :played_before, ->(before_date) { where('date <= ?', before_date) }
+  scope :played_after, ->(after_date) { where('date >= ?', after_date) }
+  scope :name_search, ->(name) { where('lower(name) like ?', "%#{name.downcase}%") }
   validates :date, presence: true
 
   def create_squads
