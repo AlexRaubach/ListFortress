@@ -1,14 +1,16 @@
 class TournamentsController < ApplicationController
   before_action :set_tournament, only: [:show, :edit, :update, :destroy]
+  has_scope :max_participants, :min_participants, :country, :name_search,
+            :format_id, :tournament_type_id, :played_before, :played_after
   # before_action :authenticate, only: [:destroy]
 
   # GET /tournaments
   # GET /tournaments.json
   def index
-    @tournaments = Tournament.all
-                             .includes(:tournament_type, :format)
-                             .order(date: :desc, id: :desc)
-                             .paginate(page: params[:page], per_page: 25)
+    @tournaments = apply_scopes(Tournament).all
+                                           .includes(:tournament_type, :format)
+                                           .order(date: :desc, id: :desc)
+                                           .paginate(page: params[:page], per_page: 25)
   end
 
   # GET /tournaments/1
