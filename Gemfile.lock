@@ -94,7 +94,6 @@ GEM
     case_transform (0.2)
       activesupport
     childprocess (3.0.0)
-    closure-compiler (1.1.14)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -250,6 +249,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    uglifier (4.2.0)
+      execjs (>= 0.3.0, < 3)
     unicode_utils (1.4.0)
     web-console (3.7.0)
       actionview (>= 5.0)
@@ -281,7 +282,6 @@ DEPENDENCIES
   bootstrap_form
   byebug
   capybara (>= 2.15)
-  closure-compiler
   coffee-rails (~> 4.2)
   connection_pool
   country_select
@@ -302,6 +302,7 @@ DEPENDENCIES
   sassc-rails
   selenium-webdriver
   turbolinks (~> 5)
+  uglifier
   web-console (>= 3.3.0)
   webdrivers
   will_paginate (~> 3.1.0)

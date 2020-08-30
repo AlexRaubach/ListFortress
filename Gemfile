@@ -12,10 +12,10 @@ gem 'puma'
 # Use SCSS for stylesheets
 gem 'sassc-rails'
 # Use closure-compiler as compressor for JavaScript assets
-gem 'closure-compiler'
+# gem 'closure-compiler'
 
 # Uglifier produced bad JS that resulted in errors in production.
-# gem 'uglifier'
+gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'duktape'
 # Use CoffeeScript for .coffee assets and views
