@@ -5,7 +5,7 @@ class Season < ApplicationRecord
 
   CURRENT_SEASON = 10 # used for user.current_league_participant
   INTERDIVISIONAL_ALLOWED = true
-  ACTIVE_SEASONS = [1001, 10].freeze
+  ACTIVE_SEASONS = [].freeze
 
   def to_param
     season_number
