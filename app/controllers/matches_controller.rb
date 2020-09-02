@@ -41,7 +41,7 @@ class MatchesController < ApplicationController
       if @match.league_match
         # Only update matches belonging to the current season
         unless @match&.player1&.division&.season&.current_season?
-          format.html { render :edit, notice: "The record could not be updated" }
+          redirect_to @match.player1, alert: "This season has ended and matches can't be edited"
           return false
         end
 
@@ -74,7 +74,7 @@ class MatchesController < ApplicationController
 
       if @match.update(match_params['match'])
         update_parents(@match)
-        format.html { redirect_to league_path, notice: 'Match was successfully updated.' }
+        format.html { redirect_to @match.player1, notice: 'Match was successfully updated.' }
         format.json { render json: @match.errors, status: :unprocessable_entity }
       else
         format.html { render :edit, notice: "The record could not be updated" }
