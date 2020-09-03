@@ -13,17 +13,19 @@
     </ol>
   </nav>
 
+  <br>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Match ID</th>
-      <th>Player 1 Name</th>
-      <th>Player 1 Points</th>
+      <th>P1 Name</th>
+      <th>Points</th>
       <th>Player 1 Squad</th>
-      <th>Player 2 Name</th>
-      <th>Player 2 Points</th>
+      <th>P2 Name</th>
+      <th>Points</th>
       <th>Player 2 Squad</th>
-      <th>Winner Name</th>
+      <th>Winner</th>
       <th>Log File</th>
       <% if @authorized %>
       <th>Edit</th>
@@ -34,7 +36,7 @@
     <% @matches.each do |match| %>
     <tr>
       <td><%= match.id %></td>
-      <td><%= link_to LeagueParticipant.find(match.player1_id).name, league_participant_path(match.player1_id) %></td>
+      <td><%= link_to match.player1.name, league_participant_path(match.player1_id) %></td>
       <td><%= match.player1_points%></td>
       <td>
       <% if match.player1_xws.present? %>
@@ -43,7 +45,7 @@
         <% end %>
       <% end %>
       </td>
-      <td><%= link_to LeagueParticipant.find(match.player2_id).name, league_participant_path(match.player2_id) %></td>
+      <td><%= link_to match.player2.name, league_participant_path(match.player2_id) %></td>
       <td><%= match.player2_points%></td>
       <td>
       <%  if match.player2_xws.present? %>
@@ -52,15 +54,18 @@
         <% end%>
       <% end %>
       </td>
-      <td><%= LeagueParticipant.find(match.winner_id).name if match.winner_id %></td>
+      <td><%= match.winner.name if match.winner_id %></td>
       <td>
-      <%= link_to( 'Log file', rails_blob_path(match.log_file, disposition: "attachment")) if match.log_file.attached? %></td>
-      <% if @authorized %>
-      <td>
-      <%= link_to('Edit', edit_match_path(match)) %>
+        <%= link_to( 'Download', rails_blob_path(match.log_file, disposition: "attachment")) if match.log_file.attached? %>
       </td>
+
+      <% if @authorized %>
+        <td>
+          <%= link_to('Edit', edit_match_path(match)) %>
+        </td>
       <% end %>
     </tr>
+
     <% end %>
   </tbody>
 </table>
