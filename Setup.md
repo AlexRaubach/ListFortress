@@ -16,7 +16,7 @@ To finish our windows tasks, let's get our repo downloaded. Open WSL or another 
 
 Next we want to install a program to manage our ruby installation and versions so we can easily switch between / upgrade ruby for one project without impacting other projects. The two popular solutions are [Rbenv](https://github.com/rbenv/rbenv) and RVM. I recomend rbenv if you don't already have a preference. Just follow the setup instructions, I also install [ruby-build](https://github.com/rbenv/ruby-build#readme) with rbenv which requires more setup but makes it easy to install a new ruby version with only one command. It will require the installation of more packages in WSL but generally you try to install ruby-build, get a error, google it, find which packages you're missing and how to install them and then repeat until installed. 
 
-Next just find which version of ruby you need (check .ruby-version in the repo's main folder if it's using rbenv) and install it. If you've followed my suggestions, this is as simple as `rbenv install 2.6.6` and `rbenv rehash`
+Next just find which version of ruby you need (check .ruby-version in the repo's main folder if it's using rbenv) and install it. If you've followed my suggestions, this is as simple as `rbenv install 2.7.1` and `rbenv rehash`
 
 Next install bundler, this gem handles tracking and versioning ruby third party packages i.e. gems. Just run `gem install bundler`.
 
@@ -24,9 +24,9 @@ Now let's use bundler to install everything. In WSL, navigate to the project fol
 
 Lastly, you'll need a recent version of Node installed in WSL. I'd suggest just the most recent LTS version but it doesn't really matter if you're mostly working with Ruby like I am.
 
-If you haven't already, in wsl, run `code .` from the root of the project folder to open vscode while causes it to recognize that you want it to run in wsl development mode.
+If you haven't already, in wsl, run `code .` from the root of the project folder to open vscode in wsl development mode.
 
-Finally, let's setup our db and application credentials. In the root of the project, run `cp config/application.yml.sample config/application.yml` I use a gem called fiddler which reads application.yml, finds credientials stored there and puts them into the enviroment. It's important that you never commit your application.yml file to git as that will make all your secret keys public. This project already has .gitignore configured to exclude that file but just be careful on other projects. 
+Finally, let's setup our db and application credentials. In the root of the project, run `cp config/application.yml.sample config/application.yml` I use a gem called fiddler which reads application.yml, finds credientials stored there and puts them into the enviroment. It's important that you never commit your application.yml file to git as that will make all your secret keys public. This project already has .gitignore configured to exclude that file but just be careful. 
 
 The only values you need to supply for ListFortress is the db user and password that you should have from earlier. Slack and AWS are used for league features like SSO and file storage but you shouldn't need them to get started.
 

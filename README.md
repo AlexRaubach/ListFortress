@@ -13,8 +13,7 @@ Contributions are welcome. Feel free to make a pull request or send me a message
 When building a new pc, I tried to document how I ended up installing and configuring everything. 
 [Check out the more detailed write up](Setup.md)
 
-* Install [the version of Ruby found here](.ruby-version), a recent version of Node and Postgres. 
-  In production the JS compressor, closure-compiler, requires a recent version of Java. 
+* Install [the version of Ruby found here](.ruby-version), a recent version of Node and Postgres.
 
 * Fork and download the repo: `git clone --recurse-submodules ` + the repo url
 
