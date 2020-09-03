@@ -40,7 +40,7 @@ class MatchesController < ApplicationController
     respond_to do |format|
       if @match.league_match
         # Only update matches belonging to the current season
-        unless @match&.player1&.division&.season&.current_season?
+        unless @match&.player1&.division&.season&.active || current_user&.admin
           redirect_to @match.player1, alert: "This season has ended and matches can't be edited"
           return false
         end

@@ -1,10 +1,6 @@
 desc 'Update all League Participant Scores and MoV for the current season'
 task calculate_league_scores: :environment do
-
-  Season::ACTIVE_SEASONS.each do |season_number|
-    current_season = Season.find_by(season_number: season_number)
-    next if current_season.blank?
-
+  Season.where(active: true).each do |current_season|
     current_season.divisions.each do |division|
       # Coruscant players should play 2 additional games
       maximum_matches = division.tier == 1 ? 10 : 8
