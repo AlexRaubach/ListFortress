@@ -32,7 +32,7 @@
           <td><%= tournament.location%></td>
           <td><%= tournament.state%></td>
           <td><%= tournament.country%></td>
-          <td><%= tournament.date%></td>
+          <td><%= tournament.date.strftime('%y/%m/%d')%></td>
           <td><%= tournament.format&.name%></td>
           <td><%= tournament.tournament_type&.name%></td>
           <td><%= tournament.participants.size%>
