@@ -6,11 +6,11 @@
       </h3>
       <%= bootstrap_form_tag(id: "tournament_filter_form", method: "get", enforce_utf8: false) do |form|%>
         <div class="form-group form-row">
-          <div class="col-md-1">
-            <%= form.number_field :min_participants, label: "Min #:", class: "filter-input"%>
+          <div class="col-md-2">
+            <%= form.number_field :min_participants, label: "Min Player #", class: "filter-input"%>
           </div>
-          <div class="col-md-1">
-            <%= form.number_field :max_participants, label: "Max #:", class: "filter-input" %>
+          <div class="col-md-2">
+            <%= form.number_field :max_participants, label: "Max Player #", class: "filter-input" %>
           </div>
           <div class="col-md-2">
             <%= form.collection_select(:format_id, Format.all, :id, :name, 
@@ -37,6 +37,12 @@
           </div>
           <div class="col-md-2">
             <%= form.date_field(:played_before, label: '≤ Date', class: "filter-input")%>
+          </div>
+          <div class="col-md-2">
+            <% sort_array = Tournaments::Forms::ORDER.map { |k,v| [k, v[1]] } %>
+            <%= form.collection_select(
+              :sort_order, sort_array, :first, :last, {label: 'Order By:', include_blank: true}, {class: "filter-input"}
+            )%>
           </div>
         </div>
 

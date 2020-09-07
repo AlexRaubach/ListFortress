@@ -16,6 +16,13 @@ class Tournament < ApplicationRecord
   scope :played_before, ->(before_date) { where('date <= ?', before_date) }
   scope :played_after, ->(after_date) { where('date >= ?', after_date) }
   scope :name_search, ->(name) { where('lower(name) like ?', "%#{name.downcase}%") }
+  scope :sort_order, ->(order_key) {
+    if Tournaments::Forms::ORDER.key?(order_key)
+      order(Tournaments::Forms::ORDER[order_key][0])
+    else
+      order('date desc, id desc')
+    end
+  }
   validates :date, presence: true
 
   def create_squads
