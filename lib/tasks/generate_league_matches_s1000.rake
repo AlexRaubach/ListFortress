@@ -4,7 +4,7 @@ task generate_league_matches_s1000: :environment do
     ['Black Sun', 'Crimson Dawn']
   ].freeze
 
-  season = Season.create(season_number: 1001, name: 'X-Wing Hungarian Vassal League Season Two')
+  season = Season.create(season_number: 1002, name: 'X-Wing Hungarian Vassal League Season Three', active: true)
 
   DIVISION_NAMES.each_with_index do |tier_data, tier_number|
     tier_data.each_with_index do |tier_name, division_number|
@@ -17,7 +17,7 @@ task generate_league_matches_s1000: :environment do
     end
   end
 
-  csv_text = File.open("#{Rails.root}/public/season1001.csv")
+  csv_text = File.open("#{Rails.root}/public/HVL_1002.csv")
   csv = CSV.parse(csv_text)
   csv.each do |user_info|
     name = user_info[0]
