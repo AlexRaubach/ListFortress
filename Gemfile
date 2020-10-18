@@ -14,10 +14,10 @@ gem 'sassc-rails'
 # Use closure-compiler as compressor for JavaScript assets
 # gem 'closure-compiler'
 
-# Uglifier produced bad JS that resulted in errors in production.
+# Uglifier had problems in the past but maybe it just works now?
 gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'duktape'
+gem 'mini_racer'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -65,7 +65,7 @@ gem 'aws-sdk-s3', require: false
 gem 'mini_magick'
 
 # Use NewRelic for application profiling
-gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 
 # Use Barnes for heroku metrics
 gem 'barnes'
