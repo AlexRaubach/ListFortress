@@ -25,11 +25,12 @@
     <thead>
       <tr>
         <th>Rank</th>
-        <th>Top Cut</th>
+        <th>Cut</th>
         <th>Name</th>
         <th>Score</th>
         <th>MoV</th>
         <th>SoS</th>
+        <th> </th>
         <th>Squad</th>
         <th> </th>
 
@@ -44,13 +45,20 @@
       <td><%=participant.score %></td>
       <td><%=participant.mov %></td>
       <td><%=participant.sos %></td>
-      <td>
       <% if participant.list_json %>
-        <% XWS.formatted_list(participant.list_json).each do |line| %>
-          <%= line %> <br>
-        <% end %>
+        <td> 
+           <i class="xwing-miniatures-font <%="xwing-miniatures-font-#{XWS.faction_icon(participant.list_json)}"%>"> 
+        </td>
+        <td>
+          <% XWS.formatted_list(participant.list_json).each do |line| %>
+            <%= line %> <br>
+          <% end %>
+        </td>
+      <% else %>
+        <td></td>
+        <td></td>
       <% end %>
-      </td>
+
       <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
 
       </tr>
