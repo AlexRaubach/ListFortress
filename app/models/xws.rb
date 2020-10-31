@@ -81,4 +81,41 @@ class XWS
     end
     output
   end
+
+  def self.faction_icon(list_json)
+    return [] if list_json.blank?
+
+    begin
+      list = JSON.parse(list_json)
+      faction = list['faction']
+
+      return '' if faction.blank?
+
+      faction_icon_name(faction)
+    end
+  rescue
+    ''
+  end
+
+  def self.faction_icon_name(xws_faction_name)
+    # the xws faction names and font icons don't match up so we have to run them through a switch statement
+    case xws_faction_name
+    when 'firstorder'
+      'firstorder'
+    when 'galacticempire'
+      'empire'
+    when 'rebelalliance'
+      'rebel'
+    when 'resistance'
+      'rebel-outline'
+    when 'scumandvillainy'
+      'scum'
+    when 'galacticrepublic'
+      'republic'
+    when 'separatistalliance'
+      'separatists'
+    else
+      xws_faction_name
+    end
+  end
 end
