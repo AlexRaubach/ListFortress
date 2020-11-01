@@ -21,16 +21,16 @@
     <% end %>
     </p>
   </p>
-  <table  class="table table-striped">
+  <table id="tournament_participants" class="table table-striped">
     <thead>
       <tr>
-        <th>Rank</th>
-        <th>Cut</th>
-        <th>Name</th>
-        <th>Score</th>
-        <th>MoV</th>
-        <th>SoS</th>
-        <th> </th>
+        <th onclick="sortTable(0, true)"><i class="fas fa-sort"></i>Rank</th>
+        <th onclick="sortTable(1, true)">Cut</th>
+        <th onclick="sortTable(2, false)">Name</th>
+        <th onclick="sortTable(3, true)">Score</th>
+        <th onclick="sortTable(4, true)">MoV</th>
+        <th onclick="sortTable(5, true)">SoS</th>
+        <th onclick="sortTable(6, false)"> <i class="xwing-miniatures-font xwing-miniatures-font-condition-outline"> </th>
         <th>Squad</th>
         <th> </th>
 
