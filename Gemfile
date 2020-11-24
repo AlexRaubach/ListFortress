@@ -38,6 +38,7 @@ gem 'jbuilder', '~> 2.5'
 # Sign in with google / slack
 gem 'ginjo-omniauth-slack', '~> 2.4.1'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection', '~> 0.1'
 
 # manage secrets
 gem 'figaro'
