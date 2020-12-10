@@ -4,7 +4,7 @@ class LeagueSignupsController < ApplicationController
   # GET /league_signups
   # GET /league_signups.json
   def index
-    @league_signups = LeagueSignup.where(season_number: 10).includes(:user)
+    @league_signups = LeagueSignup.where(season_number: Season::CURRENT_SIGNUP_NUMBER).includes(:user)
   end
 
   # GET /league_signups/1
@@ -14,7 +14,7 @@ class LeagueSignupsController < ApplicationController
 
   # GET /league_signups/new
   def new
-    redirect_to '/login' if current_user.blank?
+    redirect_to '/league', notice: 'You have to sign in with slack to do that' if current_user.blank?
 
     @league_signup = LeagueSignup.new
   end
@@ -34,7 +34,7 @@ class LeagueSignupsController < ApplicationController
 
     @league_signup = LeagueSignup.new(league_signup_params.except(:full_name, :display_name))
 
-    @league_signup.season_number = 10
+    @league_signup.season_number = Season::CURRENT_SIGNUP_NUMBER
     @league_signup.user = current_user
 
     respond_to do |format|

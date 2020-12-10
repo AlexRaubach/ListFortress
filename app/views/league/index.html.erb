@@ -23,7 +23,11 @@
         <ul class="list-group">
             <li class="list-group-item">
                 <%= icon('fas', 'list-ol') %>
-                <%= link_to 'Browse Current Season', season_path(season_number: Season::CURRENT_SEASON) %>
+                <% if Season.exists?(season_number: Season::CURRENT_SEASON) # when a new season is in signups but hasn't been created %>
+                    <%= link_to 'Browse Current Season', season_path(season_number: Season::CURRENT_SEASON) %>
+                <% else %>
+                    <%= link_to 'Browse Current Season', season_path(season_number: Season::CURRENT_SEASON - 1) %>
+                <% end%>
             </li>
             <% if Season::INTERDIVISIONAL_ALLOWED %>
             <li class="list-group-item">
@@ -67,11 +71,13 @@
         <br>
         You can always logout by visiting <a href="/logout">here</a> or you can change your user name / address <a href="/me">here</a>
         <p>
-        <%# if user&.league_signups&.where(season_number: 10)&.present? %>
-            <%# 'You are signed up for Season 10' %>
-        <%# else %>
-            <%# link_to 'Sign up for Season 10 here', new_league_signup_path %>
-        <%# end %>
+        <% if Season::SIGNUPS_OPEN && user&.league_signups&.where(season_number: Season::CURRENT_SIGNUP_NUMBER)&.present? %>
+            <%= "You are signed up for Season #{Season::CURRENT_SIGNUP_NUMBER}" %>
+        <% elsif Season::SIGNUPS_OPEN %>
+            <h2>
+            <%=  link_to "Sign up for Season #{Season::CURRENT_SIGNUP_NUMBER} here", new_league_signup_path %>
+            </h2>
+        <% end %>
         <% if user&.current_league_participant %>
             <div><%= link_to 'View all matches at the profile page', user.current_league_participant %></div>
             <% if Season::INTERDIVISIONAL_ALLOWED %>

@@ -3,9 +3,10 @@ class Season < ApplicationRecord
   has_many :league_participants, through: :divisions
   validates_uniqueness_of :season_number
 
-  CURRENT_SEASON = 10 # used for user.current_league_participant
+  CURRENT_SEASON = 11 # used for user.current_league_participant
+  CURRENT_SIGNUP_NUMBER = 11 # used in league signup logic i.e. league_signups_controller and league home page
+  SIGNUPS_OPEN = true
   INTERDIVISIONAL_ALLOWED = false
-  ACTIVE_SEASONS = [].freeze
 
   def to_param
     season_number
