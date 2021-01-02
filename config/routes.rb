@@ -12,9 +12,9 @@ Rails.application.routes.draw do
 
   # get 'login', to: redirect('/auth/slack'), as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/')
+  get 'auth/failure', to: 'sessions#failure'
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  get 'auth/:provider/callback', to: 'sessions#create'
   match '/logout', to: 'sessions#destroy', via: [:get, :post]
 
   # get 'home', to: 'home#show'

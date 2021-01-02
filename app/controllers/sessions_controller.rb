@@ -47,4 +47,9 @@ class SessionsController < ApplicationController
     flash[:alert] = 'You are now signed out'
     redirect_to '/league'
   end
+
+  def failure
+    flash[:alert] = 'There was an error when signing up. Use workspace "xwvl" or post in the league slack for help'
+    redirect_to '/league'
+  end
 end
