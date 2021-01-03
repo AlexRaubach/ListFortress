@@ -15,7 +15,7 @@
     <% @league_signups.each do |league_signup| %>
       <tr>
         <td><%= league_signup.id %></td>
-        <td><%= league_signup.user.display_name %></td>
+        <td><%= league_signup.user&.display_name %></td>
       </tr>
     <% end %>
   </tbody>
