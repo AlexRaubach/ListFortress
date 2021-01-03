@@ -7,7 +7,7 @@ task generate_league_seeding_data: :environment do
             'adjusted_start_time', 'other_info',
             'Tier', 'promotion', 'wins', 'losses', 'mov', 'Season number']
 
-    LeagueSignup.all.where(season_number: 10).each do |signup|
+    LeagueSignup.all.where(season_number: 11).each do |signup|
       csv_data = []
 
       csv_data << signup.user_id
