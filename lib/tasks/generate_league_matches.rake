@@ -23,7 +23,7 @@ task generate_league_matches: :environment do
     # ]
   ].freeze
 
-  season = Season.create(season_number: 11, name: 'X-Wing Vassal League Season Eleven')
+  season = Season.create(season_number: 11, name: 'X-Wing Vassal League Season Eleven', active: true)
 
   division_names.each_with_index do |tier_data, tier_number|
     tier_data.each_with_index do |tier_name, division_number|
