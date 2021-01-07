@@ -8,6 +8,19 @@ class Season < ApplicationRecord
   SIGNUPS_OPEN = true
   INTERDIVISIONAL_ALLOWED = false
 
+  def self.add_participant(season_number, user_id, div_tier, div_letter)
+    season = Season.find_by(season_number: season_number)
+    division = Division.find_by(tier: div_tier, letter: div_letter, season_id: season.id)
+
+    if division.nil?
+      puts "Nil division #{div_tier} #{div_letter}"
+      return
+    end
+
+    league_participant = LeagueParticipant.create(user_id: user_id)
+    division.add_participant(league_participant)
+  end
+
   def to_param
     season_number
   end
