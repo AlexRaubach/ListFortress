@@ -5,7 +5,7 @@ class Season < ApplicationRecord
 
   CURRENT_SEASON = 11 # used for user.current_league_participant
   CURRENT_SIGNUP_NUMBER = 11 # used in league signup logic i.e. league_signups_controller and league home page
-  SIGNUPS_OPEN = true
+  SIGNUPS_OPEN = false
   INTERDIVISIONAL_ALLOWED = false
 
   def self.add_participant(season_number, user_id, div_tier, div_letter)
