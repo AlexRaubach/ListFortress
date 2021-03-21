@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.4.3'
+gem 'rails', '~> 6.1'
 # Use postgres as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -64,6 +64,7 @@ gem 'font-awesome-sass', '~> 5.8.1'
 # Use S3 and Active Storage
 gem 'aws-sdk-s3', require: false
 gem 'mini_magick'
+gem 'image_processing'
 
 # Use NewRelic for application profiling
 # gem 'newrelic_rpm'
@@ -77,6 +78,9 @@ gem 'dalli'
 
 # Use has_scope to easily filter models
 gem 'has_scope'
+
+
+gem 'listen'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
