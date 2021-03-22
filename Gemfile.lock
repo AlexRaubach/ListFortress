@@ -203,15 +203,9 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    omniauth (2.0.3)
+    omniauth (1.9.1)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
-      rack-protection
-    omniauth-google-oauth2 (1.0.0)
-      jwt (>= 2.0)
-      oauth2 (~> 1.1)
-      omniauth (~> 2.0)
-      omniauth-oauth2 (~> 1.7.1)
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
@@ -225,8 +219,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-protection (2.1.0)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.1.3)
@@ -342,7 +334,7 @@ DEPENDENCIES
   listen
   mini_magick
   mini_racer
-  omniauth-google-oauth2
+  omniauth (~> 1.9)
   omniauth-rails_csrf_protection (~> 0.1)
   pg
   puma
