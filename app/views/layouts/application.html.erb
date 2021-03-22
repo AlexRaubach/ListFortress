@@ -18,7 +18,7 @@
   </head>
 
   <body>
-    <%= render 'layouts/navbar.html.erb'%>
+    <%= render 'layouts/navbar'%>
     <% flash.each do |key, value| %>
       <div class="<%= flash_class(key) %> text-center">
         <%= value %>
