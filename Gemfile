@@ -80,7 +80,7 @@ gem 'dalli'
 # Use has_scope to easily filter models
 gem 'has_scope'
 
-
+gem 'rack-cors'
 gem 'listen'
 
 # Reduces boot times through caching; required in config/boot.rb
