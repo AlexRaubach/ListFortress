@@ -4,9 +4,9 @@ class Season < ApplicationRecord
   validates_uniqueness_of :season_number
 
   CURRENT_SEASON = 11 # used for user.current_league_participant
-  CURRENT_SIGNUP_NUMBER = 11 # used in league signup logic i.e. league_signups_controller and league home page
-  SIGNUPS_OPEN = false
-  INTERDIVISIONAL_ALLOWED = true
+  CURRENT_SIGNUP_NUMBER = 12 # used in league signup logic i.e. league_signups_controller and league home page
+  SIGNUPS_OPEN = true
+  INTERDIVISIONAL_ALLOWED = false
 
   def self.add_participant(season_number, user_id, div_tier, div_letter)
     season = Season.find_by(season_number: season_number)

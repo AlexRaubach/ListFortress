@@ -7,15 +7,17 @@
   <thead>
     <tr>
     <th>Signup number </th>
-    <th >Name</th>
+    <th>Name</th>
+    <th>ID</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @league_signups.each do |league_signup| %>
+    <% @league_signups.each_with_index do |league_signup, i| %>
       <tr>
+        <th style="width: 20%"> <%= i + 1 %>
+        <td style="width: 50%"><%= league_signup.user&.display_name %></td>
         <td><%= league_signup.id %></td>
-        <td><%= league_signup.user&.display_name %></td>
       </tr>
     <% end %>
   </tbody>
