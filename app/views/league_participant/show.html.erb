@@ -54,7 +54,11 @@
         <% end%>
       <% end %>
       </td>
-      <td><%= match.winner.name if match.winner_id %></td>
+      <td>
+        <% if match&.winner %>
+          <%= match&.winner&.name  %>
+        <% end%>
+      </td>
       <td>
         <%= link_to( 'Download', rails_blob_path(match.log_file, disposition: "attachment")) if match.log_file.attached? %>
       </td>

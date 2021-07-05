@@ -73,9 +73,15 @@ class MatchesController < ApplicationController
       end
 
       if @match.update(match_params['match'])
-        update_parents(@match)
-        format.html { redirect_to @match.player1, notice: 'Match was successfully updated.' }
-        format.json { render json: @match.errors, status: :unprocessable_entity }
+        if @match.league_match # redirect to one of the player's page since that's a useful place to be
+          format.html { redirect_to @match.player1, notice: 'Match was successfully updated.' }
+          format.json { render :show, status: :updated, location: @match }
+        else
+          # TODO: redirect to a better page or fix the regular match view
+          update_parents(@match)
+          format.html { redirect_to @match, notice: 'Match was successfully updated.' }
+          format.json { render json: @match.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :edit, notice: "The record could not be updated" }
         format.json { render json: @match.errors, status: :unprocessable_entity }
