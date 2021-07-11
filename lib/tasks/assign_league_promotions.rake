@@ -1,6 +1,6 @@
 desc 'Assign all promotions and demotions'
 task assign_league_promotions: :environment do
-  season = Season.find_by(season_number: 10)
+  season = Season.find_by(season_number: 11)
   # the number of players to promote per tier.
   # First item nil since divisions start at tier 1
   promote = [nil, 0, 3, 2, 2]

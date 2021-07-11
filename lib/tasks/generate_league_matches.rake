@@ -8,7 +8,7 @@ task generate_league_matches: :environment do
     ],
     [ # Tier 3
       'Chardaan', 'Kashyyyk', 'Myrkr',
-      'Nal Hutta', 'Manaan', 'Ord Mantell'
+      # 'Nal Hutta', 'Manaan', 'Ord Mantell'
     ],
     # [ # Tier 4
     #   'Bespin', 'Dagobah', 'Tatooine',
@@ -23,7 +23,7 @@ task generate_league_matches: :environment do
     # ]
   ].freeze
 
-  season = Season.create(season_number: 11, name: 'X-Wing Vassal League Season Eleven', active: true)
+  season = Season.create(season_number: 12, name: 'X-Wing Vassal League Season Twelve', active: true)
 
   division_names.each_with_index do |tier_data, tier_number|
     tier_data.each_with_index do |tier_name, division_number|
@@ -36,7 +36,7 @@ task generate_league_matches: :environment do
     end
   end
 
-  csv_text = File.open("#{Rails.root}/public/s11.csv")
+  csv_text = File.open("#{Rails.root}/public/s12.csv")
   csv = CSV.parse(csv_text)
   csv.each do |user_info|
     user_id = user_info[0]
@@ -69,7 +69,7 @@ end
 #   [655, 3, 'A']
 # ]
 
-# current_season_number = 11
+# current_season_number = 12
 
 # new_players.each do |p|
 #   Season.add_participant(current_season_number, p[0], p[1], p[2])
