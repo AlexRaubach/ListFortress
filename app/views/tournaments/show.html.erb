@@ -1,4 +1,8 @@
 <div class="container-fluid">
+<% if current_user&.admin %>
+  <%= link_to "Destroy", @tournament, method: :delete, data: {confirm: "You sure?"}, class: "btn btn-danger float-right"%>
+<% end %>
+
 <% cache @tournament do %>
   <p>
     <h1 class="text-center">
