@@ -13,7 +13,7 @@ Please schedule the game before using this form to create the match.
 <% if @participants.present? %>
 
   <%= bootstrap_form_tag url: '/league/interdivisional' do |f| %>
-    <%= f.select :player2_id, @participants.collect{|p| [p.user.display_name, p.id]}, label: 'Opponent:' %>
+    <%= f.select :player2_id, @participants.collect{|p| [p.name, p.id]}, label: 'Opponent:' %>
     <%= f.submit %>
   <% end %>
 
