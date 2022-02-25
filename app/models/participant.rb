@@ -5,35 +5,36 @@ class Participant < ApplicationRecord
   has_many :matches, as: :winner
   attr_accessor :squad_url
 
-  def serializable_hash(options={})
-    super({:only => [:id,:tournament_id,:score,:swiss_rank,:top_cut_rank,:mov,:sos,:dropped,:list_points,:list_json]}.merge(options||{}))
+  def serializable_hash(options = {})
+    super({ only: %i[id,tournament_id,score,swiss_rank,top_cut_rank,mov,sos,dropped,list_points,list_json] }
+      .merge(options || {}))
   end
 
   def self.get_xws_from_url(url)
-    match = url.match(/raithos.github.io\/(?<query_string>.*)/)
-    return Participant.get_xws_from_yasb2(match[1]) if match
+    begin
+      uri = URI(url)
 
-    match = url.match(/squadbuilder.fantasyflightgames.com\/[\w-]*\/([\w-]{36})/)
-    return Participant.get_xws_from_ffg(match[1]) if match
-
+      return Participant.get_xws_from_yasb2(uri.query) if ['yasb.app', 'raithos.github.io'].include?(uri.host)
+    end
     nil
   end
 
   def self.get_xws_from_yasb2(query_string)
-    url = 'http://squad2xws.herokuapp.com/yasb/xws' + query_string
+    url = 'http://squad2xws.herokuapp.com/yasb/xws?' + query_string
     response = HTTParty.get(url)
     return nil if response.code != 200
 
     JSON(response.parsed_response)
   end
 
-  def self.get_xws_from_ffg(uuid)
-    url = 'http://squad2xws.herokuapp.com/translate/' + uuid
-    response = HTTParty.get(url)
-    return nil if response.code != 200
+  # RIP ffg squadbuilder, you weren't great but you made the XWD2 much easier to update
+  # def self.get_xws_from_ffg(uuid)
+  #   url = 'http://squad2xws.herokuapp.com/translate/' + uuid
+  #   response = HTTParty.get(url)
+  #   return nil if response.code != 200
 
-    JSON(response.parsed_response)
-  end
+  #   JSON(response.parsed_response)
+  # end
 
   # RIP stopgap squad builder. 
   # def self.get_xws_from_stopgap(squad_id)
