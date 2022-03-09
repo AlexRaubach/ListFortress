@@ -11,7 +11,8 @@
 
   <div class="form-group form-row">
     <div class="col-md-6">
-      <%= form.collection_select(:format_id, Format.all.order('sort desc, id'), :id, :name, label: 'Tournament Format:') %>
+      <%= form.collection_select(:format_id, Format.all.where('sort is not null').order('sort desc, id'),
+       :id, :name, label: 'Tournament Format:') %>
     </div>
     <div class="col-md-6">
       <%= form.collection_select(:tournament_type_id, TournamentType.all, :id, :name,  label: 'Tournament Type:') %>

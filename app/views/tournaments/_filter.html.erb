@@ -13,7 +13,7 @@
             <%= form.number_field :max_participants, label: "Max Player #", class: "filter-input" %>
           </div>
           <div class="col-md-2">
-            <%= form.collection_select(:format_id, Format.all.order('sort desc, id'), :id, :name, 
+            <%= form.collection_select(:format_id, Format.all.order('sort desc nulls last, id'), :id, :name, 
               {label: 'Format:', include_blank: true}, {class: "filter-input"}) 
             %>
           </div>
