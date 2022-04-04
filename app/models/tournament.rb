@@ -112,7 +112,9 @@ class Tournament < ApplicationRecord
       score: player_hash['score']&.to_i,
       sos: player_hash['sos']&.to_f,
       swiss_rank: player_hash.dig('rank', 'swiss')&.to_i,
-      top_cut_rank: player_hash.dig('rank', 'elimination')&.to_i
+      top_cut_rank: player_hash.dig('rank', 'elimination')&.to_i,
+      event_points: player_hash['event_points'],
+      mission_points: player_hash['mission_points']
     )
 
     if player_hash['list'].present?
@@ -125,11 +127,12 @@ class Tournament < ApplicationRecord
   def create_round_from_json(round_hash)
     round = Round.create(
       tournament_id: id,
-      roundtype_id: Roundtype.find_by(name:round_hash['round-type']).id,
-      round_number: round_hash['round-number']
+      roundtype_id: Roundtype.find_by(name: round_hash['round-type']).id,
+      round_number: round_hash['round-number'],
+      scenario: round_hash['scenario']
     )
 
-    matches_array = round_hash.dig('matches')
+    matches_array = round_hash['matches']
 
     matches_array.each do |match_hash|
       create_match_from_json(round.id, match_hash)
@@ -139,7 +142,7 @@ class Tournament < ApplicationRecord
   def create_match_from_json(round_id, match_hash)
     player1 = Participant.find_by(tournament_id: id, name: match_hash['player1'])
     player2 = Participant.find_by(tournament_id: id, name: match_hash['player2'])
-    winner = Participant.find_by(tournament_id: id, name: match_hash['winner'])
+    winner = Participant.find_by(tournament_id: id, name: match_hash['winner']) if match_hash['winner'].present?
     player1points = match_hash['player1points']
     player2points = match_hash['player2points']
     if !winner.present? && player1points.present? && player2points.present?
@@ -157,7 +160,9 @@ class Tournament < ApplicationRecord
       player2_id: player2.present? ? player2.id : nil,
       player2_points: match_hash['player2points'],
       result: match_hash['result'],
-      winner_id: winner.present? ? winner.id : nil
+      winner_id: winner.present? ? winner.id : nil,
+      went_to_time: match_hash['went_to_time'],
+      rounds_played: match_hash['rounds_played']
     )
   end
 

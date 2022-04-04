@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_09_013410) do
+ActiveRecord::Schema.define(version: 2022_04_04_204413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(version: 2022_03_09_013410) do
     t.boolean "league_match"
     t.string "player1_url"
     t.string "player2_url"
+    t.integer "rounds_played"
+    t.boolean "went_to_time"
     t.index ["player1_type", "player1_id"], name: "index_matches_on_player1_type_and_player1_id"
     t.index ["player2_type", "player2_id"], name: "index_matches_on_player2_type_and_player2_id"
     t.index ["round_id"], name: "index_matches_on_round_id"
@@ -180,6 +182,8 @@ ActiveRecord::Schema.define(version: 2022_03_09_013410) do
     t.jsonb "list_json"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "event_points"
+    t.integer "mission_points"
     t.index ["tournament_id"], name: "index_participants_on_tournament_id"
   end
 
@@ -203,6 +207,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_013410) do
     t.bigint "tournament_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "scenario"
     t.index ["roundtype_id"], name: "index_rounds_on_roundtype_id"
     t.index ["tournament_id"], name: "index_rounds_on_tournament_id"
   end

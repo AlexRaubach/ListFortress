@@ -7,4 +7,6 @@ class Api::V1::MatchSerializer < ActiveModel::Serializer
   attribute :player2_points
   attribute :result
   attribute :winner_id
+  attribute :rounds_played
+  attribute :went_to_time
 end

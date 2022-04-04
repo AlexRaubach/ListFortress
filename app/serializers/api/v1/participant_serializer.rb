@@ -12,4 +12,6 @@ class Api::V1::ParticipantSerializer < ActiveModel::Serializer
   attribute :dropped
   attribute :list_points
   attribute :list_json
+  attribute :event_points
+  attribute :mission_points
 end
