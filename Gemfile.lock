@@ -89,8 +89,8 @@ GEM
       multi_json (~> 1)
       statsd-ruby (~> 1.1)
     bindex (0.8.1)
-    bootsnap (1.9.1)
-      msgpack (~> 1.0)
+    bootsnap (1.11.1)
+      msgpack (~> 1.2)
     bootstrap (4.3.1)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
@@ -201,7 +201,7 @@ GEM
     mini_racer (0.6.2)
       libv8-node (~> 16.10.0.0)
     minitest (5.15.0)
-    msgpack (1.4.2)
+    msgpack (1.4.5)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -367,7 +367,7 @@ DEPENDENCIES
   will_paginate-bootstrap4
 
 RUBY VERSION
-   ruby 3.1.1p18
+   ruby 3.0.3p157
 
 BUNDLED WITH
    2.3.10
