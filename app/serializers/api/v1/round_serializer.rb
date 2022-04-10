@@ -4,6 +4,7 @@ class Api::V1::RoundSerializer < ActiveModel::Serializer
   attribute :tournament_id
   attribute :roundtype_id
   attribute :round_number
+  attribute :scenario
 
   has_many :matches, serializer: Api::V1::MatchSerializer do
     include_data(true)
