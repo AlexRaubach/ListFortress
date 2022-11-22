@@ -127,7 +127,7 @@ GEM
       countries (~> 4.0)
       sort_alphabetical (~> 1.1)
     crass (1.0.6)
-    dalli (2.7.11)
+    dalli (3.2.3)
     erubi (1.10.0)
     execjs (2.8.1)
     faraday (1.8.0)
