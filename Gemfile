@@ -110,3 +110,8 @@ end
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'active_model_serializers', '~> 0.10.0'
+
+# Add some gems so rails 6 runs on 3.1.3
+gem 'net-imap', require: false
+gem 'net-pop', require: false
+gem 'net-smtp', require: false
