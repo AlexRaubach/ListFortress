@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  # redirect www traffic to regular domain
+  match "(*any)",
+    to: redirect(subdomain: ""),
+    via: :all,
+    constraints: { subdomain: "www" }
+
   resources :league_signups
   get 'league_participant/:id', to: 'league_participant#show', as: 'league_participant'
   get 'tournaments/feed', to: 'tournaments#feed', as: 'tournament_feed'
