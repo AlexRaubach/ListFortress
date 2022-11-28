@@ -5,6 +5,8 @@ class Participant < ApplicationRecord
   has_many :matches, as: :winner
   attr_accessor :squad_url
 
+  YASB_TO_XWS_URL = "https://squad2xws.objectivecat.com/yasb/xws?#{query_string}"
+
   def serializable_hash(options = {})
     super({ only: %i[id,tournament_id,score,swiss_rank,top_cut_rank,mov,sos,dropped,list_points,list_json] }
       .merge(options || {}))
@@ -20,8 +22,7 @@ class Participant < ApplicationRecord
   end
 
   def self.get_xws_from_yasb2(query_string)
-    url = 'http://squad2xws.herokuapp.com/yasb/xws?' + query_string
-    response = HTTParty.get(url)
+    response = HTTParty.get(YASB_TO_XWS_URL)
     return nil if response.code != 200
 
     JSON(response.parsed_response)
