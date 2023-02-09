@@ -118,7 +118,7 @@ class Tournament < ApplicationRecord
     )
 
     if player_hash['list'].present?
-      player.list_json = JSON(player_hash['list'])
+      player.list_json = player_hash['list']
     end
 
     player.save
