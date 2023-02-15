@@ -5,7 +5,8 @@ class Participant < ApplicationRecord
   has_many :matches, as: :winner
   attr_accessor :squad_url
 
-  YASB_TO_XWS_URL = "https://squad2xws.objectivecat.com/yasb/xws?"
+  YASB_TO_XWS_URL = 'https://squad2xws.objectivecat.com/yasb/xws?'.freeze
+  LBN_TO_XWS_URL = 'https://launchbaynext.app/api/xws?'.freeze
 
   def serializable_hash(options = {})
     super({ only: %i[id,tournament_id,score,swiss_rank,top_cut_rank,mov,sos,dropped,list_points,list_json] }
@@ -16,7 +17,8 @@ class Participant < ApplicationRecord
     begin
       uri = URI(url)
 
-      return Participant.get_xws_from_yasb2(uri.query) if ['yasb.app', 'raithos.github.io'].include?(uri.host)
+      return get_xws_from_yasb2(uri.query) if ['yasb.app', 'raithos.github.io'].include?(uri.host)
+      return get_xws_from_lbn(uri.query) if ['launchbaynext.app'].include?(uri.host)
     end
     nil
   end
@@ -28,21 +30,12 @@ class Participant < ApplicationRecord
     JSON(response.parsed_response)
   end
 
-  # RIP ffg squadbuilder, you weren't great but you made the XWD2 much easier to update
-  # def self.get_xws_from_ffg(uuid)
-  #   url = 'http://squad2xws.herokuapp.com/translate/' + uuid
-  #   response = HTTParty.get(url)
-  #   return nil if response.code != 200
+  def self.get_xws_from_lbn(query_string)
+    response = HTTParty.get(LBN_TO_XWS_URL + query_string)
+    return nil if response.code != 200
 
-  #   JSON(response.parsed_response)
-  # end
-
-  # RIP stopgap squad builder. 
-  # def self.get_xws_from_stopgap(squad_id)
-  #   url = 'https://o8l90u2pyd.execute-api.eu-west-2.amazonaws.com/live/idtoxws?id=' + squad_id
-  #   response = HTTParty.get(url)
-  #   JSON(response.parsed_response)
-  # end
+    JSON(response.parsed_response)
+  end
 
   def get_name_from_xws(xws_string, type)
     case type
