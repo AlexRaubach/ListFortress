@@ -6,6 +6,7 @@ class Participant < ApplicationRecord
   attr_accessor :squad_url
 
   YASB_TO_XWS_URL = 'https://squad2xws.objectivecat.com/yasb/xws?'.freeze
+  PATTERN_ANALYZER_URL = 'https://www.pattern-analyzer.app/api/yasb/xws?'.freeze
   LBN_TO_XWS_URL = 'https://launchbaynext.app/api/xws?'.freeze
 
   def serializable_hash(options = {})
@@ -24,7 +25,7 @@ class Participant < ApplicationRecord
   end
 
   def self.get_xws_from_yasb2(query_string)
-    response = HTTParty.get(YASB_TO_XWS_URL + query_string)
+    response = HTTParty.get(PATTERN_ANALYZER_URL + query_string)
     return nil if response.code != 200
 
     JSON(response.parsed_response)
