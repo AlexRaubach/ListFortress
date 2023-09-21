@@ -1,5 +1,6 @@
 class ParticipantsController < ApplicationController
   before_action :set_participant, only: [:show, :edit, :update]
+  protect_from_forgery unless: -> { request.format.json? }
 
   # GET /participants
   # GET /participants.json
