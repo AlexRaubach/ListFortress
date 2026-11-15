@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_04_204413) do
-
+ActiveRecord::Schema[7.2].define(version: 2022_04_04_204413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,7 +19,7 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -32,7 +31,7 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.text "metadata"
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -53,8 +52,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.string "country"
     t.boolean "use_other"
     t.string "other"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.integer "prize_level", default: 0
   end
@@ -63,8 +62,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.string "name"
     t.integer "season_id"
     t.integer "tier"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "letter"
   end
 
@@ -72,14 +71,14 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.string "name"
     t.string "xws"
     t.integer "ffg"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "formats", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "sort"
   end
 
@@ -103,15 +102,15 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.integer "match_state_id"
     t.integer "legacy_match_id"
     t.date "scheduled_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "league_match_states", force: :cascade do |t|
     t.string "name"
     t.boolean "active"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "league_participants", force: :cascade do |t|
@@ -119,8 +118,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.integer "division_id"
     t.integer "list_juggler_id"
     t.string "list_juggler_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "promotion"
     t.integer "mov"
     t.integer "score"
@@ -133,8 +132,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.string "time_zone"
     t.integer "time"
     t.string "other"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "matches", force: :cascade do |t|
@@ -152,11 +151,11 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.string "result"
     t.string "logfile_url"
     t.integer "match_state"
-    t.datetime "scheduled_time"
+    t.datetime "scheduled_time", precision: nil
     t.boolean "extended"
     t.boolean "locked"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "league_match"
     t.string "player1_url"
     t.string "player2_url"
@@ -180,8 +179,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.boolean "dropped"
     t.integer "list_points"
     t.jsonb "list_json"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "event_points"
     t.integer "mission_points"
     t.index ["tournament_id"], name: "index_participants_on_tournament_id"
@@ -205,8 +204,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.bigint "roundtype_id"
     t.integer "round_number"
     t.bigint "tournament_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "scenario"
     t.index ["roundtype_id"], name: "index_rounds_on_roundtype_id"
     t.index ["tournament_id"], name: "index_rounds_on_tournament_id"
@@ -214,8 +213,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
 
   create_table "roundtypes", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "season_seven_surveys", force: :cascade do |t|
@@ -230,8 +229,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.integer "s4_id"
     t.integer "s5_id"
     t.integer "s6_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "seasons", force: :cascade do |t|
@@ -240,8 +239,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.boolean "active"
     t.boolean "sign_up_active"
     t.boolean "locked"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "ships", force: :cascade do |t|
@@ -250,15 +249,15 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.string "size"
     t.string "xws"
     t.integer "faction_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["xws"], name: "index_ships_on_xws"
   end
 
   create_table "tournament_types", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "tournaments", force: :cascade do |t|
@@ -272,8 +271,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.integer "version_id"
     t.integer "tournament_type_id"
     t.boolean "locked"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "participants_count", default: 0, null: false
   end
 
@@ -285,8 +284,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.boolean "limited"
     t.string "image"
     t.integer "cost"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["xws"], name: "index_upgrades_on_xws"
   end
 
@@ -294,8 +293,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
     t.string "email"
     t.string "first_name"
     t.string "last_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slack_id"
     t.boolean "league_eligible"
     t.string "name"
@@ -306,8 +305,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_204413) do
 
   create_table "versions", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"

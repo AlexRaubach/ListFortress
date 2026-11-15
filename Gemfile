@@ -1,39 +1,24 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.3'
+ruby '3.4.7'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.2'
 # Use postgres as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
 gem 'puma'
 # Use SCSS for stylesheets
 gem 'sassc-rails'
-# Use closure-compiler as compressor for JavaScript assets
-# gem 'closure-compiler'
 
-# Uglifier had problems in the past but maybe it just works now?
+# Uglifier for JavaScript compression
 gem 'uglifier'
-# See https://github.com/rails/execjs#readme for more supported runtimes
+# ExecJS runtime
 gem 'mini_racer'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+# Turbolinks makes navigating your web application faster
 gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+# Build JSON APIs with ease
 gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 # Sign in with google / slack
 gem 'ginjo-omniauth-slack', '~> 2.4.1'
@@ -73,8 +58,8 @@ gem 'image_processing'
 # Use Barnes for heroku metrics
 gem 'barnes'
 
-# Use Dallii and connectionpool for memcached
-gem 'connection_pool'
+# Use Dalli and connection_pool for memcached
+gem 'connection_pool', '~> 2.5' # 3.x is incompatible with Rails 7.2's MemCacheStore
 gem 'dalli'
 
 # Use has_scope to easily filter models
@@ -102,18 +87,11 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-# Now unneeded since development is via WSL. 
+# Now unneeded since development is via WSL.
 # Uncomment if you want to develop on Windows
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'active_model_serializers', '~> 0.10.0'
-
-# Add some gems so rails 6 runs on 3.1.3
-gem 'net-imap', require: false
-gem 'net-pop', require: false
-gem 'net-smtp', require: false
