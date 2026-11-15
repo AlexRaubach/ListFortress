@@ -60,7 +60,7 @@ gem 'barnes'
 
 # Use Dalli and connection_pool for memcached
 gem 'connection_pool', '~> 2.5' # 3.x is incompatible with Rails 7.2's MemCacheStore
-gem 'dalli'
+gem 'dalli', '~> 3.2' # 5.x dropped SASL auth, which MemCachier requires
 
 # Use has_scope to easily filter models
 gem 'has_scope'
