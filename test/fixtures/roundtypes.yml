@@ -1,7 +1,8 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Application code assumes swiss is id 1 and elimination is id 2.
+swiss:
+  id: 1
+  name: swiss
 
-one:
-  name: MyString
-
-two:
-  name: MyString
+elimination:
+  id: 2
+  name: elimination

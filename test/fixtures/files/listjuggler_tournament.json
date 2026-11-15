@@ -1,0 +1,47 @@
+{
+  "tournament": {
+    "name": "Imported Event",
+    "players": [
+      {
+        "name": "Han",
+        "mov": 300,
+        "score": 10,
+        "sos": 1.5,
+        "rank": { "swiss": 1, "elimination": 1 },
+        "list": { "faction": "scumandvillainy", "pilots": [{ "id": "hansolo", "ship": "yt1300" }] }
+      },
+      {
+        "name": "Leia",
+        "mov": 200,
+        "score": 5,
+        "sos": 1.25,
+        "rank": { "swiss": 2, "elimination": 2 }
+      },
+      {
+        "name": "Lando",
+        "mov": 100,
+        "score": 0,
+        "sos": 0.5,
+        "rank": { "swiss": 3 }
+      }
+    ],
+    "rounds": [
+      {
+        "round-type": "swiss",
+        "round-number": 1,
+        "scenario": "Assault at the Satellite Array",
+        "matches": [
+          { "player1": "Han", "player1points": 200, "player2": "Leia", "player2points": 120, "result": "win" },
+          { "player1": "Lando", "player1points": 100, "player2": "Leia", "player2points": 100, "result": "draw" }
+        ]
+      },
+      {
+        "round-type": "elimination",
+        "round-number": 1,
+        "matches": [
+          { "player1": "Han", "player1points": 100, "player2": "Leia", "player2points": 150, "winner": "Han", "result": "win" }
+        ]
+      }
+    ]
+  }
+}

@@ -87,6 +87,10 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
+  # Rails 7.2's test runner is incompatible with minitest 6
+  gem 'minitest', '~> 5.25'
+  # Block real HTTP in tests and stub tabletop.to / BCP / squad builder calls
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -1,15 +1,13 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+admin:
+  name: Admin User
+  display_name: admin
+  email: admin@example.com
+  admin: true
+  league_eligible: true
 
-one:
-  provider: MyString
-  uid: MyString
-  email: MyString
-  first_name: MyString
-  last_name: MyString
-
-two:
-  provider: MyString
-  uid: MyString
-  email: MyString
-  first_name: MyString
-  last_name: MyString
+player:
+  name: Regular Player
+  display_name: player
+  email: player@example.com
+  admin: false
+  league_eligible: true

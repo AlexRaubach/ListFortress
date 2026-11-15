@@ -31,6 +31,15 @@ When building a new pc, I tried to document how I ended up installing and config
 * Start the server: `rails server` or `rails s`
 
 
+# Tests
+
+* One-time setup of the test database: `RAILS_ENV=test rails db:create db:schema:load`
+
+* Run the suite: `rails test` (or a single file: `rails test test/models/tournament_test.rb`)
+
+External services (tabletop.to, Best Coast Pairings, the squad builders) are stubbed with WebMock, so the tests never touch the network.
+
+
 # API
 
 List Fortress also offers an API for easily exporting tournament data.

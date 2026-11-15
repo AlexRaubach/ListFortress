@@ -1,25 +1,29 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+alice:
+  tournament: store_champ
+  name: Alice
+  score: 5
+  swiss_rank: 1
+  mov: 150
+  list_json: '{"faction":"rebelalliance","pilots":[{"id":"lukeskywalker","ship":"t65xwing","upgrades":{"torpedo":["protontorpedoes"]}}]}'
 
-one:
-  name: MyString
-  player_id: MyString
-  score: MyString
-  swiss_rank: MyString
-  top_cut_rank: MyString
-  mov: MyString
-  sos: MyString
-  dropped: MyString
-  list_json: MyString
-  list_points: MyString
+bob:
+  tournament: store_champ
+  name: Bob
+  score: 0
+  swiss_rank: 2
+  mov: 50
 
-two:
-  name: MyString
-  player_id: MyString
-  score: MyString
-  swiss_rank: MyString
-  top_cut_rank: MyString
-  mov: MyString
-  sos: MyString
-  dropped: MyString
-  list_json: MyString
-  list_points: MyString
+carol:
+  tournament: hyperspace
+  name: Carol
+  swiss_rank: 1
+
+dave:
+  tournament: hyperspace
+  name: Dave
+  swiss_rank: 2
+
+erin:
+  tournament: hyperspace
+  name: Erin
+  swiss_rank: 3

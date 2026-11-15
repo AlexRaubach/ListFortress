@@ -1,11 +1,18 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# participants_count is a counter cache; keep it in sync with participants.yml.
+store_champ:
+  name: Store Championship
+  date: 2024-05-01
+  country: United States
+  format: second_edition
+  tournament_type: store_event
+  participants_count: 2
+  updated_at: <%= 1.week.ago.to_fs(:db) %>
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+hyperspace:
+  name: Copenhagen Hyperspace Trial
+  date: 2023-03-11
+  country: Denmark
+  format: extended
+  tournament_type: hyperspace_trial
+  participants_count: 3
+  updated_at: <%= 1.week.ago.to_fs(:db) %>
