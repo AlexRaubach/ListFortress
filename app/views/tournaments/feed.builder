@@ -10,7 +10,7 @@ xml.rss :version => "2.0" do
       xml.item do
         xml.title tournament.name
         xml.description "#{tournament.participants_count} players battled at #{tournament.location}"
-        xml.pubDate tournament.created_at.to_s(:rfc822)
+        xml.pubDate tournament.created_at.to_fs(:rfc822)
         xml.link tournament_url(tournament)
         xml.guid tournament_url(tournament)
       end
