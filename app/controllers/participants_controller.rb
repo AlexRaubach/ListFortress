@@ -25,11 +25,11 @@ class ParticipantsController < ApplicationController
   # POST /participants
   # POST /participants.json
   def create
-    @participant = Participant.new(participant_params['participant'])
+    # belongs_to :tournament, touch: true keeps the tournament's updated_at current
+    @participant = Participant.new(participant_create_params['participant'])
 
     respond_to do |format|
       if @participant.save
-        update_parents(@participant)
         format.html { redirect_to @participant, notice: 'Participant was successfully created.' }
         format.json { render :show, status: :created, location: @participant }
       else
@@ -79,9 +79,14 @@ class ParticipantsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    PARTICIPANT_FIELDS = %i[name swiss_rank top_cut_rank score mov sos dropped list_json squad_url].freeze
+
     def participant_params
-      params.permit(:id, participant:
-      [:name, :swiss_rank, :top_cut_rank, :score, :mov, :sos, :dropped, :list_json, :squad_url]
-    )
+      params.permit(:id, participant: PARTICIPANT_FIELDS)
+    end
+
+    # A participant's tournament is set on create only, so updates can't move it to another event.
+    def participant_create_params
+      params.permit(participant: [:tournament_id, *PARTICIPANT_FIELDS])
     end
 end
