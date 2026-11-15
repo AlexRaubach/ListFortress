@@ -22,7 +22,8 @@ class TournamentsController < ApplicationController
       '
     ))
 
-    @rounds = @tournament.rounds.sort_by(&:sort_value)
+    # Left as a lazy relation so nothing is queried when the view's fragment cache hits.
+    @rounds = @tournament.rounds.includes(:matches)
     respond_to do |format|
       format.html
       format.csv { send_data Tournament.where(id: params[:id]).to_csv, filename: "listfortress-#{@tournament.id}.csv"}
@@ -100,7 +101,7 @@ class TournamentsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_tournament
-    @tournament = Tournament.includes(rounds: :matches).find(params[:id])
+    @tournament = Tournament.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render(file: File.join(Rails.root, 'public/404.html'), status: 404, layout: false)
   # handle not found error

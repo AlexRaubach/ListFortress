@@ -71,7 +71,8 @@
   <%# link_to 'Edit', edit_tournament_path(@tournament) %>
   <%# link_to 'Back', tournaments_path %>
 
-  <% if @rounds.present? and @rounds.size > 0 %>
+  <% rounds = @rounds.sort_by(&:sort_value) %>
+  <% if rounds.present? %>
     <table  class="table table-striped">
       <thead>
         <tr>
@@ -82,7 +83,7 @@
         </tr>
       </thead>
 
-      <% @rounds.each do |round| %>
+      <% rounds.each do |round| %>
         <% @round_name = ""
           @round_name = 'Swiss' if round.roundtype_id == 1
           @round_name = 'Elimination' if round.roundtype_id == 2

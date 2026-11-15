@@ -2,7 +2,7 @@ class LeagueParticipantController < ApplicationController
   def show
     @league_participant = LeagueParticipant.find(params[:id])
     @matches = @league_participant.matches
-                                  .includes({ player1: :user }, { player2: :user })
+                                  .includes({ player1: :user }, { player2: :user }, { winner: :user })
                                   .with_attached_log_file
                                   .order(winner_id: :asc, id: :asc)
 

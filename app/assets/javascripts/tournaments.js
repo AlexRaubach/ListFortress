@@ -21,6 +21,14 @@ function update_filter_with_query_string_params(){
   }
 }
 
+// application.js is loaded with defer, so page setup runs from turbolinks:load
+// (fired on the first load and on every Turbolinks visit) instead of inline scripts.
+document.addEventListener('turbolinks:load', function() {
+  if (document.getElementById('tournament_filter_form')) {
+    update_filter_with_query_string_params();
+  }
+});
+
 // shameless stolen from a W3schools page.
 // modified for optional numeric sorting and to always sort blanks below included values
 function sortTable(n, numeric=false) {

@@ -1,3 +1,5 @@
+require 'csv'
+
 class Season < ApplicationRecord
   has_many :divisions
   has_many :league_participants, through: :divisions
@@ -33,9 +35,9 @@ class Season < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << header
 
-      divisions.each do |division|
+      divisions.includes(league_participants: :user).each do |division|
         division.league_participants.each do |player|
-          output = [player.user.id, player.id, player.name, player.score, player.losses,
+          output = [player.user_id, player.id, player.name, player.score, player.losses,
                     player.mov, division.id, division.name,
                     division.tier, division.letter]
           csv << output

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2022_04_04_204413) do
+ActiveRecord::Schema[7.2].define(version: 2026_11_15_190000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,6 +65,7 @@ ActiveRecord::Schema[7.2].define(version: 2022_04_04_204413) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "letter"
+    t.index ["season_id"], name: "index_divisions_on_season_id"
   end
 
   create_table "factions", force: :cascade do |t|
@@ -124,6 +125,8 @@ ActiveRecord::Schema[7.2].define(version: 2022_04_04_204413) do
     t.integer "mov"
     t.integer "score"
     t.integer "losses"
+    t.index ["division_id"], name: "index_league_participants_on_division_id"
+    t.index ["user_id"], name: "index_league_participants_on_user_id"
   end
 
   create_table "league_signups", force: :cascade do |t|
@@ -274,6 +277,7 @@ ActiveRecord::Schema[7.2].define(version: 2022_04_04_204413) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "participants_count", default: 0, null: false
+    t.index ["updated_at"], name: "index_tournaments_on_updated_at"
   end
 
   create_table "upgrades", force: :cascade do |t|
