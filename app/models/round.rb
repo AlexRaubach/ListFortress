@@ -5,10 +5,8 @@ class Round < ApplicationRecord
   attr_accessor :match_number
 
   def create_matches
-    return if :match_number.zero?
-
-    :match_number.times do |i|
-      Match.new(round_id: id).save
+    match_number.to_i.times do
+      Match.create(round_id: id)
     end
   end
 

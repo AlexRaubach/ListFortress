@@ -24,7 +24,7 @@ class RoundsController < ApplicationController
   # POST /rounds
   # POST /rounds.json
   def create
-    @round = Round.new(round_params['round'])
+    @round = Round.new(round_create_params['round'])
 
     respond_to do |format|
       if @round.save
@@ -46,7 +46,7 @@ class RoundsController < ApplicationController
       if @round.update_from_json(round_params['round'])
         update_parents(@round)
         format.html { redirect_to @round, notice: 'Round was successfully updated.' }
-        format.json { render json: @round.errors, status: :unprocessable_entity }
+        format.json { render :show, status: :ok, location: @round }
       else
         format.html { render :edit }
         format.json { render json: @round.errors, status: :unprocessable_entity }
@@ -85,9 +85,14 @@ class RoundsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    ROUND_FIELDS = %i[roundtype_id round_number matches match_number].freeze
+
     def round_params
-      params.permit(:id, round:
-      [:roundtype_id, :round_number, :matches, :match_number]
-    )
+      params.permit(:id, round: ROUND_FIELDS)
+    end
+
+    # A round's tournament is set on create only, so updates can't move it to another event.
+    def round_create_params
+      params.permit(round: [:tournament_id, *ROUND_FIELDS])
     end
 end
