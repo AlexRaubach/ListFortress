@@ -2,8 +2,8 @@
 <p>
   <p>
   Round Number: <%= @round.round_number %>
-  Round Type: <%= @round.roundtype_id.present? ? Roundtype.find_by(id:@round.roundtype_id).name : "" %>
-  Matches: <%= @round.matches.size %>
+  Round Type: <%= @round.roundtype_id.present? ? @round.roundtype&.name : "" %>
+  Matches: <%= @matches.size %>
   </p>
 </p>
 <table  class="table table-striped">
@@ -19,14 +19,14 @@
     </tr>
   </thead>
 
-  <% @round.matches.order(:id).each do |match| %>
+  <% @matches.each do |match| %>
     <tr>
-    <td><%=Participant.find_by(id:match.player1_id).present? ? Participant.find_by(id:match.player1_id).name : nil %></td>
+    <td><%= @participant_names[match.player1_id] %></td>
     <td><%=match.player1_points %></td>
-    <td><%=Participant.find_by(id:match.player2_id).present? ? Participant.find_by(id:match.player2_id).name : nil %></td>
+    <td><%= @participant_names[match.player2_id] %></td>
     <td><%=match.player2_points %></td>
     <td><%=match.result %></td>
-    <td><%=Participant.find_by(id:match.winner_id).present? ? Participant.find_by(id:match.winner_id).name : nil %></td>
+    <td><%= @participant_names[match.winner_id] %></td>
     <td><%= link_to 'Edit', edit_match_path(match) %></td>
 
     </tr>

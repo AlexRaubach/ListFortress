@@ -4,12 +4,18 @@ class RoundsController < ApplicationController
   # GET /rounds
   # GET /rounds.json
   def index
-    @rounds = Round.all
+    # Paginated: the full table is far too large to render or serialise in one response.
+    @rounds = Round.order(:id).paginate(page: params[:page], per_page: 100)
   end
 
   # GET /rounds/1
   # GET /rounds/1.json
   def show
+    @matches = @round.matches.order(:id).to_a
+    # Tournament matches store bare participant ids (no polymorphic type), so the names
+    # are looked up by id in one query rather than through the player associations.
+    player_ids = @matches.flat_map { |match| [match.player1_id, match.player2_id, match.winner_id] }.compact.uniq
+    @participant_names = Participant.where(id: player_ids).pluck(:id, :name).to_h
   end
 
   # GET /rounds/new

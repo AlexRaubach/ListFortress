@@ -2,6 +2,15 @@ require 'test_helper'
 
 # Participants are mostly edited through JSON by external tools, so cover that path.
 class ParticipantsControllerTest < ActionDispatch::IntegrationTest
+  test 'index is paginated' do
+    get participants_url(format: :json)
+    assert_response :success
+    assert_includes response.parsed_body.map { |row| row['name'] }, 'Alice'
+
+    get participants_url(format: :json, page: 1000)
+    assert_equal [], response.parsed_body
+  end
+
   test 'show as json' do
     get participant_url(participants(:alice), format: :json)
 

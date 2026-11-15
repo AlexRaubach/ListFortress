@@ -19,6 +19,9 @@
   </tbody>
 </table>
 
+<%= will_paginate @rounds, renderer: WillPaginate::ActionView::BootstrapLinkRenderer,
+  list_classes: %w(pagination justify-content-center) %>
+
 <br>
 
 <%= link_to 'New Round', new_round_path %>

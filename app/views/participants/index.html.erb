@@ -19,6 +19,9 @@
   </tbody>
 </table>
 
+<%= will_paginate @participants, renderer: WillPaginate::ActionView::BootstrapLinkRenderer,
+  list_classes: %w(pagination justify-content-center) %>
+
 <br>
 
 <%= link_to 'New Participant', new_participant_path %>

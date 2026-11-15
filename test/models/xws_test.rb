@@ -60,4 +60,23 @@ class XWSTest < ActiveSupport::TestCase
     assert_equal '', XWS.faction_icon({ pilots: [] }.to_json)
     assert_equal '', XWS.faction_icon('{broken')
   end
+
+  test 'name lookups are served from memory after the first call' do
+    XWS.get_pilot_name_from_xws('lukeskywalker')
+
+    assert_no_queries do
+      assert_equal 'Luke Skywalker', XWS.get_pilot_name_from_xws('lukeskywalker')
+      assert_equal 'mysterypilot', XWS.get_pilot_name_from_xws('mysterypilot')
+    end
+  end
+
+  test 'card names are reloaded once the ttl has passed' do
+    XWS.get_pilot_name_from_xws('lukeskywalker')
+    Pilot.create!(xws: 'newpilot', name: 'New Pilot')
+
+    assert_equal 'newpilot', XWS.get_pilot_name_from_xws('newpilot')
+    travel XWS::NAMES_TTL + 1.second do
+      assert_equal 'New Pilot', XWS.get_pilot_name_from_xws('newpilot')
+    end
+  end
 end

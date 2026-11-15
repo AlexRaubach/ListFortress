@@ -49,31 +49,17 @@ class Participant < ApplicationRecord
     end
   end
 
+  # Card name lookups are shared with XWS, which keeps the card tables in memory.
   def self.get_pilot_name_from_xws(xws_pilot)
-    Rails.cache.fetch(xws_pilot) do
-      pilot = Pilot.find_by xws: xws_pilot
-      return xws_pilot if pilot.nil?
-
-      pilot.name
-    end
+    XWS.get_pilot_name_from_xws(xws_pilot)
   end
 
   def self.get_ship_name_from_xws(xws_ship)
-    Rails.cache.fetch(xws_ship) do
-      ship = Ship.find_by xws: xws_ship
-      return xws_ship if ship.nil?
-
-      ship.name
-    end
+    XWS.get_ship_name_from_xws(xws_ship)
   end
 
   def self.get_upgrade_name_from_xws(xws_upgrade)
-    Rails.cache.fetch(xws_upgrade) do
-      upgrade = Upgrade.find_by xws: xws_upgrade
-      return xws_upgrade if upgrade.nil?
-
-      upgrade.name
-    end
+    XWS.get_upgrade_name_from_xws(xws_upgrade)
   end
 
   def formatted_upgrade_string(upgrade_hash)

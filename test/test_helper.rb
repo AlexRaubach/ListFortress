@@ -12,6 +12,9 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  # XWS keeps card names in memory; start each test from the current fixtures.
+  setup { XWS.reset_names! }
+
   def fixture_file(name)
     Rails.root.join('test/fixtures/files', name).read
   end

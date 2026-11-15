@@ -8,9 +8,7 @@ class Api::V1::TournamentsController < Api::V1::BaseController
   end
 
   def show
-    tournament = Tournament.find(params[:id])
-
-    render json: tournament, include: ['participants', 'rounds', 'rounds.matches'], serializer: Api::V1::TournamentDetailsSerializer
+    render json: @tournament, include: ['participants', 'rounds', 'rounds.matches'], serializer: Api::V1::TournamentDetailsSerializer
   end
 
   private
@@ -20,7 +18,8 @@ class Api::V1::TournamentsController < Api::V1::BaseController
     when :index
       @users = Tournament.all.updated_after(params[:updatedafter]) # paginate(Tournament.all)
     when :show
-      @user = Tournament.find(params[:id])
+      # Eager load everything the serializer walks so it isn't one query per round.
+      @tournament = Tournament.includes(:participants, rounds: :matches).find(params[:id])
     end
   end
 

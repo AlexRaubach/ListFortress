@@ -5,7 +5,8 @@ class ParticipantsController < ApplicationController
   # GET /participants
   # GET /participants.json
   def index
-    @participants = Participant.all
+    # Paginated: the full table is far too large to render or serialise in one response.
+    @participants = Participant.order(:id).paginate(page: params[:page], per_page: 100)
   end
 
   # GET /participants/1

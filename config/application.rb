@@ -18,5 +18,9 @@ module ListFortress
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Gzip HTML and JSON responses; Heroku's router doesn't compress for us. It sits outside
+    # Rack::ETag so ETags are still computed from the uncompressed body.
+    config.middleware.insert_before Rack::ETag, Rack::Deflater
   end
 end

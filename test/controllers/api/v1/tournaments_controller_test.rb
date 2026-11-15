@@ -41,6 +41,18 @@ module Api
         assert_equal participants(:alice).id, match['winner_id']
       end
 
+      test 'show loads rounds and matches without a query per round' do
+        tournament = tournaments(:store_champ)
+        3.times do |i|
+          round = Round.create!(tournament: tournament, roundtype_id: Roundtype::SWISS_ID, round_number: i + 2)
+          Match.create!(round: round)
+        end
+
+        # tournament, participants, rounds, matches
+        assert_queries_count(4) { get api_v1_tournament_url(tournament) }
+        assert_equal 4, response.parsed_body['rounds'].size
+      end
+
       test 'show returns a json 404 for an unknown tournament' do
         get api_v1_tournament_url(id: 0)
 
