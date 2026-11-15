@@ -54,7 +54,7 @@ class Tournament < ApplicationRecord
     return if number.zero?
 
     number.times do |i|
-      Round.create(round_number: i + 1, tournament_id: id)
+      Round.create(round_number: i + 1, tournament_id: id, roundtype_id: Roundtype::SWISS_ID)
     end
   end
 
@@ -304,8 +304,10 @@ class Tournament < ApplicationRecord
       roundnum = tournament_data['round_number'].to_i
       roundsize = rounds.present? ? rounds.size : 0
       if roundnum > roundsize
-        (roundnum - roundsize).times do
-          Round.create(tournament_id: id)
+        # New rounds are swiss rounds numbered after the existing ones.
+        last_swiss = rounds.where(roundtype_id: Roundtype::SWISS_ID).maximum(:round_number).to_i
+        (roundnum - roundsize).times do |i|
+          Round.create(tournament_id: id, roundtype_id: Roundtype::SWISS_ID, round_number: last_swiss + i + 1)
         end
       end
     end
