@@ -35,3 +35,5 @@
 
 # Ignore vscode debugger files
 /.vscode
+# Ignore personal VS Code workspace files
+/*.code-workspace

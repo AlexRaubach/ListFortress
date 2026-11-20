@@ -21,7 +21,7 @@ cd ListFortress
 
 ### Node.js
 
-Install a recent LTS version of Node via [nvm](https://github.com/nvm-sh/nvm) or your distro's package manager. Node is required for the asset pipeline.
+Install Node 26 (pinned in `package.json` under `engines`) via [nvm](https://github.com/nvm-sh/nvm) or your distro's package manager. Node is required for the asset pipeline.
 
 ### rbenv + Ruby
 
@@ -100,6 +100,7 @@ rails c
 |------------|---------|
 | Ruby       | 4.0.10  |
 | Rails      | 7.2     |
+| Node.js    | 26.x    |
 | PostgreSQL | 16      |
 
 ## Notes

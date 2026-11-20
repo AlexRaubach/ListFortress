@@ -1,6 +1,9 @@
 {
   "name": "listfortress",
   "private": true,
+  "engines": {
+    "node": "26.x"
+  },
   "dependencies": {},
   "license": "MIT"
 }
