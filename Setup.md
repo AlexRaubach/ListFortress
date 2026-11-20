@@ -98,7 +98,7 @@ rails c
 
 | Component  | Version |
 |------------|---------|
-| Ruby       | 3.4.7   |
+| Ruby       | 4.0.10  |
 | Rails      | 7.2     |
 | PostgreSQL | 16      |
 
